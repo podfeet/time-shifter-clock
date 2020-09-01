@@ -1,0 +1,36 @@
+What do I want?
+Something like this:
+const days = [
+  { name: 'Monday', abbr: 'mon' },
+  { name: 'Tuesday', abbr: 'tue' },
+  { name: 'Wednesday', abbr: 'wed' },
+  { name: 'Thursday', abbr: 'thur' },
+  { name: 'Friday', abbr: 'fri' },
+  { name: 'Saturday', abbr: 'sat' },
+  { name: 'Sunday', abbr: 'sun' }
+];
+
+This:
+	"1","AD","Europe/Andorra"
+
+To become this:
+	{"lineNo": "1", "cc": "AD", "city": "Europe/Andorra"},
+	
+Rule 1: Line begins with ", replace with {"lineNo": 
+	search:		^"\d+
+	replace:	{"LineNo": $0 (or \0)
+	
+Rule 1A: Maybe make the dictionary be 
+	
+Rule 2: 2 capital letters inside of 
+		"", add "cc":space before it and 
+		space"city":space after it
+		
+	search:		"[A-Z]{2}",
+	replace:	"cc": $0 "city": 
+	
+Rule 3: add }, to the end of the line
+	search: 	"$
+	replace:	$0\},
+
+

@@ -1,0 +1,23 @@
+{
+  "name": "a-world-clock",
+  "version": "1.0.0",
+  "description": "githack version of cleaned up clock is here: https://raw.githack.com/NosillaCast/a-world-clock/time-shifter-clean-up-design/index.html",
+  "main": "script.js",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^7.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NosillaCast/a-world-clock.git"
+  },
+  "author": "Allison Sheridan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NosillaCast/a-world-clock/issues"
+  },
+  "homepage": "https://github.com/NosillaCast/a-world-clock#readme"
+}
