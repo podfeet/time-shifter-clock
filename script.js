@@ -675,8 +675,18 @@ setTimesFromURL();
       
       // create dummy text area to hold sendableURL so we can copy it, then remove text area
       // https://www.sharmaprakash.com.np/javascript/copying-value-from-variable-to-clipboard/
-      var dummyTextInput = $('<input>').val(sendableURL).attr('id',"#dummyText").attr('class', 'dummy').appendTo('#dummy').select()
-      document.execCommand("copy");
+      // var dummyTextInput = $('<input>').val(sendableURL).attr('id',"#dummyText").attr('class', 'dummy').appendTo('#dummy').select()
+      // document.execCommand("copy");
+      navigator.clipboard.writeText(sendableURL)
+        .then(() => {
+          // Success!
+        })
+        .catch(err => {
+          console.log('Something went wrong', err);
+        });
+
+
+
       alert('Sendable times URL copied to your clipboard and ready to send to your colleague.')
       $('input').remove('.dummy')
      
