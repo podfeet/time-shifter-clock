@@ -677,15 +677,15 @@ setTimesFromURL();
       // https://www.sharmaprakash.com.np/javascript/copying-value-from-variable-to-clipboard/
       // var dummyTextInput = $('<input>').val(sendableURL).attr('id',"#dummyText").attr('class', 'dummy').appendTo('#dummy').select()
       // document.execCommand("copy");
-      navigator.clipboard.writeText(sendableURL)
-        .then(() => {
-          // Success!
-        })
-        .catch(err => {
-          console.log('Something went wrong', err);
-        });
 
-
+      async function writeURLtoClipboard(text){
+        try {
+          await navigator.clipboard.writeText(text);
+        } catch (error) {
+          console.log('Something went wrong', error);
+        }
+      }
+      writeURLtoClipboard(sendableURL);
 
       alert('Sendable times URL copied to your clipboard and ready to send to your colleague.')
       $('input').remove('.dummy')
