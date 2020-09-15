@@ -653,11 +653,6 @@ setTimesFromURL();
       let thisURL = $(location).attr('href').split("?")[0];
       // create the url adding FORMATTEDTIME to the end
       sendableURL = `${thisURL}?searchtime1=${sT1}&searchtime2=${sT2}&searchTimeDesc1=${sTD1}&searchTimeDesc2=${sTD2}&searchCity1=${sC1}&searchCity2=${sC2}&time12=${time12}`
-      
-      // create dummy text area to hold sendableURL so we can copy it, then remove text area
-      // https://www.sharmaprakash.com.np/javascript/copying-value-from-variable-to-clipboard/
-      // var dummyTextInput = $('<input>').val(sendableURL).attr('id',"#dummyText").attr('class', 'dummy').appendTo('#dummy').select()
-      // document.execCommand("copy");
 
       async function writeURLtoClipboard(text){
         try {
