@@ -106,7 +106,6 @@ $(function(){
   */
   set clockBorder(brdr){
     // need to define range error - annoying because so many wrong answers
-
     this._clockBorder = brdr;
   }
     //
@@ -287,9 +286,6 @@ $(function(){
       // Unique IDs to hold the time (must have values)
       this.timeID = details.timeID; // could throw error
 
-      // pulse if value of pulseMe is the class .pulse
-      this.pulseMe = details.pulseMe;
-
       // Setting default location of clock if not defined
       this.location = details.location;
 
@@ -321,6 +317,8 @@ $(function(){
       $(this.clockPlaceholder).append(Mustache.render(clockCardTemplate, this));
       this.aRenderTime();
       }
+    
+
     clockInterval(){ // only static clocks show changing seconds
       if(!this.timeShifted){
         setInterval(this.aRenderTime.bind(this), 1000);
@@ -355,10 +353,6 @@ $(function(){
       }else{
         throw new Error('You must provide a searchBoxDivID to hold the search box')
       }
-    }
-
-    addFasPrepend(){
-      
     }
   } // complete AClock Class definition
   
