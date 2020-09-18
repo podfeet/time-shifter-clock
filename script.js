@@ -32,6 +32,7 @@ let tzNamesObject = TzNamesArray.reduce(function(o, val) { o[val.replace('_',' '
  let momentObjST1 = {};
  let momentObjST2 = {};
 
+
 // 
 // Document Ready Handler
 // 
@@ -54,6 +55,11 @@ $(function(){
   * Errors thrown e.g. @throws {TypeError} and why
   */
   class AClock{
+
+    // ************************** //
+    // Define Getters and Setters //
+    // ************************** //
+
      // Clock will go into either the existing shifting or static placeholder div
     /**
      * @type {object} div where the clock will be placed, default is shiftingClocksPlaceholder
@@ -93,21 +99,21 @@ $(function(){
       }
       this._timeDescriptionID = tdid;
     }
-  // Create border around clocks
-  /**
-  * @type {string}  
-  */
-  get clockBorder(){
-    return this._clockBorder;
-  }
-  /**
-  * @type {string}
-  * @throws {RangeError}
-  */
-  set clockBorder(brdr){
-    // need to define range error - annoying because so many wrong answers
-    this._clockBorder = brdr;
-  }
+    // Create border around clocks
+    /**
+    * @type {string}  
+    */
+    get clockBorder(){
+      return this._clockBorder;
+    }
+    /**
+    * @type {string}
+    * @throws {RangeError}
+    */
+    set clockBorder(brdr){
+      // need to define range error - annoying because so many wrong answers
+      this._clockBorder = brdr;
+    }
     //
     // Create the description of the clock instance
     //
@@ -266,9 +272,10 @@ $(function(){
       }
     }
 
-    //
-    // define the constructor
-    //
+    // ********************** //
+    // define the constructor //
+    // ********************** //
+    
     constructor(details){
       // Choose whether clock goes in shifting or static div
       this.clockPlaceholder = details.clockPlaceholder;
@@ -303,8 +310,16 @@ $(function(){
 
       // Apply font awesome to only shifting clocks
       this.fas = details.fas;
+
+      // Put the clocks up, enable/disable interval, and enable timeshifting
+      this.putClockUp();
+      this.clockInterval();
+      this.shiftTime();
+      this.addSearchBox();
     }
-    //  Define the Instance functions
+    // ****************************** //
+    //  Define the Instance functions //
+    // ****************************** //
     aRenderTime(){
         $(`#${this.timeID}`).html(moment.tz(this.location).format(FORMATTEDTIME));
       }  
@@ -317,7 +332,6 @@ $(function(){
       $(this.clockPlaceholder).append(Mustache.render(clockCardTemplate, this));
       this.aRenderTime();
       }
-    
 
     clockInterval(){ // only static clocks show changing seconds
       if(!this.timeShifted){
@@ -343,17 +357,20 @@ $(function(){
     }
     // Add text search box for cities
     addSearchBox(){
-      if (this.searchBoxDivID){
-        if(this.searchBoxID){
-          const $thisSearchBox = $('<input type="text">').addClass("mySearchboxes w-100 border-0").attr('id', `${this.searchBoxID}`).attr('placeholder', `default: ${this.location})`);
-          // define a variable for the div which will hold the <input> text box
-          let aSearchBoxDivID = $(`#${this.searchBoxDivID}`);
-          aSearchBoxDivID.append($thisSearchBox);
-        }else{throw new Error('You must provide a searchBoxID for the search box')}
-      }else{
-        throw new Error('You must provide a searchBoxDivID to hold the search box')
-      }
+      if (this.timeShifted){
+        if (this.searchBoxDivID){
+          if(this.searchBoxID){
+            const $thisSearchBox = $('<input type="text">').addClass("mySearchboxes w-100 border-0").attr('id', `${this.searchBoxID}`).attr('placeholder', `default: ${this.location})`);
+            // define a variable for the div which will hold the <input> text box
+            let aSearchBoxDivID = $(`#${this.searchBoxDivID}`);
+            aSearchBoxDivID.append($thisSearchBox);
+          }else{throw new Error('You must provide a searchBoxID for the search box')}
+        }else{
+          throw new Error('You must provide a searchBoxDivID to hold the search box')
+        }
+      }else{return}
     }
+     
   } // complete AClock Class definition
   
   // Create a function to make the clocks
@@ -398,23 +415,6 @@ $(function(){
       searchBoxDivID: 'sbsearchClock2Div',
       searchBoxID: 'sbsearchClock2',
     });
-    // Put the clocks up, enable/disable interval, and enable timeshifting
-   
-    // Local Clock static (non-shifting)
-    // Doesn't shift time and doesn't have a search box
-    localClock.putClockUp(staticClocksPlaceholder);
-    localClock.clockInterval()
-
-    // Searchboxes clock timeshifted
-    searchClock1.putClockUp();
-    searchClock1.clockInterval();
-    searchClock1.shiftTime();
-    searchClock1.addSearchBox();
-
-    searchClock2.putClockUp();
-    searchClock2.clockInterval();
-    searchClock2.shiftTime();
-    searchClock2.addSearchBox();
   }
 
   // pull the query string that may have been received in the URL
