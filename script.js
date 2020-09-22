@@ -28,10 +28,51 @@ let TzNamesArray = moment.tz.names();
 // don't understand this but it takes the array which is just a list of the region/city and makes it into an object where the key is the region/city and so is the value. which for some reason works in autocomplete!
 let tzNamesObject = TzNamesArray.reduce(function(o, val) { o[val.replace('_',' ')] = val; return o; }, {});
 
- // declare two global moment objects to be used in 12/24 hour toggle
- let momentObjST1 = {};
- let momentObjST2 = {};
+// declare two global moment objects to be used in 12/24 hour toggle
+let momentObjST1 = {};
+let momentObjST2 = {};
 
+// attributes of default time-shifting clocks
+// will be used to create clocks in the makeClocks function
+let clockAttributesArray = [
+  {
+    clockPlaceholder: staticClocksPlaceholder,
+      timeDescriptionID: 'localID',
+      clockBorder: '',
+      timeDescription: 'Your current local time is:',
+      timeID: 'localTime',
+      timeFormat: TIME12WSEC,
+      location: moment.tz.guess(true),
+      timeShifted: false,
+  },
+  {
+    timeDescriptionID: 'search1TSID',
+    clockBorder: 'border border-primary rounded',
+    timeDescription: "The time in Los Angeles becomes:",
+    timeID: 'search1Time',
+    timeFormat: TIME12WSEC,
+    timeShifted: true,
+    location: 'America/Los_Angeles',
+    searchBoxDivID: 'sbsearchClock1Div',
+    searchBoxID: 'sbsearchClock1',
+    clockPlaceholder: shiftingClocksPlaceholder
+  },
+  {
+    timeDescriptionID: 'search2TSID',
+    clockBorder: 'border border-primary rounded',
+    //timeDescription: 'Time in Europe/Dublin becomes:',
+    timeDescription: 'Time in Europe/Dublin becomes:',
+    timeID: 'search2Time',
+    timeFormat: TIME12WSEC,
+    timeShifted: true,
+    location: 'Europe/Dublin',
+    searchBoxDivID: 'sbsearchClock2Div',
+    searchBoxID: 'sbsearchClock2',
+    clockPlaceholder: shiftingClocksPlaceholder
+  },
+]
+// I'll be pushing all time-shifting clocks into this array
+let arrayOfClocks = [];
 
 // 
 // Document Ready Handler
@@ -372,50 +413,61 @@ $(function(){
     }
      
   } // complete AClock Class definition
+
+  // create global array of clock instance attributes
+  // clockAttributesArray
+  // to start with, just do the 2 shifting clocks, later add the ability to add to this array
+  // pass the array in as the argument to makeClocks
+
+  // Then in makeClocks, leave local clock there so it still get created
+  // Then loop through the array
+
+  // function makeClocks(clockArray){
+  //   for (i=0, i++, i<clockArray.length){
+  //     let x = new AClock(clockArray[i])
+      // push this here clock into an array of clocks (a global variable)
+      // this gives the 3 event handlers something to loop through
+      // the clocks will NOT have names! they will have indices in the array
+      // so event handlers have to look for the array of clocks by index
+  //   }
+  // }
+
+  // to populate the clockArray with new clocks, create a function that:
+  // * finds the length of the array, and add 1 to index for the next clock counter (let's me not have timeID00)
+  // * now create the things like timeID, searchBoxID, searchBoxDivID using that index number 
+  // * e.g. timeID = concatenate searchTime + index number
+
   
   // Create a function to make the clocks
   // Accept parameters a,b,c,d as the query string values to populate searchClock1 and 2 for location and timeDescription
   // a and c are the location names in the search boxes
   // b and d are the timeDescriptions, e.g. "Time in Europe/London becomes"
-  function makeClocks(a,b,c,d){ 
-    // create instances of AClock as desired
 
-    localClock = new AClock ({
-      clockPlaceholder: staticClocksPlaceholder,
-      timeDescriptionID: 'localID',
-      clockBorder: '',
-      timeDescription: 'Your current local time is:',
-      timeID: 'localTime',
-      timeFormat: TIME12WSEC,
-      location: moment.tz.guess(true),
-      timeShifted: false,
-    });
-    searchClock1 = new AClock({
-      clockPlaceholder: shiftingClocksPlaceholder,
-      timeDescriptionID: 'search1TSID',
-      clockBorder: 'border border-primary rounded',
-      timeDescription: b,
-      timeID: 'search1Time',
-      timeFormat: TIME12WSEC,
-      timeShifted: true,
-      location: a,
-      searchBoxDivID: 'sbsearchClock1Div',
-      searchBoxID: 'sbsearchClock1',
-    });
-    searchClock2 = new AClock({
-      clockPlaceholder: shiftingClocksPlaceholder,
-      timeDescriptionID: 'search2TSID',
-      clockBorder: 'border border-primary rounded',
-      //timeDescription: 'Time in Europe/Dublin becomes:',
-      timeDescription: d,
-      timeID: 'search2Time',
-      timeFormat: TIME12WSEC,
-      timeShifted: true,
-      location: c,
-      searchBoxDivID: 'sbsearchClock2Div',
-      searchBoxID: 'sbsearchClock2',
-    });
-  }
+
+  for (i=0; i < clockAttributesArray.length; i++){
+    let x = new AClock(clockAttributesArray[i]);  
+    arrayOfClocks.push(x);
+  };
+  // function makeClocks(clockAttributesArray){ 
+  //   // create instances of AClock as desired
+  //   // console.log(clockAttributesArray[0]); // returns "A"
+  //   localClock = new AClock ({
+  //     clockPlaceholder: staticClocksPlaceholder,
+  //     timeDescriptionID: 'localID',
+  //     clockBorder: '',
+  //     timeDescription: 'Your current local time is:',
+  //     timeID: 'localTime',
+  //     timeFormat: TIME12WSEC,
+  //     location: moment.tz.guess(true),
+  //     timeShifted: false,
+  //   });
+  //   for (i=0; i < clockAttributesArray.length; i++){
+  //     let x = new AClock(clockAttributesArray[i]);  
+  //     arrayOfClocks.push(x);
+  //   };
+  // };
+
+  // makeClocks();
 
   // pull the query string that may have been received in the URL
   const queryStringReceived = window.location.search;
@@ -447,7 +499,7 @@ $(function(){
       } else {
         // pull search city from the url and replace any spaces in the name with underscores
         sC1 = myUrlParam.get('searchCity1').replace(space, '_'); 
-        console.log(sC1);
+        // console.log(sC1);
       }
 
       if (myUrlParam.get('searchCity2') == ""){
@@ -463,7 +515,7 @@ $(function(){
 
   // make the individual clocks:
   // pass parameters for cities and locations to searchClock 1 and 2  that were parsed from the URL query string
-  makeClocks(sC1,sTD1,sC2,sTD2);  
+  // makeClocks(sC1,sTD1,sC2,sTD2);  
 
   // Set time on searchClock1 to the entered location
   function onSelectItem1(item){
