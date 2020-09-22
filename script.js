@@ -32,7 +32,7 @@ let tzNamesObject = TzNamesArray.reduce(function(o, val) { o[val.replace('_',' '
 let momentObjST1 = {};
 let momentObjST2 = {};
 
-// attributes of default time-shifting clocks
+// attributes of local time and 2 default time-shifting clocks
 // will be used to create clocks in the makeClocks function
 let clockAttributesArray = [
   {
@@ -46,33 +46,36 @@ let clockAttributesArray = [
       timeShifted: false,
   },
   {
-    timeDescriptionID: 'search1TSID',
+    timeDescriptionID: 'searchTSID-1',
     clockBorder: 'border border-primary rounded',
     timeDescription: "The time in Los Angeles becomes:",
-    timeID: 'search1Time',
+    timeID: 'searchTime-1',
     timeFormat: TIME12WSEC,
     timeShifted: true,
     location: 'America/Los_Angeles',
-    searchBoxDivID: 'sbsearchClock1Div',
-    searchBoxID: 'sbsearchClock1',
+    searchBoxDivID: 'sbsearchClockDiv-1',
+    searchBoxID: 'sbsearchClock-1',
     clockPlaceholder: shiftingClocksPlaceholder
   },
   {
-    timeDescriptionID: 'search2TSID',
+    timeDescriptionID: 'searchTSID-2',
     clockBorder: 'border border-primary rounded',
     //timeDescription: 'Time in Europe/Dublin becomes:',
     timeDescription: 'Time in Europe/Dublin becomes:',
-    timeID: 'search2Time',
+    timeID: 'searchTime-2',
     timeFormat: TIME12WSEC,
     timeShifted: true,
     location: 'Europe/Dublin',
-    searchBoxDivID: 'sbsearchClock2Div',
-    searchBoxID: 'sbsearchClock2',
+    searchBoxDivID: 'sbsearchClockDiv-2',
+    searchBoxID: 'sbsearchClock-2',
     clockPlaceholder: shiftingClocksPlaceholder
   },
 ]
 // I'll be pushing all time-shifting clocks into this array
 let arrayOfClocks = [];
+// clock 0 is local time
+// clocks 1 and 2 are default clocks, numCl is a counter of clocks
+let numCl = 2;
 
 // 
 // Document Ready Handler
@@ -448,26 +451,27 @@ $(function(){
     let x = new AClock(clockAttributesArray[i]);  
     arrayOfClocks.push(x);
   };
-  // function makeClocks(clockAttributesArray){ 
-  //   // create instances of AClock as desired
-  //   // console.log(clockAttributesArray[0]); // returns "A"
-  //   localClock = new AClock ({
-  //     clockPlaceholder: staticClocksPlaceholder,
-  //     timeDescriptionID: 'localID',
-  //     clockBorder: '',
-  //     timeDescription: 'Your current local time is:',
-  //     timeID: 'localTime',
-  //     timeFormat: TIME12WSEC,
-  //     location: moment.tz.guess(true),
-  //     timeShifted: false,
-  //   });
-  //   for (i=0; i < clockAttributesArray.length; i++){
-  //     let x = new AClock(clockAttributesArray[i]);  
-  //     arrayOfClocks.push(x);
-  //   };
-  // };
-
-  // makeClocks();
+  // click handler to add a clock
+$('#addClock').click(function(){
+  numCl = numCl + 1; // increment sequence to 
+  clockAttributesArray.push({
+    timeDescriptionID: `searchTSID-${numCl}`,
+    clockBorder: 'border border-primary rounded',
+    timeDescription: "The time in New Zealand becomes:",
+    timeID: `searchTime-${numCl}`,
+    timeFormat: TIME12WSEC,
+    timeShifted: true,
+    location: 'Pacific/Auckland',
+    searchBoxDivID: `sbsearchClockDiv-${numCl}`,
+    searchBoxID: `sbsearchClock-${numCl}`,
+    clockPlaceholder: shiftingClocksPlaceholder
+  })
+  // create another clock with the attributes 
+  let x = new AClock(clockAttributesArray[numCl])
+  arrayOfClocks.push(x)
+  // need to render all the clocks
+})
+;
 
   // pull the query string that may have been received in the URL
   const queryStringReceived = window.location.search;
