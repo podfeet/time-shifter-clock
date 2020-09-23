@@ -498,45 +498,42 @@ $('#addClock').click(function(){
 
   for (i=1; i < clockAttributesArray.length; i++){
     function onSelectItem(item){
-      `searchClock-${numCl}`.location = `${item.value}`;
-      `searchClock-${numCl}`.timeDescription = `Time in ${item.label} becomes:`;
-      $(`#${searchClock-${numCl}.timeDescriptionID}`).html(searchClock1.timeDescription);
-      searchClock1.aRenderTime();
+      clockAttributesArray[i].location = `${item.value}`;
+      clockAttributesArray[i].timeDescription = `Time in ${item.label} becomes:`;
+      $(`#${clockAttributesArray[i].timeDescriptionID}`).html(clockAttributesArray[i].timeDescription);
+      clockAttributesArray[i].aRenderTime();
       // reset local and other search clock back to current time (since searchClock1 starts at current time)
-      searchClock2.aRenderTime();
+      clockAttributesArray[i].aRenderTime();
       // reset range slider and label back to 0
       $("input[type=range]").val(0);
       showSliderLabel();
     }
   }
   
-
-
-
-  // Set time on searchClock1 to the entered location
-  function onSelectItem1(item){
-    searchClock1.location = `${item.value}`;
-    searchClock1.timeDescription = `Time in ${item.label} becomes:`;
-    $(`#${searchClock1.timeDescriptionID}`).html(searchClock1.timeDescription);
-    searchClock1.aRenderTime();
-    // reset local and other search clock back to current time (since searchClock1 starts at current time)
-    searchClock2.aRenderTime();
-    // reset range slider and label back to 0
-    $("input[type=range]").val(0);
-    showSliderLabel();
-  }
-  // Set time on searchClock2 to the entered location
-  function onSelectItem2(item){
-    searchClock2.location = `${item.value}`;
-    searchClock2.timeDescription = `Time in ${item.label} becomes:`;
-    $(`#${searchClock2.timeDescriptionID}`).html(searchClock2.timeDescription);
-    searchClock2.aRenderTime();
-    // reset local and other search clock back to current time (since searchClock2 starts at current time)
-    searchClock1.aRenderTime();
-    // reset range slider and label back to 0
-    $("input[type=range]").val(0);
-    showSliderLabel();
-  }
+  // // Set time on searchClock1 to the entered location
+  // function onSelectItem1(item){
+  //   searchClock1.location = `${item.value}`;
+  //   searchClock1.timeDescription = `Time in ${item.label} becomes:`;
+  //   $(`#${searchClock1.timeDescriptionID}`).html(searchClock1.timeDescription);
+  //   searchClock1.aRenderTime();
+  //   // reset local and other search clock back to current time (since searchClock1 starts at current time)
+  //   searchClock2.aRenderTime();
+  //   // reset range slider and label back to 0
+  //   $("input[type=range]").val(0);
+  //   showSliderLabel();
+  // }
+  // // Set time on searchClock2 to the entered location
+  // function onSelectItem2(item){
+  //   searchClock2.location = `${item.value}`;
+  //   searchClock2.timeDescription = `Time in ${item.label} becomes:`;
+  //   $(`#${searchClock2.timeDescriptionID}`).html(searchClock2.timeDescription);
+  //   searchClock2.aRenderTime();
+  //   // reset local and other search clock back to current time (since searchClock2 starts at current time)
+  //   searchClock1.aRenderTime();
+  //   // reset range slider and label back to 0
+  //   $("input[type=range]").val(0);
+  //   showSliderLabel();
+  // }
 
   // Click function for 12/24 hour toggle
   $('#numHrs').click(function(){
