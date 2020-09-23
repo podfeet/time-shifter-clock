@@ -416,31 +416,7 @@ $(function(){
     }
      
   } // complete AClock Class definition
-
-  // create global array of clock instance attributes
-  // clockAttributesArray
-  // to start with, just do the 2 shifting clocks, later add the ability to add to this array
-  // pass the array in as the argument to makeClocks
-
-  // Then in makeClocks, leave local clock there so it still get created
-  // Then loop through the array
-
-  // function makeClocks(clockArray){
-  //   for (i=0, i++, i<clockArray.length){
-  //     let x = new AClock(clockArray[i])
-      // push this here clock into an array of clocks (a global variable)
-      // this gives the 3 event handlers something to loop through
-      // the clocks will NOT have names! they will have indices in the array
-      // so event handlers have to look for the array of clocks by index
-  //   }
-  // }
-
-  // to populate the clockArray with new clocks, create a function that:
-  // * finds the length of the array, and add 1 to index for the next clock counter (let's me not have timeID00)
-  // * now create the things like timeID, searchBoxID, searchBoxDivID using that index number 
-  // * e.g. timeID = concatenate searchTime + index number
-
-  
+ 
   // Create a function to make the clocks
   // Accept parameters a,b,c,d as the query string values to populate searchClock1 and 2 for location and timeDescription
   // a and c are the location names in the search boxes
@@ -470,8 +446,7 @@ $('#addClock').click(function(){
   let x = new AClock(clockAttributesArray[numCl])
   arrayOfClocks.push(x)
   // need to render all the clocks
-})
-;
+});
 
   // pull the query string that may have been received in the URL
   const queryStringReceived = window.location.search;
