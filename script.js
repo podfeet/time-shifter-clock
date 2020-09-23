@@ -591,10 +591,10 @@ $('#addClock').click(function(){
 
   // Adds Bootstrap autocomplete function to the ID #myAutocomplete
 
-  //sbsearchClock1 is really `sbsearchClock-${numCl}`
+  // was $('#sbsearchClock1').autocomplete({ })
 
   for (i=1; i < clockAttributesArray.length; i++){
-    $((#clockAttributesArray[i].searchBoxID).autocomplete({
+    $('#clockAttributesArray[i].searchBoxID').autocomplete({
       source: tzNamesObject, // dictionary object with the values from which to search
     onSelectItem: onSelectItem, // callback to run when item is selected
     highlightTyped: false, // if typed text is highlighted in search results, the name gets broken in two for screen readers. e.g. "Det roit"
