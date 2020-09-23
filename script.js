@@ -540,36 +540,48 @@ $('#addClock').click(function(){
     // run ifTrue function which sets the FORMATTEDTIME variable to either 12 (checked) or 24 (unchecked). Just sets this value, no visual change onscreen
     ifTrue();
 
-  // Create two moment objects with the time delivered by the query string (if there is one)
-  if (window.location.search && ($('.slider_label') == 0)){
-    const queryStringSend = window.location.search;
-    myUrlParam = new URLSearchParams(queryStringSend);
-    // create moment objects from the strings for the received time in the URL
-    // This works perfectly - keeps the times that came in and does the 12/24 toggle
-    // console.log(`searchtime1 from query string is ${myUrlParam.get('searchtime1')}`);
-    momentObjST1 = moment(`${myUrlParam.get('searchtime1')}`);
-    momentObjST2 = moment(`${myUrlParam.get('searchtime2')}`);
-    } else {
+    // Create moment objects for every clock with the time delivered by the query string (if there is one)
+    for (i=1; i < clockAttributesArray.length; i++){
+      // console.log(`searchTime-${i}`);
+      if (window.location.search && ($('.slider_label') == 0)){
+        // console.log('found a search query');
+        const queryStringSend = window.location.search;
+        myUrlParam = new URLSearchParams(queryStringSend);
+        // create moment objects from the strings for the received time in the URL
+        // This works perfectly - keeps the times that came in and does the 12/24 toggle
+        // console.log(`searchtime1 from query string is ${myUrlParam.get('searchtime1')}`);
 
-    // works to toggle but uses the time when the page loaded instead of the timeshifted time,
-    // creates strings from the visible time values for time-shifted clocks
-    let searchT1 = $('#search1Time').html(); 
-    // console.log(`searchT1 is currently: ${searchT1}`); // date/time
-    // console.log(`searchT1 is of type: ${typeof searchT1}`); // string
-    let searchT2 = $('#search2Time').html();
-    // creates a moment objects from time strings
-    momentObjST1 = moment(searchT1); 
-    // console.log(`moment object ST1 is: ${momentObjST1}`);
-    // console.log(`moment object ST1 is of type: ${typeof momentObjST1}`); // object
-    momentObjST2 = moment(searchT2);
-  }
-    
-    // render moment objects with toggled time format back into clocks
-    $('#search1Time').html(momentObjST1.format(FORMATTEDTIME));
-    $('#search2Time').html(momentObjST2.format(FORMATTEDTIME));
+        //searchtime1 is really going to be searchTime-1,2 and 3
+        //searchTime-clockAttributesArray[i]
+        // maybe momentOjbST doesn't need an index?
+        
+        momentObjST = moment(`${myUrlParam.get(`searchTime-${i}`)}`);
+        // momentObjST2 = moment(`${myUrlParam.get('searchtime2')}`);
+      } else {
+        // creates strings from the visible time values for time-shifted clocks
+        console.log($(`#searchTime-${i}`).html());
+        
+        let searchT = $(`#searchTime-${i}`).html();
+        
+        // let searchT1 = $('#search1Time').html(); 
+        // console.log(`searchT1 is currently: ${searchT1}`); // date/time
+        // console.log(`searchT1 is of type: ${typeof searchT1}`); // string
+        //let searchT2 = $('#search2Time').html();
+        // creates a moment objects from time strings
+        momentObjST = moment(searchT)
+        // momentObjST1 = moment(searchT1); 
+        // console.log(`moment object ST1 is: ${momentObjST1}`);
+        // console.log(`moment object ST1 is of type: ${typeof momentObjST1}`); // object
+        // momentObjST2 = moment(searchT2);
+        // render moment objects with toggled time format back into clocks
+        $(`#searchTime-${i}`).html(momentObjST.format(FORMATTEDTIME));
+        // $('#search1Time').html(momentObjST1.format(FORMATTEDTIME));
+        // $('#search2Time').html(momentObjST2.format(FORMATTEDTIME));
+      } // end else
       
-    // localTSClock.aRenderTime();
-  });
+    } // end for loop through clock attributes
+
+  }); 
 
   // function to show value chosen on range sliders
   // https://codepen.io/prasanthmj/pen/OxoamJ
@@ -593,9 +605,9 @@ $('#addClock').click(function(){
   for (i=1; i < clockAttributesArray.length; i++){
     $('#clockAttributesArray[i].searchBoxID').autocomplete({
       source: tzNamesObject, // dictionary object with the values from which to search
-    onSelectItem: onSelectItem, // callback to run when item is selected
-    highlightTyped: false, // if typed text is highlighted in search results, the name gets broken in two for screen readers. e.g. "Det roit"
-    threshold: 3 // minimum characters to search before it starts displaying
+      onSelectItem: onSelectItem, // callback to run when item is selected
+      highlightTyped: false, // if typed text is highlighted in search results, the name gets broken in two for screen readers. e.g. "Det roit"
+      threshold: 3 // minimum characters to search before it starts displaying
     })
   }
 
