@@ -496,6 +496,23 @@ $('#addClock').click(function(){
   // pass parameters for cities and locations to searchClock 1 and 2  that were parsed from the URL query string
   // makeClocks(sC1,sTD1,sC2,sTD2);  
 
+  for (i=1; i < clockAttributesArray.length; i++){
+    function onSelectItem(item){
+      `searchClock-${numCl}`.location = `${item.value}`;
+      `searchClock-${numCl}`.timeDescription = `Time in ${item.label} becomes:`;
+      $(`#${searchClock-${numCl}.timeDescriptionID}`).html(searchClock1.timeDescription);
+      searchClock1.aRenderTime();
+      // reset local and other search clock back to current time (since searchClock1 starts at current time)
+      searchClock2.aRenderTime();
+      // reset range slider and label back to 0
+      $("input[type=range]").val(0);
+      showSliderLabel();
+    }
+  }
+  
+
+
+
   // Set time on searchClock1 to the entered location
   function onSelectItem1(item){
     searchClock1.location = `${item.value}`;
@@ -574,18 +591,29 @@ $('#addClock').click(function(){
 
   // Adds Bootstrap autocomplete function to the ID #myAutocomplete
 
-  $('#sbsearchClock1').autocomplete({
+  //sbsearchClock1 is really `sbsearchClock-${numCl}`
+
+  for (i=1; i < clockAttributesArray.length; i++){
+    $((#clockAttributesArray[i].searchBoxID).autocomplete({
       source: tzNamesObject, // dictionary object with the values from which to search
-      onSelectItem: onSelectItem1, // callback to run when item is selected
-      highlightTyped: false, // if typed text is highlighted in search results, the name gets broken in two for screen readers. e.g. "Det roit"
-      treshold: 3 // minimum characters to search before it starts displaying
-  });
-  $('#sbsearchClock2').autocomplete({
-      source: tzNamesObject, // dictionary object with the values from which to search
-      onSelectItem: onSelectItem2, // callback to run when item is selected
-      highlightTyped: false, // if typed text is highlighted in search results, the name gets broken in two for screen readers. e.g. "Det roit"
-      treshold: 1 // minimum characters to search before it starts displaying
-  });
+    onSelectItem: onSelectItem, // callback to run when item is selected
+    highlightTyped: false, // if typed text is highlighted in search results, the name gets broken in two for screen readers. e.g. "Det roit"
+    threshold: 3 // minimum characters to search before it starts displaying
+    })
+  }
+
+  // $('#sbsearchClock1').autocomplete({
+  //     source: tzNamesObject, // dictionary object with the values from which to search
+  //     onSelectItem: onSelectItem1, // callback to run when item is selected
+  //     highlightTyped: false, // if typed text is highlighted in search results, the name gets broken in two for screen readers. e.g. "Det roit"
+  //     treshold: 3 // minimum characters to search before it starts displaying
+  // });
+  // $('#sbsearchClock2').autocomplete({
+  //     source: tzNamesObject, // dictionary object with the values from which to search
+  //     onSelectItem: onSelectItem2, // callback to run when item is selected
+  //     highlightTyped: false, // if typed text is highlighted in search results, the name gets broken in two for screen readers. e.g. "Det roit"
+  //     treshold: 1 // minimum characters to search before it starts displaying
+  // });
 
 
 // ********************************************************* //
