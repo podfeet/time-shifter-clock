@@ -67,7 +67,7 @@ static set count(c){
     timeFormat: TIME12WSEC,
     timeShifted: true,
     location: 'America/Los_Angeles',
-    searchBoxDivID: 'sbsearchClock1Div',
+    searchBoxDivID: 'sbsearchClockDiv-1',
     searchBoxID: 'sbsearchClock-1',
     clockPlaceholder: shiftingClocksPlaceholder
   },
@@ -80,7 +80,7 @@ static set count(c){
     timeFormat: TIME12WSEC,
     timeShifted: true,
     location: 'Europe/Dublin',
-    searchBoxDivID: 'sbsearchClock2Div',
+    searchBoxDivID: 'sbsearchClockDi2',
     searchBoxID: 'sbsearchClock-2',
     clockPlaceholder: shiftingClocksPlaceholder
   },
