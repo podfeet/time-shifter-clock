@@ -499,6 +499,7 @@ $('#addClock').click(function(){
   // Set time on searchClock1 to the entered location
   for (i=1; i < clockAttributesArray.length; i++){
     function onSelectItem(item){
+      console.log(clockAttributesArray[i]);
       clockAttributesArray[i].location = `${item.value}`;
       clockAttributesArray[i].timeDescription = `Time in ${item.label} becomes:`;
       $(`#${clockAttributesArray[i].timeDescriptionID}`).html(clockAttributesArray[i].timeDescription);
@@ -585,8 +586,7 @@ $('#addClock').click(function(){
   // was $('#sbsearchClock1').autocomplete({ })
 
   for (i=1; i < clockAttributesArray.length; i++){
-    console.log(clockAttributesArray[i].searchBoxID); // names searchbox divs correctly
-    $('#clockAttributesArray[i].searchBoxID').autocomplete({
+    $(`#${clockAttributesArray[i].searchBoxID}`).autocomplete({
       source: tzNamesObject, // dictionary object with the values from which to search
       onSelectItem: onSelectItem, // callback to run when item is selected
       highlightTyped: false, // if typed text is highlighted in search results, the name gets broken in two for screen readers. e.g. "Det roit"
