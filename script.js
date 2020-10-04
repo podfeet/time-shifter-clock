@@ -496,6 +496,7 @@ $('#addClock').click(function(){
   // pass parameters for cities and locations to searchClock 1 and 2  that were parsed from the URL query string
   // makeClocks(sC1,sTD1,sC2,sTD2);  
 
+  // Set time on searchClock1 to the entered location
   for (i=1; i < clockAttributesArray.length; i++){
     function onSelectItem(item){
       clockAttributesArray[i].location = `${item.value}`;
