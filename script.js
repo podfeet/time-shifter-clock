@@ -404,7 +404,7 @@ $(function(){
       if (this.timeShifted){
         if (this.searchBoxDivID){
           if(this.searchBoxID){
-            const $thisSearchBox = $('<input type="text">').addClass("mySearchboxes w-100 border-0").attr('id', `${this.searchBoxID}`).attr('placeholder', `default: ${this.location})`);
+            const $thisSearchBox = $('<input type="text">').addClass("mySearchboxes w-100 border-0").attr('id', `${this.searchBoxID}`).attr('placeholder', `default: ${this.location}`);
             // define a variable for the div which will hold the <input> text box
             let aSearchBoxDivID = $(`#${this.searchBoxDivID}`);
             aSearchBoxDivID.append($thisSearchBox);
