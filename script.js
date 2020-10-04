@@ -496,10 +496,10 @@ $('#addClock').click(function(){
   // pass parameters for cities and locations to searchClock 1 and 2  that were parsed from the URL query string
   // makeClocks(sC1,sTD1,sC2,sTD2);  
 
-  // Set time on searchClock1 to the entered location
+  // Set time on searchClocks to the entered location
   for (i=1; i < clockAttributesArray.length; i++){
+    console.log(clockAttributesArray[i].location); // reports the two default locs NOT IN QUOTES THOUGH!!!!!!!!!!!!!!!!!!
     function onSelectItem(item){
-      console.log(clockAttributesArray[i]);
       clockAttributesArray[i].location = `${item.value}`;
       clockAttributesArray[i].timeDescription = `Time in ${item.label} becomes:`;
       $(`#${clockAttributesArray[i].timeDescriptionID}`).html(clockAttributesArray[i].timeDescription);
