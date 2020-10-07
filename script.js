@@ -584,15 +584,20 @@ $('#addClock').click(function(){
   // Adds Bootstrap autocomplete function to the ID #myAutocomplete
 
   // was $('#sbsearchClock1').autocomplete({ })
-
+function addAutocomplete(){
   for (i=1; i < clockAttributesArray.length; i++){
     $(`#${clockAttributesArray[i].searchBoxID}`).autocomplete({
       source: tzNamesObject, // dictionary object with the values from which to search
       onSelectItem: onSelectItem, // callback to run when item is selected
       highlightTyped: false, // if typed text is highlighted in search results, the name gets broken in two for screen readers. e.g. "Det roit"
-      threshold: 3 // minimum characters to search before it starts displaying
+      threshold: 3, // minimum characters to search before it starts displaying
+      parentIDIndex: i // 
     });
   };
+};
+
+addAutocomplete();
+  
 
   // $('#sbsearchClock1').autocomplete({
   //     source: tzNamesObject, // dictionary object with the values from which to search
