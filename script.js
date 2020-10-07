@@ -446,6 +446,7 @@ $('#addClock').click(function(){
   let x = new AClock(clockAttributesArray[numCl])
   arrayOfClocks.push(x)
   // need to render all the clocks
+  addAutocomplete();
 });
 
   // pull the query string that may have been received in the URL
