@@ -2,7 +2,7 @@
     var defaults = {
         treshold: 4,
         maximumItems: 5,
-        highlightTyped: false,
+        highlightTyped: true,
         highlightClass: 'text-primary'
     };
     function createItem(lookup, item, opts) {
@@ -48,7 +48,8 @@
             if (opts.onSelectItem) {
                 opts.onSelectItem({
                     value: $(this).data('value'),
-                    label: $(this).text()
+                    label: $(this).text(),
+                    parentIDIndex: opts.parentIDIndex
                 }, field[0]);
             }
         });
