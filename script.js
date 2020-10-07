@@ -498,20 +498,32 @@ $('#addClock').click(function(){
   // makeClocks(sC1,sTD1,sC2,sTD2);  
 
   // Set time on searchClocks to the entered location
-  for (i=1; i < clockAttributesArray.length; i++){
-    console.log(clockAttributesArray[i].location); // reports the two default locs NOT IN QUOTES THOUGH!!!!!!!!!!!!!!!!!!
-    function onSelectItem(item){
-      clockAttributesArray[i].location = `${item.value}`;
-      clockAttributesArray[i].timeDescription = `Time in ${item.label} becomes:`;
-      $(`#${clockAttributesArray[i].timeDescriptionID}`).html(clockAttributesArray[i].timeDescription);
-      clockAttributesArray[i].aRenderTime();
+
+  // TODO: do this!
+  // FIXME: I need fixing
+  //  BUG: another bug
+
+
+  // console.log(clockAttributesArray[i].location); // LA, Dublin
+  function onSelectItem(item){
+    // console.log(`${item.value}`); // Paris
+    // console.log(`${item.parentIDIndex}`); // index of the clock
+    // console.log(clockAttributesArray[item.parentIDIndex]); // entire clock Instance
+
+      clockAttributesArray[item.parentIDIndex].location = `${item.value}`;
+      clockAttributesArray[item.parentIDIndex].timeDescription = `Time in ${item.label} becomes:`;
+      console.log(clockAttributesArray[item.parentIDIndex].timeDescription);
+      $(`#${clockAttributesArray[item.parentIDIndex].timeDescriptionID}`).html(clockAttributesArray[item.parentIDIndex].timeDescription);
+
+      // FIXME: TO BE FIXED TO ADDRESS LOCAL CLOCK AND ALL SEARCH CLOCKS except THIS ONE
+      clockAttributesArray[item.parentIDIndex].aRenderTime();
       // reset local and other search clock back to current time (since searchClock1 starts at current time)
-      clockAttributesArray[i].aRenderTime();
+      clockAttributesArray[item.parentIDIndex].aRenderTime();
       // reset range slider and label back to 0
       $("input[type=range]").val(0);
       showSliderLabel();
-    }
   }
+
   
   // // Set time on searchClock1 to the entered location
   // function onSelectItem1(item){
