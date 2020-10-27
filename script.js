@@ -505,50 +505,34 @@ $('#addClock').click(function(){
 
 
   // console.log(clockAttributesArray[i].location); // LA, Dublin
-  function onSelectItem(item){
-    // console.log(`${item.value}`); // Paris
-    // console.log(`${item.parentIDIndex}`); // index of the clock
-    // console.log(clockAttributesArray[item.parentIDIndex]); // entire clock Instance
+  function onSelectItem(item){ 
 
-      clockAttributesArray[item.parentIDIndex].location = `${item.value}`;
-      clockAttributesArray[item.parentIDIndex].timeDescription = `Time in ${item.label} becomes:`;
-      console.log(clockAttributesArray[item.parentIDIndex].timeDescription);
-      $(`#${clockAttributesArray[item.parentIDIndex].timeDescriptionID}`).html(clockAttributesArray[item.parentIDIndex].timeDescription);
+    let selectedSearchBox = clockAttributesArray[item.parentIDIndex];
+    // set the location to the selected city
+    selectedSearchBox.location = `${item.value}`;
+    // set the description to match selected city
+    selectedSearchBox.timeDescription = `Time in ${item.label} becomes:`;
+    // render the time description in the clock
+    $(`#${selectedSearchBox.timeDescriptionID}`).html(selectedSearchBox.timeDescription);
+    
+    $(`#${selectedSearchBox.timeID}`).html(moment.tz(selectedSearchBox.location).format(FORMATTEDTIME));
+    
+    clockAttributesArray.forEach(function(element, index){
+      if (index < 1){
+        return;
+      }else{
+      $(`#${element.timeID}`).html(moment.tz(element.location).format(FORMATTEDTIME));
+      }
+    });
 
-      // FIXME: TO BE FIXED TO ADDRESS LOCAL CLOCK AND ALL SEARCH CLOCKS except THIS ONE
-      clockAttributesArray[item.parentIDIndex].aRenderTime();
-      // reset local and other search clock back to current time (since searchClock1 starts at current time)
-      clockAttributesArray[item.parentIDIndex].aRenderTime();
-      // reset range slider and label back to 0
-      $("input[type=range]").val(0);
-      showSliderLabel();
+    // clockAttributesArray.forEach(function(selectedSearchBox) {
+    //   $(`#${selectedSearchBox.timeID}`).html(moment.tz(this.location).format(FORMATTEDTIME));
+    // });
+
+    // reset range slider and label back to 0
+    $("input[type=range]").val(0);
+    showSliderLabel();
   }
-
-  
-  // // Set time on searchClock1 to the entered location
-  // function onSelectItem1(item){
-  //   searchClock1.location = `${item.value}`;
-  //   searchClock1.timeDescription = `Time in ${item.label} becomes:`;
-  //   $(`#${searchClock1.timeDescriptionID}`).html(searchClock1.timeDescription);
-  //   searchClock1.aRenderTime();
-  //   // reset local and other search clock back to current time (since searchClock1 starts at current time)
-  //   searchClock2.aRenderTime();
-  //   // reset range slider and label back to 0
-  //   $("input[type=range]").val(0);
-  //   showSliderLabel();
-  // }
-  // // Set time on searchClock2 to the entered location
-  // function onSelectItem2(item){
-  //   searchClock2.location = `${item.value}`;
-  //   searchClock2.timeDescription = `Time in ${item.label} becomes:`;
-  //   $(`#${searchClock2.timeDescriptionID}`).html(searchClock2.timeDescription);
-  //   searchClock2.aRenderTime();
-  //   // reset local and other search clock back to current time (since searchClock2 starts at current time)
-  //   searchClock1.aRenderTime();
-  //   // reset range slider and label back to 0
-  //   $("input[type=range]").val(0);
-  //   showSliderLabel();
-  // }
 
   // Click function for 12/24 hour toggle
   $('#numHrs').click(function(){
@@ -598,12 +582,13 @@ $('#addClock').click(function(){
 
   // was $('#sbsearchClock1').autocomplete({ })
 function addAutocomplete(){
+  // start i at [1] because [0] is non-time-shifting local time
   for (i=1; i < clockAttributesArray.length; i++){
     $(`#${clockAttributesArray[i].searchBoxID}`).autocomplete({
       source: tzNamesObject, // dictionary object with the values from which to search
       onSelectItem: onSelectItem, // callback to run when item is selected
       highlightTyped: false, // if typed text is highlighted in search results, the name gets broken in two for screen readers. e.g. "Det roit"
-      threshold: 3, // minimum characters to search before it starts displaying
+      threshold: 1, // minimum characters to search before it starts displaying
       parentIDIndex: i // 
     });
   };
