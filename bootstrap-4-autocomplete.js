@@ -49,7 +49,7 @@
                 opts.onSelectItem({
                     value: $(this).data('value'),
                     label: $(this).text(),
-                    parentIDIndex: opts.parentIDIndex
+                    parentIDIndex: opts.parentIDIndex // Allison Added
                 }, field[0]);
             }
         });
