@@ -365,8 +365,8 @@ $(function(){
     //  Define the Instance functions //
     // ****************************** //
     aRenderTime(){
-        $(`#${this.timeID}`).html(moment.tz(this.location).format(FORMATTEDTIME));
-      }  
+      $(`#${this.timeID}`).html(moment.tz(this.location).format(FORMATTEDTIME));
+    }  
   
     // Render the html for the clocks
     putClockUp(){
