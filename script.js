@@ -385,13 +385,35 @@ $(function(){
         setInterval(this.aRenderTime.bind(this), 1000);
       }else{return}
     }
-
+    // BUG: The shifter is causing new location to revert back to original
+    // note that the problem doesn't happen with 12/24 hour toggle so it's in here somewhere
     shiftTime(){
+      // starting at clockAttributesArray[1] because 0 isn't time shifted
+      // for (i=1; i < clockAttributesArray.length; i++){
+      //   let thisClock = `${clockAttributesArray[i]}`
+      //   let thisLocation = `${clockAttributesArray[i].location}`
+      //   let thisID = `${clockAttributesArray[i].timeID}`
+      //   console.log(thisLocation);
+      //   let currentTime = moment.tz(thisLocation);
+      //   let roundDownTime = currentTime.startOf('h');
+      //   // shift hours
+      //   $(thisID).html(roundDownTime.add(thisClock.value, 'h').format(FORMATTEDTIME));
+      //   // shift min
+      //   $(thisID).html(roundDownTime.add(thisClock.value, 'm').format(FORMATTEDTIME));
+      // }
+
       // if this.timeShifted is true, then shift time with sliders
       let self = this;
       if (this.timeShifted){
+        console.log(`before shifting location is ${self.location}`); // FIXME: it's already Los Angeles here before I start shifting
         // shift hours
         $('#changeHrs').on('input change', function(){
+          console.log(`on input change location is ${self.location}`); //FIXME: Reverted to original Los Angeles
+          console.log(`on input change clockAttributesArray[1].location is ${clockAttributesArray[1].location}`); //Says Paris
+
+          // ALERT: self.location reverts back to original loc, but the Array does have the new location
+          // I think I need to get rid of the self nonsense, and go with iterating over clocks
+
           let currentTime = moment.tz(self.location);
           let roundDownTime = currentTime.startOf('h');
           $(`#${self.timeID}`).html(roundDownTime.add(this.value, 'h').format(FORMATTEDTIME));
