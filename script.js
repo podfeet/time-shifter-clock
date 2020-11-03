@@ -609,7 +609,7 @@ function addAutocomplete(){
       source: tzNamesObject, // dictionary object with the values from which to search
       onSelectItem: onSelectItem, // callback to run when item is selected
       highlightTyped: false, // if typed text is highlighted in search results, the name gets broken in two for screen readers. e.g. "Det roit"
-      threshold: 1, // minimum characters to search before it starts displaying
+      threshold: 3, // minimum characters to search before it starts displaying
       parentIDIndex: i // 
     });
   };
