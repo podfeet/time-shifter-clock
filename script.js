@@ -524,15 +524,15 @@ $('#addClock').click(function(){
 
   // Set time on searchClocks to the entered location
 
-  // TODO: do this!
-  // FIXME: I need fixing
-  //  BUG: another bug
-
-
-  // console.log(clockAttributesArray[i].location); // LA, Dublin
+  // BUG: changing location in searchbox works but slider changes time back to original location 
+  // IDEA: I need to push the attributes back into the array so they stick
+  // FIXME: Will need to figure out how to put back the _ in some names
+  
   function onSelectItem(item){ 
-
+    // console.log(element.id); // returns searchClock-1
     let selectedSearchBox = clockAttributesArray[item.parentIDIndex];
+    // next line was trying to use the suggestion dev of Bootstrap autocomplete but didn't work
+    // let selectedSearchBox = clockAttributesArray[element.id];
     // set the location to the selected city
     selectedSearchBox.location = `${item.value}`;
     // set the description to match selected city
