@@ -31,6 +31,7 @@ let TzNamesArray = moment.tz.names();
 let tzNamesObject = TzNamesArray.reduce(function(o, val) { o[val.replace('_',' ')] = val; return o; }, {});
 
 // declare two global moment objects to be used in 12/24 hour toggle
+// FIXME: These need to not be specific like this
 let momentObjST1 = {};
 let momentObjST2 = {};
 
