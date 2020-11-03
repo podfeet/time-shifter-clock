@@ -4,7 +4,9 @@
 // Define globally-scoped variables
 // 
 
-// opening in Textastic via Git on iPad
+  // TODO: do this!
+  // FIXME: I need fixing
+  //  BUG: another bug
 
 // Variables Representing Optional Time formats
 let h = 'h';
