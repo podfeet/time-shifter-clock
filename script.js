@@ -546,13 +546,9 @@ $('#addClock').click(function(){
       if (index < 1){
         return;
       }else{
-      $(`#${element.timeID}`).html(moment.tz(element.location).format(FORMATTEDTIME));
+        $(`#${element.timeID}`).html(moment.tz(element.location).format(FORMATTEDTIME));
       }
     });
-
-    // clockAttributesArray.forEach(function(selectedSearchBox) {
-    //   $(`#${selectedSearchBox.timeID}`).html(moment.tz(this.location).format(FORMATTEDTIME));
-    // });
 
     // reset range slider and label back to 0
     $("input[type=range]").val(0);
