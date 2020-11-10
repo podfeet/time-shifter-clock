@@ -564,14 +564,12 @@ $('#addClock').click(function(){
     for (i=1; i < clockAttributesArray.length; i++){
       let timeShiftedVal = $("input[type=range]").val();
       let thisLocation = `${clockAttributesArray[i].location}`;
-      let thisID = `${clockAttributesArray[i].timeID}`;
       // create a moment object for the time at this location
       let thisTime = moment.tz(thisLocation);
+      // create moment object for the time rounded down to nearest hour
       let roundDownTime = thisTime.startOf('h');
-      // shift hours
+      // shift hours by adding the slider's offset to the rounded down time and putting it back into the correct ID
       $(`#${clockAttributesArray[i].timeID}`).html(roundDownTime.add(timeShiftedVal, 'h').format(FORMATTEDTIME));
-      // shift min - I think this is obsolete that I was going to have a minute slider
-      // $(thisID).html(roundDownTime.add(thisClock.value, 'm').format(FORMATTEDTIME));
     }
   });
 
