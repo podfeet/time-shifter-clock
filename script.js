@@ -361,7 +361,7 @@ $(function(){
       // Put the clocks up, enable/disable interval, and enable timeshifting
       this.putClockUp();
       this.clockInterval();
-      this.shiftTime();
+      // this.shiftTime();
       this.addSearchBox();
     }
     // ****************************** //
@@ -386,44 +386,38 @@ $(function(){
       }else{return}
     }
     // BUG: The shifter is causing new location to revert back to original
+    // IDEA: shiftTime is inside the class definition (see comment line 450'ish "complete AClcok Class definition")
+    // so maybe this and self ARE appropriate here. so perhaps shiftTime has to get outside the class definition.
+
     // note that the problem doesn't happen with 12/24 hour toggle so it's in here somewhere
-    shiftTime(){
-      // starting at clockAttributesArray[1] because 0 isn't time shifted
-      // for (i=1; i < clockAttributesArray.length; i++){
-      //   let thisClock = `${clockAttributesArray[i]}`
-      //   let thisLocation = `${clockAttributesArray[i].location}`
-      //   let thisID = `${clockAttributesArray[i].timeID}`
-      //   console.log(thisLocation);
-      //   let currentTime = moment.tz(thisLocation);
-      //   let roundDownTime = currentTime.startOf('h');
-      //   // shift hours
-      //   $(thisID).html(roundDownTime.add(thisClock.value, 'h').format(FORMATTEDTIME));
-      //   // shift min
-      //   $(thisID).html(roundDownTime.add(thisClock.value, 'm').format(FORMATTEDTIME));
-      // }
+    // for (i=1; i < clockAttributesArray.length; i++){
+    //   console.log(clockAttributesArray[i].locaion);
+    // }
+    
+    // shiftTime(){
+    //   // if this.timeShifted is true, then shift time with sliders
+    //   let self = this;
+    //   if (this.timeShifted){
+    //     console.log(`before shifting location is ${self.location}`); // FIXME: it's already Los Angeles here before I start shifting
+    //     // shift hours
+    //     $('#changeHrs').on('input change', function(){
+    //       console.log(`on input change location is ${self.location}`); //FIXME: Reverted to original Los Angeles
+    //       console.log(`on input change clockAttributesArray[1].location is ${clockAttributesArray[1].location}`); //Says Paris
 
-      // if this.timeShifted is true, then shift time with sliders
-      let self = this;
-      if (this.timeShifted){
-        console.log(`before shifting location is ${self.location}`); // FIXME: it's already Los Angeles here before I start shifting
-        // shift hours
-        $('#changeHrs').on('input change', function(){
-          console.log(`on input change location is ${self.location}`); //FIXME: Reverted to original Los Angeles
-          console.log(`on input change clockAttributesArray[1].location is ${clockAttributesArray[1].location}`); //Says Paris
+    //       // BUG: self.location reverts back to original loc, but the Array does have the new location
+    //       // BUG: interestingly first time is def LA, showed LA time when I was in Denver.
+    //       // I think I need to get rid of the self nonsense, and go with iterating over clocks
 
-          // ALERT: self.location reverts back to original loc, but the Array does have the new location
-          // I think I need to get rid of the self nonsense, and go with iterating over clocks
-
-          let currentTime = moment.tz(self.location);
-          let roundDownTime = currentTime.startOf('h');
-          $(`#${self.timeID}`).html(roundDownTime.add(this.value, 'h').format(FORMATTEDTIME));
-        })
-        // shift min
-        $('#changeMin').on('input change', function(){
-          $(`#${self.timeID}`).html(roundDownTime.add(this.value, 'm').format(self.timeFormat));
-        })
-      }else{return}
-    }
+    //       let currentTime = moment.tz(self.location);
+    //       let roundDownTime = currentTime.startOf('h');
+    //       $(`#${self.timeID}`).html(roundDownTime.add(this.value, 'h').format(FORMATTEDTIME));
+    //     })
+    //     // shift min
+    //     $('#changeMin').on('input change', function(){
+    //       $(`#${self.timeID}`).html(roundDownTime.add(this.value, 'm').format(self.timeFormat));
+    //     })
+    //   }else{return}
+    // }
     // Add text search box for cities
     addSearchBox(){
       if (this.timeShifted){
@@ -598,6 +592,58 @@ $('#addClock').click(function(){
       });
   }
   showSliderLabel();
+
+  // event handler to shift time with slider
+  
+  $('#changeHrs').on('input change', function(){
+    for (i=1; i < clockAttributesArray.length; i++){
+      // let thisClock = `${clockAttributesArray[i]}`;
+      // console.log(${clockAttributesArray[i].value}`); // does NOT know value - undefined
+      // console.log($('#changeHrs')); // value stays at 0
+      let timeShiftedVal = $("input[type=range]").val();
+      console.log(timeShiftedVal); // this shows the value of the slider
+      let thisLocation = `${clockAttributesArray[i].location}`;
+      let thisID = `${clockAttributesArray[i].timeID}`;
+      console.log(thisID); // returns sequential IDS of searchTime-[i]
+      // console.log(thisLocation); // returns locations even for new cities
+      // create a moment object for the time at this locaion
+      let thisTime = moment.tz(thisLocation);
+      // console.log(thisTime); // returns moment objects even for new cities
+      let roundDownTime = thisTime.startOf('h');
+      // console.log(roundDownTime); // returns moment objects but rounded down to nearest hour
+      // shift hours
+      // thisClock.value doesn't work, that's undefined
+      // timeShiftedVal would seem to work, at least it's a number of hours to add
+      // $('#searchTime-1').html(moment.tz('America/Los_Angeles').add(1,'h').format('h:mm'));
+      $(`#${clockAttributesArray[i].timeID}`).html(roundDownTime.add(timeShiftedVal, 'h').format(FORMATTEDTIME));
+      // shift min - I think this is obsolete that I was going to have a minute slider
+      // $(thisID).html(roundDownTime.add(thisClock.value, 'm').format(FORMATTEDTIME));
+    }
+  });
+
+  // shiftTime();
+
+  // function to shift time with slider
+  // function shiftTime(){
+  //   // starting at clockAttributesArray[1] because 0 isn't time shifted
+  //   for (i=1; i < clockAttributesArray.length; i++){
+  //     let thisClock = `${clockAttributesArray[i]}`;
+  //     let thisLocation = `${clockAttributesArray[i].location}`;
+  //     let thisID = `${clockAttributesArray[i].timeID}`;
+  //     console.log(thisLocation);
+  //     // when dragging slider...
+  //     $('#changeHrs').on('input change', function(){
+  //       let currentTime = moment.tz(thisLocation);
+  //       let roundDownTime = currentTime.startOf('h');
+  //       // shift hours
+  //       $(thisID).html(roundDownTime.add(thisClock.value, 'h').format(FORMATTEDTIME));
+  //       // shift min
+  //       $(thisID).html(roundDownTime.add(thisClock.value, 'm').format(FORMATTEDTIME));
+  //     })
+  //   };
+  // }
+  // shiftTime();    
+
 
   // Adds Bootstrap autocomplete function to the ID #myAutocomplete
 
