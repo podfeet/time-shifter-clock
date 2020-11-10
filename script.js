@@ -385,39 +385,7 @@ $(function(){
         setInterval(this.aRenderTime.bind(this), 1000);
       }else{return}
     }
-    // BUG: The shifter is causing new location to revert back to original
-    // IDEA: shiftTime is inside the class definition (see comment line 450'ish "complete AClcok Class definition")
-    // so maybe this and self ARE appropriate here. so perhaps shiftTime has to get outside the class definition.
-
-    // note that the problem doesn't happen with 12/24 hour toggle so it's in here somewhere
-    // for (i=1; i < clockAttributesArray.length; i++){
-    //   console.log(clockAttributesArray[i].locaion);
-    // }
     
-    // shiftTime(){
-    //   // if this.timeShifted is true, then shift time with sliders
-    //   let self = this;
-    //   if (this.timeShifted){
-    //     console.log(`before shifting location is ${self.location}`); // FIXME: it's already Los Angeles here before I start shifting
-    //     // shift hours
-    //     $('#changeHrs').on('input change', function(){
-    //       console.log(`on input change location is ${self.location}`); //FIXME: Reverted to original Los Angeles
-    //       console.log(`on input change clockAttributesArray[1].location is ${clockAttributesArray[1].location}`); //Says Paris
-
-    //       // BUG: self.location reverts back to original loc, but the Array does have the new location
-    //       // BUG: interestingly first time is def LA, showed LA time when I was in Denver.
-    //       // I think I need to get rid of the self nonsense, and go with iterating over clocks
-
-    //       let currentTime = moment.tz(self.location);
-    //       let roundDownTime = currentTime.startOf('h');
-    //       $(`#${self.timeID}`).html(roundDownTime.add(this.value, 'h').format(FORMATTEDTIME));
-    //     })
-    //     // shift min
-    //     $('#changeMin').on('input change', function(){
-    //       $(`#${self.timeID}`).html(roundDownTime.add(this.value, 'm').format(self.timeFormat));
-    //     })
-    //   }else{return}
-    // }
     // Add text search box for cities
     addSearchBox(){
       if (this.timeShifted){
@@ -518,9 +486,6 @@ $('#addClock').click(function(){
 
   // Set time on searchClocks to the entered location
 
-  // BUG: changing location in searchbox works but slider changes time back to original location 
-  // IDEA: I need to push the attributes back into the array so they stick
-  // FIXME: Will need to figure out how to put back the _ in some names
   
   function onSelectItem(item){ 
     // console.log(element.id); // returns searchClock-1
@@ -597,53 +562,18 @@ $('#addClock').click(function(){
   
   $('#changeHrs').on('input change', function(){
     for (i=1; i < clockAttributesArray.length; i++){
-      // let thisClock = `${clockAttributesArray[i]}`;
-      // console.log(${clockAttributesArray[i].value}`); // does NOT know value - undefined
-      // console.log($('#changeHrs')); // value stays at 0
       let timeShiftedVal = $("input[type=range]").val();
-      console.log(timeShiftedVal); // this shows the value of the slider
       let thisLocation = `${clockAttributesArray[i].location}`;
       let thisID = `${clockAttributesArray[i].timeID}`;
-      console.log(thisID); // returns sequential IDS of searchTime-[i]
-      // console.log(thisLocation); // returns locations even for new cities
-      // create a moment object for the time at this locaion
+      // create a moment object for the time at this location
       let thisTime = moment.tz(thisLocation);
-      // console.log(thisTime); // returns moment objects even for new cities
       let roundDownTime = thisTime.startOf('h');
-      // console.log(roundDownTime); // returns moment objects but rounded down to nearest hour
       // shift hours
-      // thisClock.value doesn't work, that's undefined
-      // timeShiftedVal would seem to work, at least it's a number of hours to add
-      // $('#searchTime-1').html(moment.tz('America/Los_Angeles').add(1,'h').format('h:mm'));
       $(`#${clockAttributesArray[i].timeID}`).html(roundDownTime.add(timeShiftedVal, 'h').format(FORMATTEDTIME));
       // shift min - I think this is obsolete that I was going to have a minute slider
       // $(thisID).html(roundDownTime.add(thisClock.value, 'm').format(FORMATTEDTIME));
     }
   });
-
-  // shiftTime();
-
-  // function to shift time with slider
-  // function shiftTime(){
-  //   // starting at clockAttributesArray[1] because 0 isn't time shifted
-  //   for (i=1; i < clockAttributesArray.length; i++){
-  //     let thisClock = `${clockAttributesArray[i]}`;
-  //     let thisLocation = `${clockAttributesArray[i].location}`;
-  //     let thisID = `${clockAttributesArray[i].timeID}`;
-  //     console.log(thisLocation);
-  //     // when dragging slider...
-  //     $('#changeHrs').on('input change', function(){
-  //       let currentTime = moment.tz(thisLocation);
-  //       let roundDownTime = currentTime.startOf('h');
-  //       // shift hours
-  //       $(thisID).html(roundDownTime.add(thisClock.value, 'h').format(FORMATTEDTIME));
-  //       // shift min
-  //       $(thisID).html(roundDownTime.add(thisClock.value, 'm').format(FORMATTEDTIME));
-  //     })
-  //   };
-  // }
-  // shiftTime();    
-
 
   // Adds Bootstrap autocomplete function to the ID #myAutocomplete
 
@@ -662,21 +592,6 @@ function addAutocomplete(){
 };
 
 addAutocomplete();
-  
-
-  // $('#sbsearchClock1').autocomplete({
-  //     source: tzNamesObject, // dictionary object with the values from which to search
-  //     onSelectItem: onSelectItem1, // callback to run when item is selected
-  //     highlightTyped: false, // if typed text is highlighted in search results, the name gets broken in two for screen readers. e.g. "Det roit"
-  //     treshold: 3 // minimum characters to search before it starts displaying
-  // });
-  // $('#sbsearchClock2').autocomplete({
-  //     source: tzNamesObject, // dictionary object with the values from which to search
-  //     onSelectItem: onSelectItem2, // callback to run when item is selected
-  //     highlightTyped: false, // if typed text is highlighted in search results, the name gets broken in two for screen readers. e.g. "Det roit"
-  //     treshold: 1 // minimum characters to search before it starts displaying
-  // });
-
 
 // ********************************************************* //
 // Click Handler checking for 12/24 hr //
