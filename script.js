@@ -679,23 +679,20 @@ $(function () {
       }
 
       // find search times and remove spaces
-      // let localT = $('#localTSTime').html();
+      
       let searchT1 = $("#search1Time").html();
       let searchT2 = $("#search2Time").html();
 
-      // let lT = localT.replace(space, '+')
       let sT1 = searchT1.replace(space, "+");
       let sT2 = searchT2.replace(space, "+");
 
       // find time descriptions (locations) and search city names & remove spaces
-      // let localTimeDesc = $('#localTSID').html();
       let searchTimeDesc1 = $("#search1TSID").html();
       let searchTimeDesc2 = $("#search2TSID").html();
       let searchCity1 = $("#sbsearchClock1").val();
       let searchCity2 = $("#sbsearchClock2").val();
 
       // trim any spaces on either side and replace spaces with + so the URL works
-      // let lTD = localTimeDesc.trim().replace(space, '+');
       let sTD1 = searchTimeDesc1.trim().replace(space, "+");
       let sTD2 = searchTimeDesc2.trim().replace(space, "+");
       let sC1 = searchCity1.trim().replace(space, "+");
