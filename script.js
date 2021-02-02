@@ -648,8 +648,6 @@ $(function () {
   let st1 = $("#searchTime-1").html(); // search time 1
   console.log(`Time in reference city is ${st1}`);
   // convert the first time and location into UTC time
-  // NO - this just returns current UTC. Doesn't work if tme gets shifted
-  // 
   let utcT = moment.tz(st1, FORMATTEDTIME, sl1).utc().format(); // converting st1 to UTC time
   console.log(`UTC time is ${utcT}`);
 
