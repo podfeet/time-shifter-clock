@@ -559,7 +559,6 @@ $(function () {
         // creates strings from the visible time values for time-shifted clocks
         let searchT = $(`#searchTime-${i}`).html();
         // creates a moment object from time strings
-        momentObjST = moment(searchT);
         momentObjST = moment(searchT,FORMATTEDTIME);
         // render moment objects with toggled time format back into clocks
         $(`#searchTime-${i}`).html(momentObjST.format(FORMATTEDTIME));
@@ -636,8 +635,23 @@ $(function () {
       FORMATTEDTIME = TIME24WOSEC;
     }
   }
-
+  // ========================
   // creating sendable times
+  //=========================
+
+  // Extract information from clocks
+
+  // Find Time in UTC
+  // #searchTime-1 will always exist, it's the first clock
+  let sl1 = clockAttributesArray[1].location; // search location 1
+  console.log(`Reference city is ${sl1}`);
+  let st1 = $("#searchTime-1").html(); // search time 1
+  console.log(`Time in reference city is ${st1}`);
+  // convert the first time and location into UTC time
+  // NO - this just returns current UTC. Doesn't work if tme gets shifted
+  // 
+  let utcT = moment.tz(st1, FORMATTEDTIME, sl1).utc().format(); // converting st1 to UTC time
+  console.log(`UTC time is ${utcT}`);
 
   function setTimesFromURL() {
     if (window.location.search) {
