@@ -560,6 +560,7 @@ $(function () {
         let searchT = $(`#searchTime-${i}`).html();
         // creates a moment object from time strings
         momentObjST = moment(searchT);
+        momentObjST = moment(searchT,FORMATTEDTIME);
         // render moment objects with toggled time format back into clocks
         $(`#searchTime-${i}`).html(momentObjST.format(FORMATTEDTIME));
       } // end else
