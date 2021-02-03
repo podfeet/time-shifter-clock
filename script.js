@@ -655,6 +655,20 @@ $(function () {
   let convertedBack = moment.utc(utcT).tz(sl1).format(FORMATTEDTIME)
   console.log(`Time back in LA is ${convertedBack}`); // This shows correctly returned time in FORMATTEDTIME
 
+  // Now I need a loop to build the URL that goes through clockAttributesArray[i].location
+  // Would it be easier to build the URL with quotes instead of getting rid of spaces? and I only need to get rid of spaces in UCTtime
+  // this builds an array of the locations of each clock (in quotes!), which can be inserted into the URL with a loop on arrayOfLocations[i]
+
+  let arrayOfLocations = [];
+    for (i = 1; i < clockAttributesArray.length; i++){
+    let x = clockAttributesArray[i].location;
+    arrayOfLocations.push(x);
+  }
+console.log(`All locations: ${arrayOfLocations}`); // csv of locations not the array itself
+console.log(arrayOfLocations); // the array itself
+
+  
+
   function setTimesFromURL() {
     if (window.location.search) {
       // queryStringSend;
