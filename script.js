@@ -455,6 +455,7 @@ $(function () {
     // create another clock with the attributes
     let x = new AClock(clockAttributesArray[numCl]);
     arrayOfClocks.push(x);
+    arrayOfLocations.push(x.location);
     // need to render all the clocks
     addAutocomplete();
   });
