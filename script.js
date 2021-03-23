@@ -437,7 +437,7 @@ $(function () {
     let x = new AClock(clockAttributesArray[i]);
     arrayOfClocks.push(x);
   }
-  // click handler to add a clock
+  // click handler to add a another city clock
   $("#addClock").click(function () {
     numCl = numCl + 1; // increment sequence to
     clockAttributesArray.push({
