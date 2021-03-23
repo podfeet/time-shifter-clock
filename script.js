@@ -665,6 +665,9 @@ $(function () {
   // Would it be easier to build the URL with quotes instead of getting rid of spaces? and I only need to get rid of spaces in UCTtime
   // this builds an array of the locations of each clock (in quotes!), which can be inserted into the URL with a loop on arrayOfLocations[i]
 
+  //SQUIRREL I'm not sure this gets updated when add city button is clicked
+  //SQUIRREL Actually need to be updated whenever the city changes too, and so does clock1
+
   let arrayOfLocations = [];
     for (i = 1; i < clockAttributesArray.length; i++){
     let x = clockAttributesArray[i].location;
@@ -673,7 +676,7 @@ $(function () {
 console.log(`All locations: ${arrayOfLocations}`); // csv of locations not the array itself
 console.log(arrayOfLocations); // the array itself
 
-  
+
 
   function setTimesFromURL() {
     if (window.location.search) {
