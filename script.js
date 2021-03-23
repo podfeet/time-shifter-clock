@@ -703,45 +703,29 @@ console.log(arrayOfLocations); // the array itself
     }
   }
   setTimesFromURL();
-
-  // Event handler for the copy button to create the URL
+  // ================================================================
+  // New and improved event handler for copy button to create the URL
+  // ================================================================
   $("#copyBtn").click(function () {
     function createURL() {
-      // need to remove spaces in values & replace with +
-      const space = /\s/g;
-
-      // check to see if 12/24 toggle is on 24
-      let time12 = new Boolean(); // defaults to false
-      if ($("#numHrs").prop("checked") == false) {
-        time12 = false;
-      } else {
-        time12 = true;
-      }
-
-      // find search times and remove spaces
-      
-      let searchT1 = $("#search1Time").html();
-      let searchT2 = $("#search2Time").html();
-
-      let sT1 = searchT1.replace(space, "+");
-      let sT2 = searchT2.replace(space, "+");
-
-      // find time descriptions (locations) and search city names & remove spaces
-      let searchTimeDesc1 = $("#search1TSID").html();
-      let searchTimeDesc2 = $("#search2TSID").html();
-      let searchCity1 = $("#sbsearchClock1").val();
-      let searchCity2 = $("#sbsearchClock2").val();
-
-      // trim any spaces on either side and replace spaces with + so the URL works
-      let sTD1 = searchTimeDesc1.trim().replace(space, "+");
-      let sTD2 = searchTimeDesc2.trim().replace(space, "+");
-      let sC1 = searchCity1.trim().replace(space, "+");
-      let sC2 = searchCity2.trim().replace(space, "+");
-
       // split the url to remove any existing search queries
       let thisURL = $(location).attr("href").split("?")[0];
+      
       // create the url adding FORMATTEDTIME to the end
-      sendableURL = `${thisURL}?searchtime1=${sT1}&searchtime2=${sT2}&searchTimeDesc1=${sTD1}&searchTimeDesc2=${sTD2}&searchCity1=${sC1}&searchCity2=${sC2}&time12=${time12}`;
+      // sendableURL = `${thisURL}?searchtime1=${sT1}&searchtime2=${sT2}&searchTimeDesc1=${sTD1}&searchTimeDesc2=${sTD2}&searchCity1=${sC1}&searchCity2=${sC2}&time12=${time12}`;
+
+      // I need to build a string with a loop
+      let sendableURL = `${thisURL}?`;
+      for (i = 1; i < arrayOfLocations.length; i++){
+        // sl means search location
+        let sl = arrayOfLocations[i].location;
+        console.log(`search location is ${sl}`);
+        //searchtime1=${sT1}
+        //FIXME haven't defined sloc yet!
+        sendableURL += `sloc${i}` + `=` + `sl${i}`;
+      }
+      console.log(sendableURL); // returns http://localhost:8888/time-shifter-clock/?sloc1=sl1
+
 
       async function writeURLtoClipboard(text) {
         try {
