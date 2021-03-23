@@ -8,6 +8,9 @@
 // TODO: do this!
 // FIXME: I need fixing
 // BUG: another bug
+// HACK: this is a hack
+// NOTE: This is a note 
+// SQUIRREL: this is a squirrel
 
 // Variables Representing Optional Time formats
 let h = "h";
