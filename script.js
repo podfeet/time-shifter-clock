@@ -521,10 +521,14 @@ $(function () {
     $(`#${selectedSearchBox.timeDescriptionID}`).html(
       selectedSearchBox.timeDescription
     );
-
     $(`#${selectedSearchBox.timeID}`).html(
       moment.tz(selectedSearchBox.location).format(FORMATTEDTIME)
     );
+    // change city in arrayOfLocations
+    //BUG still shows old location
+
+    arrayOfLocations[item.parentIDIndex].location = selectedSearchBox.location;
+    console.log(`arrayOfLocations from change city: ${arrayOfLocations}`);
 
     clockAttributesArray.forEach(function (element, index) {
       if (index < 1) {
