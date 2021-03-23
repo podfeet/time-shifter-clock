@@ -513,8 +513,6 @@ $(function () {
   function onSelectItem(item) {
     // console.log(element.id); // returns searchClock-1
     let selectedSearchBox = clockAttributesArray[item.parentIDIndex];
-    // next line was trying to use the suggestion dev of Bootstrap autocomplete but didn't work
-    // let selectedSearchBox = clockAttributesArray[element.id];
     // set the location to the selected city
     selectedSearchBox.location = `${item.value}`;
     // set the description to match selected city
