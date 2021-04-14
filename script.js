@@ -445,8 +445,8 @@ $(function () {
     let y = clockAttributesArray[i].location;
     arrayOfLocations.push(y);
   
-  console.log(`All locations: ${arrayOfLocations}`); // csv of locations not the array itself
-  console.log(arrayOfLocations); // the array itself
+  // console.log(`All locations: ${arrayOfLocations}`); // csv of locations not the array itself
+  // console.log(arrayOfLocations); // the array itself
 
   }
   // click handler to add a another city clock
@@ -525,14 +525,14 @@ $(function () {
   // Set time on searchClocks to the entered location
 
   function onSelectItem(item) {
-    console.log(`ID of search box is ${item.parentIDIndex}`); // returns correct ID e.g. "1"
+    // console.log(`ID of search box is ${item.parentIDIndex}`); // returns correct ID e.g. "1"
     let x = item.parentIDIndex;
     let selectedSearchBox = clockAttributesArray[x];
 
     // set the location to the selected city
     selectedSearchBox.location = `${item.value}`;
 
-    console.log(`selectedSearchBox location is ${selectedSearchBox.location}`); // correctly shows new location
+    // console.log(`selectedSearchBox location is ${selectedSearchBox.location}`); // correctly shows new location
 
     // set the description to match selected city
     selectedSearchBox.timeDescription = `Time in ${item.label} becomes:`;
@@ -547,14 +547,12 @@ $(function () {
     
     // SQUIRREL:  note that clicking in EITHER city box throws an error "Emtpy string passed to getElementByID(). says FormAutofillHeuristics.jsm:403:22" doesn't seem to hurt anything tho?
 
-    console.log(`array of locations before thinks it is ${arrayOfLocations}`); 
-    // maybe arrayOfLocations doesn't exist yet?
+    // console.log(`array of locations before thinks it is ${arrayOfLocations}`); 
 
     arrayOfLocations[x] = selectedSearchBox.location;
 
-    console.log(`this location is ${arrayOfLocations[x]}`);
-
-    console.log(`arrayOfLocations after change city: ${arrayOfLocations}`);
+    // console.log(`this location is ${arrayOfLocations[x]}`);
+    // console.log(`arrayOfLocations after change city: ${arrayOfLocations}`);
 
     clockAttributesArray.forEach(function (element, index) {
       if (index < 1) {
