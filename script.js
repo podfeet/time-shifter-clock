@@ -728,13 +728,25 @@ $(function () {
 
       // I need to build a string with a loop
       let sendableURL = `${thisURL}?`;
+      
+      // Find Time in UTC
+      // #searchTime-1 will always exist, it's the first clock
+      let sl1 = clockAttributesArray[1].location; // search location 1 (default Los Angeles)
+      // console.log(`Reference city is ${sl1}`);
+      let st1 = $("#searchTime-1").html(); // search time 1
+      // console.log(`Time in reference city is ${st1}`);
+      // convert the first time and location into UTC time
+      let utcT = moment.tz(st1, FORMATTEDTIME, sl1).utc().format(); // converting st1 to UTC time
+      // console.log(`UTC time is ${utcT}`);
+      sendableURL += `utcT="${utcT}"` // put UTC time in quotes so no spaces
+
       for (i = 1; i < arrayOfLocations.length; i++){
         // sl means search location
-        let sl = arrayOfLocations[i].location;
-        console.log(`search location is ${sl}`);
+        let sl = arrayOfLocations[i];
+        console.log(`search location is ${sl}`); // sl is the city name in the loop
         //searchtime1=${sT1}
         //FIXME haven't defined sloc yet!
-        sendableURL += `sloc${i}` + `=` + `sl${i}`;
+        sendableURL += `&sloc${i}` + `=` + `${sl}`;
       }
       console.log(sendableURL); // returns http://localhost:8888/time-shifter-clock/?sloc1=sl1
 
