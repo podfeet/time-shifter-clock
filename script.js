@@ -87,6 +87,9 @@ let arrayOfClocks = [];
 // clocks 1 and 2 are default clocks, numCl is a counter of clocks
 let numCl = 2;
 
+// All locations will be pushed into here
+let arrayOfLocations = [];
+
 //
 // Document Ready Handler
 //
