@@ -439,6 +439,15 @@ $(function () {
   for (i = 0; i < clockAttributesArray.length; i++) {
     let x = new AClock(clockAttributesArray[i]);
     arrayOfClocks.push(x);
+
+    // this builds an array of the locations of each clock (in quotes!), which can be inserted into the URL with a loop on arrayOfLocations[i]
+    
+    let y = clockAttributesArray[i].location;
+    arrayOfLocations.push(y);
+  
+  console.log(`All locations: ${arrayOfLocations}`); // csv of locations not the array itself
+  console.log(arrayOfLocations); // the array itself
+
   }
   // click handler to add a another city clock
   $("#addClock").click(function () {
@@ -461,6 +470,8 @@ $(function () {
     arrayOfLocations.push(x.location);
     // need to render all the clocks
     addAutocomplete();
+
+    console.log(`arrayOfLocations is updated to: ${arrayOfLocations}`);
   });
 
   // pull the query string that may have been received in the URL
@@ -514,10 +525,15 @@ $(function () {
   // Set time on searchClocks to the entered location
 
   function onSelectItem(item) {
-    // console.log(element.id); // returns searchClock-1
-    let selectedSearchBox = clockAttributesArray[item.parentIDIndex];
+    console.log(`ID of search box is ${item.parentIDIndex}`); // returns correct ID e.g. "1"
+    let x = item.parentIDIndex;
+    let selectedSearchBox = clockAttributesArray[x];
+
     // set the location to the selected city
     selectedSearchBox.location = `${item.value}`;
+
+    console.log(`selectedSearchBox location is ${selectedSearchBox.location}`); // correctly shows new location
+
     // set the description to match selected city
     selectedSearchBox.timeDescription = `Time in ${item.label} becomes:`;
     // render the time description in the clock
@@ -528,10 +544,17 @@ $(function () {
       moment.tz(selectedSearchBox.location).format(FORMATTEDTIME)
     );
     // change city in arrayOfLocations
-    //BUG still shows old location
+    
+    // SQUIRREL:  note that clicking in EITHER city box throws an error "Emtpy string passed to getElementByID(). says FormAutofillHeuristics.jsm:403:22" doesn't seem to hurt anything tho?
 
-    arrayOfLocations[item.parentIDIndex].location = selectedSearchBox.location;
-    console.log(`arrayOfLocations from change city: ${arrayOfLocations}`);
+    console.log(`array of locations before thinks it is ${arrayOfLocations}`); 
+    // maybe arrayOfLocations doesn't exist yet?
+
+    arrayOfLocations[x] = selectedSearchBox.location;
+
+    console.log(`this location is ${arrayOfLocations[x]}`);
+
+    console.log(`arrayOfLocations after change city: ${arrayOfLocations}`);
 
     clockAttributesArray.forEach(function (element, index) {
       if (index < 1) {
@@ -666,18 +689,6 @@ $(function () {
 
   // Now I need a loop to build the URL that goes through clockAttributesArray[i].location
   // Would it be easier to build the URL with quotes instead of getting rid of spaces? and I only need to get rid of spaces in UCTtime
-  // this builds an array of the locations of each clock (in quotes!), which can be inserted into the URL with a loop on arrayOfLocations[i]
-
-  //SQUIRREL I'm not sure this gets updated when add city button is clicked
-  //SQUIRREL Actually need to be updated whenever the city changes too, and so does clock1
-
-  let arrayOfLocations = [];
-    for (i = 1; i < clockAttributesArray.length; i++){
-    let x = clockAttributesArray[i].location;
-    arrayOfLocations.push(x);
-  }
-console.log(`All locations: ${arrayOfLocations}`); // csv of locations not the array itself
-console.log(arrayOfLocations); // the array itself
 
 
 
