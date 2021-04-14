@@ -745,10 +745,10 @@ $(function () {
         let sl = arrayOfLocations[i];
         console.log(`search location is ${sl}`); // sl is the city name in the loop
         //searchtime1=${sT1}
-        //FIXME haven't defined sloc yet!
+      
         sendableURL += `&sloc${i}` + `=` + `${sl}`;
       }
-      console.log(sendableURL); // returns http://localhost:8888/time-shifter-clock/?sloc1=sl1
+      console.log(sendableURL); // returns http://localhost:8888/time-shifter-clock/?utcT="2021-04-14T04:13:25Z"&sloc1=America/Los_Angeles&sloc2=Europe/Dublin&sloc3=Pacific/Auckland&sloc4=America/Detroit
 
 
       async function writeURLtoClipboard(text) {
