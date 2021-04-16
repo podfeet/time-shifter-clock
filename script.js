@@ -742,7 +742,7 @@ $(function () {
       // convert the first time and location into UTC time
       let utcT = moment.tz(st1, FORMATTEDTIME, sl1).utc().format(); // converting st1 to UTC time
       // console.log(`UTC time is ${utcT}`);
-      sendableURL += `utcT="${utcT}"` // put UTC time in quotes so no spaces
+      sendableURL += `utcT=${utcT}`
 
       for (i = 1; i < arrayOfLocations.length; i++){
         // sl means search location
