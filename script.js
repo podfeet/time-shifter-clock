@@ -474,6 +474,10 @@ $(function () {
     console.log(`arrayOfLocations is updated to: ${arrayOfLocations}`);
   });
 
+  // ********************************************************* //
+  // Check Query String, set defaults if empty                 //
+  // ********************************************************* //
+
   // pull the query string that may have been received in the URL
   const queryStringReceived = window.location.search;
 
