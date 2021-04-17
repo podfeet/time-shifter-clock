@@ -698,6 +698,7 @@ $(function () {
       const queryStringReceived = window.location.search;
       // Determine if URL has a query string and pass values to search clocks or send defaults if not
       // SQUIRREL: This code works to modify clockAttributesArray but the clocks themselves don't update. see ~line 678 fimctopm setTimesFromURL()
+      // BUG: this FAILS if there are 3 clocks since it doens't know where to put that third location - there aren't already 3 clocks
       function checkQuery() {
         // if URL has no query string use these defaults
         let searchParams = new URLSearchParams(queryStringReceived);
