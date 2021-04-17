@@ -704,14 +704,14 @@ $(function () {
         let paramArray = [];
         for (let pair of searchParams.entries()){
           paramArray.push(pair);
-          let utcT = paramArray[0][1] // this should be the real utcT
           for (i=1; i < paramArray.length; i++){
             clockAttributesArray[i].location = paramArray[i][1];
             clockAttributesArray[i].timeDescription = `The time in ${paramArray[i][1]} becomes:`
             // SQUIRREL: I think I was supposed to created sc1 and sC2, etc.
           }
+          let utcT = paramArray[0][1] // this should be the real utcT
+          console.log(`utcT from the URL is ${utcT}`);
         }
-        // TODO: Add time toggle to URL - was &time12=true 
       }
       checkQuery();
 
