@@ -675,7 +675,10 @@ $(function () {
 
   // Extract information from clocks
 
-  // Find Time in UTC
+  // ========================
+  // UTC TIME CONVERSION 
+  //=========================
+
   // #searchTime-1 will always exist, it's the first clock
   let sl1 = clockAttributesArray[1].location; // search location 1 (default Los Angeles)
   console.log(`Reference city is ${sl1}`);
