@@ -482,42 +482,24 @@ $(function () {
   const queryStringReceived = window.location.search;
 
   // Determine if URL has a query string and pass values to search clocks or send defaults if not
+
+  // SQUIRREL: This code works to modify clockAttributesArray but the clocks themselves don't update. see ~line 678 fimctopm setTimesFromURL()
   function checkQuery() {
-    // regex to find spaces
-    const space = /\s/g;
     // if URL has no query string use these defaults
-    if (queryStringReceived == "") {
-      // default city and location description for searchClock1
-      sC1 = "America/Los_Angeles";
-      sTD1 = "Time in America/Los_Angeles becomes:";
-      // default city and location description for searchClock1
-      sC2 = "Europe/Dublin";
-      sTD2 = "Time in Europe/Dublin becomes:";
-    } else {
-      myUrlParam = new URLSearchParams(queryStringReceived);
-      // If URL does have a query string, pull the time descriptions for search clocks
-      // These exist even if the user hasn't entered a search city
-      sTD1 = myUrlParam.get("searchTimeDesc1");
-      sTD2 = myUrlParam.get("searchTimeDesc2");
-
-      // Check to see if a search city has been entered for the search clocks
-      // If not set it to the defaults
-      // If they have, pull it from the query string
-      if (myUrlParam.get("searchCity1") == "") {
-        sC1 = "America/Los_Angeles";
-      } else {
-        // pull search city from the url and replace any spaces in the name with underscores
-        sC1 = myUrlParam.get("searchCity1").replace(space, "_");
-        // console.log(sC1);
+    if (queryStringReceived !== "") {
+     let searchParams = new URLSearchParams(queryStringReceived);
+     let paramArray = [];
+     for (let pair of searchParams.entries()){
+       paramArray.push(pair);
+      let utcT = paramArray[0][1] // this should be the real utcT
+      for (i=1; i < paramArray.length; i++){
+        clockAttributesArray[i].location = paramArray[i][1];
+        clockAttributesArray[i].timeDescription = `The time in ${paramArray[i][1]} becomes:`
+        // SQUIRREL: I think I was supposed to created sc1 and sC2, etc.
       }
-
-      if (myUrlParam.get("searchCity2") == "") {
-        sC2 = "Europe/Dublin";
-      } else {
-        // pull search city from the url and replace any spaces in the name with underscores
-        sC2 = myUrlParam.get("searchCity2").replace(space, "_");
-      }
+     }
     }
+    // TODO: Add time toggle to URL - was &time12=true 
   }
 
   checkQuery();
