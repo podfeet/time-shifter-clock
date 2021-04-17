@@ -680,9 +680,9 @@ $(function () {
             clockAttributesArray[i].timeDescription = `The time in ${paramArray[i][1]} becomes:`
             // SQUIRREL: I think I was supposed to created sc1 and sC2, etc.
           }
-          let utcT = paramArray[0][1] // this should be the real utcT
-          console.log(`utcT from the URL is ${utcT}`);
         }
+        let utcT = paramArray[0][1] // this should be the real utcT
+        console.log(`utcT from the URL becomes ${utcT}`);
       }
       checkQuery();
 
