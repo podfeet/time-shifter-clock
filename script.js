@@ -42,6 +42,9 @@ let tzNamesObject = TzNamesArray.reduce(function (o, val) {
 let momentObjST1 = {};
 let momentObjST2 = {};
 
+// global variable for adding clocks
+function anotherClock(){};
+
 // attributes of local time and 2 default time-shifting clocks
 // will be used to create clocks in the makeClocks function
 let clockAttributesArray = [
@@ -469,9 +472,9 @@ $(function () {
       let x = new AClock(clockAttributesArray[numCl]);
       arrayOfClocks.push(x);
       arrayOfLocations.push(x.location);
-      // need to render all the clocks
-      addAutocomplete();
       console.log(`arrayOfLocations is updated to: ${arrayOfLocations}`);
+      // need to render all the clocks
+      aRenderTime();
       }
     anotherClock();
   });
@@ -681,6 +684,10 @@ $(function () {
             clockAttributesArray[i].location = paramArray[i][1];
             clockAttributesArray[i].timeDescription = `The time in ${paramArray[i][1]} becomes:`
             // SQUIRREL: I think I was supposed to created sc1 and sC2, etc.
+            for (i=3; i<paramArray.length; i++){ // it did find 3 clocks in test
+              numCl = i; // it does know numCl is 3 in test
+              anotherClock(); // did not create another clock
+            }
           }
         }
         let utcT = paramArray[0][1] // this should be the real utcT
