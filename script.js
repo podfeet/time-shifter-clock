@@ -690,7 +690,33 @@ $(function () {
       //sendableURL will come in like this with unknown number of sloc[i]
       // http://localhost:8888/time-shifter-clock/?utcT="2021-04-14T04:23:43Z"&sloc1=America/Los_Angeles&sloc2=Europe/Dublin
 
-      // $("#localTSTime").html(`${myUrlParam.get("loctime")}`);
+      // ********************************************************* //
+      // Check Query String, set defaults if empty                 //
+      // ********************************************************* //
+
+      // pull the query string that may have been received in the URL
+      const queryStringReceived = window.location.search;
+      // Determine if URL has a query string and pass values to search clocks or send defaults if not
+      // SQUIRREL: This code works to modify clockAttributesArray but the clocks themselves don't update. see ~line 678 fimctopm setTimesFromURL()
+      function checkQuery() {
+        // if URL has no query string use these defaults
+        let searchParams = new URLSearchParams(queryStringReceived);
+        let paramArray = [];
+        for (let pair of searchParams.entries()){
+          paramArray.push(pair);
+          let utcT = paramArray[0][1] // this should be the real utcT
+          for (i=1; i < paramArray.length; i++){
+            clockAttributesArray[i].location = paramArray[i][1];
+            clockAttributesArray[i].timeDescription = `The time in ${paramArray[i][1]} becomes:`
+            // SQUIRREL: I think I was supposed to created sc1 and sC2, etc.
+          }
+        }
+        // TODO: Add time toggle to URL - was &time12=true 
+      }
+      checkQuery();
+
+
+      // $("#localTSTime").html(`${myUrlParam.get("loctime")}`); // this is always true
       // $("#search1Time").html(`${myUrlParam.get("searchtime1")}`);
       // $("#search2Time").html(`${myUrlParam.get("searchtime2")}`);
 
