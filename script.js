@@ -689,33 +689,33 @@ $(function () {
   let convertedBack = moment.utc(utcT).tz(sl1).format(FORMATTEDTIME)
   console.log(`Time back in LA is ${convertedBack}`); // This shows correctly returned time in FORMATTEDTIME
 
-  // Now I need a loop to build the URL that goes through clockAttributesArray[i].location
-  // Would it be easier to build the URL with quotes instead of getting rid of spaces? and I only need to get rid of spaces in UCTtime
-
-
-
+  
   function setTimesFromURL() {
     if (window.location.search) {
       // queryStringSend;
       // myUrlParam = new URLSearchParams(queryStringSend);
       // set times
       // Set 12/24 hour toggle to match format of incoming times
-      time12 = myUrlParam.get("time12");
-      if (time12 == "false") {
-        $("#numHrs").prop("checked", false);
-        FORMATTEDTIME = TIME24WSEC;
-      }
-      $("#localTSTime").html(`${myUrlParam.get("loctime")}`);
-      $("#search1Time").html(`${myUrlParam.get("searchtime1")}`);
-      $("#search2Time").html(`${myUrlParam.get("searchtime2")}`);
+      // FIXME time param isn't in the URL yet
+      // time12 = myUrlParam.get("time12");
+      // if (time12 == "false") {
+      //   $("#numHrs").prop("checked", false);
+      //   FORMATTEDTIME = TIME24WSEC;
+      // }
+      //sendableURL will come in like this with unknown number of sloc[i]
+      // http://localhost:8888/time-shifter-clock/?utcT="2021-04-14T04:23:43Z"&sloc1=America/Los_Angeles&sloc2=Europe/Dublin
 
-      // set location names (timeDescription)
-      // $('#localTSID').html(`${myUrlParam.get('localTimeDesc')}`)
-      $("#search1TSID").html(`${myUrlParam.get("searchTimeDesc1")}`);
-      $("#search2TSID").html(`${myUrlParam.get("searchTimeDesc2")}`);
-      // if no search city is entered, this will be blank
-      $("#sbsearchClock1").val(`${myUrlParam.get("searchCity1")}`);
-      $("#sbsearchClock2").val(`${myUrlParam.get("searchCity2")}`);
+      // $("#localTSTime").html(`${myUrlParam.get("loctime")}`);
+      // $("#search1Time").html(`${myUrlParam.get("searchtime1")}`);
+      // $("#search2Time").html(`${myUrlParam.get("searchtime2")}`);
+
+      // // set location names (timeDescription)
+      // // $('#localTSID').html(`${myUrlParam.get('localTimeDesc')}`)
+      // $("#search1TSID").html(`${myUrlParam.get("searchTimeDesc1")}`);
+      // $("#search2TSID").html(`${myUrlParam.get("searchTimeDesc2")}`);
+      // // if no search city is entered, this will be blank
+      // $("#sbsearchClock1").val(`${myUrlParam.get("searchCity1")}`);
+      // $("#sbsearchClock2").val(`${myUrlParam.get("searchCity2")}`);
     }
   }
   setTimesFromURL();
