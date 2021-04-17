@@ -474,36 +474,6 @@ $(function () {
     console.log(`arrayOfLocations is updated to: ${arrayOfLocations}`);
   });
 
-  // ********************************************************* //
-  // Check Query String, set defaults if empty                 //
-  // ********************************************************* //
-
-  // pull the query string that may have been received in the URL
-  const queryStringReceived = window.location.search;
-
-  // Determine if URL has a query string and pass values to search clocks or send defaults if not
-
-  // SQUIRREL: This code works to modify clockAttributesArray but the clocks themselves don't update. see ~line 678 fimctopm setTimesFromURL()
-  function checkQuery() {
-    // if URL has no query string use these defaults
-    if (queryStringReceived !== "") {
-     let searchParams = new URLSearchParams(queryStringReceived);
-     let paramArray = [];
-     for (let pair of searchParams.entries()){
-       paramArray.push(pair);
-      let utcT = paramArray[0][1] // this should be the real utcT
-      for (i=1; i < paramArray.length; i++){
-        clockAttributesArray[i].location = paramArray[i][1];
-        clockAttributesArray[i].timeDescription = `The time in ${paramArray[i][1]} becomes:`
-        // SQUIRREL: I think I was supposed to created sc1 and sC2, etc.
-      }
-     }
-    }
-    // TODO: Add time toggle to URL - was &time12=true 
-  }
-
-  checkQuery();
-
   // make the individual clocks:
   // pass parameters for cities and locations to searchClock 1 and 2  that were parsed from the URL query string
   // makeClocks(sC1,sTD1,sC2,sTD2);
