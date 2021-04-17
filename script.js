@@ -465,13 +465,15 @@ $(function () {
       clockPlaceholder: shiftingClocksPlaceholder,
     });
     // create another clock with the attributes
-    let x = new AClock(clockAttributesArray[numCl]);
-    arrayOfClocks.push(x);
-    arrayOfLocations.push(x.location);
-    // need to render all the clocks
-    addAutocomplete();
-
-    console.log(`arrayOfLocations is updated to: ${arrayOfLocations}`);
+    function anotherClock(){
+      let x = new AClock(clockAttributesArray[numCl]);
+      arrayOfClocks.push(x);
+      arrayOfLocations.push(x.location);
+      // need to render all the clocks
+      addAutocomplete();
+      console.log(`arrayOfLocations is updated to: ${arrayOfLocations}`);
+      }
+    anotherClock();
   });
 
   // make the individual clocks:
