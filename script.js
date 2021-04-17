@@ -681,7 +681,7 @@ $(function () {
       // myUrlParam = new URLSearchParams(queryStringSend);
       // set times
       // Set 12/24 hour toggle to match format of incoming times
-      // FIXME time param isn't in the URL yet
+      // FIXME time param isn't in the URL yet (was &time12=true)
       // time12 = myUrlParam.get("time12");
       // if (time12 == "false") {
       //   $("#numHrs").prop("checked", false);
