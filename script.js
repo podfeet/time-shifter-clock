@@ -682,6 +682,7 @@ $(function () {
             for (i=3; i<paramArray.length; i++){ // it did find 3 clocks in test
               numCl = i; // it does know numCl is 3 in test
               anotherClock(); // did not create another clock
+              console.log(`arrayOfClocks is ${arrayOfClocks}`);
             }
           }
         }
