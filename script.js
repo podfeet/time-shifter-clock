@@ -435,9 +435,6 @@ $(function () {
   } // complete AClock Class definition
 
   // Create a function to make the clocks
-  // Accept parameters a,b,c,d as the query string values to populate searchClock1 and 2 for location and timeDescription
-  // a and c are the location names in the search boxes
-  // b and d are the timeDescriptions, e.g. "Time in Europe/London becomes"
 
   for (i = 0; i < clockAttributesArray.length; i++) {
     let x = new AClock(clockAttributesArray[i]);
