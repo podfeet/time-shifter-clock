@@ -471,14 +471,12 @@ $(function () {
       arrayOfLocations.push(x.location);
       console.log(`arrayOfLocations is updated to: ${arrayOfLocations}`);
       // need to render all the clocks
-      aRenderTime();
+      aRenderTime(); 
       }
     anotherClock();
   });
 
   // make the individual clocks:
-  // pass parameters for cities and locations to searchClock 1 and 2  that were parsed from the URL query string
-  // makeClocks(sC1,sTD1,sC2,sTD2);
 
   // Set time on searchClocks to the entered location
 
