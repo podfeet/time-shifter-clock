@@ -644,7 +644,7 @@ $(function () {
   let convertedBack = moment.utc(utcT).tz(sl1).format(FORMATTEDTIME)
   console.log(`Time back in LA is ${convertedBack}`); // This shows correctly returned time in FORMATTEDTIME
 
-  
+  // a function to set the times, change the existing clocks AND add any extra clocks
   function setTimesFromURL() {
     if (window.location.search) {
       // queryStringSend;
@@ -667,7 +667,7 @@ $(function () {
       // pull the query string that may have been received in the URL
       const queryStringReceived = window.location.search;
       // Determine if URL has a query string and pass values to search clocks or send defaults if not
-      // SQUIRREL: This code works to modify clockAttributesArray but the clocks themselves don't update. see ~line 678 fimctopm setTimesFromURL()
+      // BUG: This code works to modify clockAttributesArray but the clocks themselves don't update. see ~line 678 fimctopm setTimesFromURL()
       // BUG: this FAILS if there are 3 clocks since it doens't know where to put that third location - there aren't already 3 clocks. Use this to break it: localhost:8888/time-shifter-clock/?utcT=2021-04-16T04:22:49Z&sloc1=America/Los_Angeles&sloc2=America/Detroit&sloc3=Europe/Amsterdam
       function checkQuery() {
         // if URL has no query string use these defaults
@@ -682,6 +682,7 @@ $(function () {
             for (i=3; i<paramArray.length; i++){ // it did find 3 clocks in test
               numCl = i; // it does know numCl is 3 in test
               anotherClock(); // did not create another clock
+              putClockUp();
               console.log(`arrayOfClocks is ${arrayOfClocks}`);
             }
           }
