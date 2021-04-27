@@ -471,16 +471,6 @@ $(function () {
       clockPlaceholder: shiftingClocksPlaceholder,
     });
     // create another clock with the attributes
-    
-  function anotherClock(){
-    let x = new AClock(clockAttributesArray[numCl]);
-    arrayOfClocks.push(x);
-    arrayOfLocations.push(x.location);
-    console.log(`arrayOfLocations is updated to: ${arrayOfLocations}`);
-    // need to render all the clocks
-    // aRenderTime(); // undefined
-    }
-
     anotherClock();
   });
 
