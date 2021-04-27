@@ -435,19 +435,15 @@ $(function () {
   } // complete AClock Class definition
 
   // Create a function to make the clocks
-
+  // SQUIRREL: this seems to be too early in the code...
   for (i = 0; i < clockAttributesArray.length; i++) {
     let x = new AClock(clockAttributesArray[i]);
     arrayOfClocks.push(x);
-
     // this builds an array of the locations of each clock (in quotes!), which can be inserted into the URL with a loop on arrayOfLocations[i]
-    
     let y = clockAttributesArray[i].location;
     arrayOfLocations.push(y);
-  
-  // console.log(`All locations: ${arrayOfLocations}`); // csv of locations not the array itself
-  // console.log(arrayOfLocations); // the array itself
-
+    // console.log(`All locations: ${arrayOfLocations}`); // csv of locations not the array itself
+    // console.log(arrayOfLocations); // the array itself
   }
   // click handler to add a another city clock
   $("#addClock").click(function () {
