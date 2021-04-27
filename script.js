@@ -659,7 +659,6 @@ $(function () {
 
       // BUG: checkQuery is not a function if no search string
       function checkQuery() {
-        // FIXME: what if URL has no query string?
         let searchParams = new URLSearchParams(queryStringReceived);
         for (let pair of searchParams.entries()){
           paramArray.push(pair);
