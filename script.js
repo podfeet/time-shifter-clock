@@ -652,31 +652,47 @@ $(function () {
       // pull the query string that may have been received in the URL
       const queryStringReceived = window.location.search;
       // Determine if URL has a query string and pass values to search clocks or send defaults if not
-      // BUG: This code works to modify clockAttributesArray but the clocks themselves don't update. see ~line 678 fimctopm setTimesFromURL()
+      // BUG: This code works to modify clockAttributesArray but the clocks themselves don't update. see ~line 678 setTimesFromURL()
       // BUG: this FAILS if there are 3 clocks since it doens't know where to put that third location - there aren't already 3 clocks. Use this to break it: localhost:8888/time-shifter-clock/?utcT=2021-04-16T04:22:49Z&sloc1=America/Los_Angeles&sloc2=America/Detroit&sloc3=Europe/Amsterdam
+      
+      let paramArray = []; // putting it out here changed error from paramArray is undefined to paramArray[0] is undefined
+
+      // BUG: checkQuery is not a function if no search string
       function checkQuery() {
-        // if URL has no query string use these defaults
+        // FIXME: what if URL has no query string?
         let searchParams = new URLSearchParams(queryStringReceived);
-        let paramArray = [];
         for (let pair of searchParams.entries()){
           paramArray.push(pair);
-          for (i=1; i < paramArray.length; i++){
-            clockAttributesArray[i].location = paramArray[i][1];
-            clockAttributesArray[i].timeDescription = `The time in ${paramArray[i][1]} becomes:`
-            // SQUIRREL: I think I was supposed to created sc1 and sC2, etc.
-            for (i=3; i<paramArray.length; i++){ // it did find 3 clocks in test
-              numCl = i; // it does know numCl is 3 in test
-              // anotherClock(); // undefined
-              // putClockUp(); // undefined
-              console.log(`arrayOfClocks is ${arrayOfClocks}`);
-            }
+          console.log(`paramArray is ${paramArray}`);
+        } 
+        // populate 1st two existing clocks with new city names, not adding one
+        for (i = 3; i < paramArray.length; i++){
+          clockAttributesArray[i].location = paramArray[i][1];
+          clockAttributesArray[i].timeDescription = `The time in ${paramArray[i][1]} becomes:`
+          if (i > 2){
+            numCl = i;
+            clockAttributesArray.push({
+            timeDescriptionID: `searchTSID-${numCl}`,
+            clockBorder: "border border-primary rounded",
+            timeDescription: clockAttributesArray[i].timeDescription,
+            timeID: `searchTime-${numCl}`,
+            timeFormat: TIME12WSEC,
+            timeShifted: true,
+            location: clockAttributesArray[i].location,
+            searchBoxDivID: `sbsearchClockDiv-${numCl}`,
+            searchBoxID: `sbsearchClock-${numCl}`,
+            clockPlaceholder: shiftingClocksPlaceholder,
+          });
+          // create another clock with the attributes
+          anotherClock();
           }
-        }
+        }  
+      }
         let utcT = paramArray[0][1] // this should be the real utcT
         console.log(`utcT from the URL becomes ${utcT}`);
-      }
+     
       checkQuery();
-
+    }else{};
 
       // $("#localTSTime").html(`${myUrlParam.get("loctime")}`); // this is always true
       // $("#search1Time").html(`${myUrlParam.get("searchtime1")}`);
