@@ -759,63 +759,7 @@ $(function () {
     createURL();
   });
 
-
-  // Event handler for the copy button to create the URL
-  // $("#copyBtn").click(function () {
-  //   function createURL() {
-  //     // need to remove spaces in values & replace with +
-  //     const space = /\s/g;
-
-  //     // check to see if 12/24 toggle is on 24
-  //     let time12 = new Boolean(); // defaults to false
-  //     if ($("#numHrs").prop("checked") == false) {
-  //       time12 = false;
-  //     } else {
-  //       time12 = true;
-  //     }
-
-  //     // find search times and remove spaces
-      
-  //     let searchT1 = $("#search1Time").html();
-  //     let searchT2 = $("#search2Time").html();
-
-  //     let sT1 = searchT1.replace(space, "+");
-  //     let sT2 = searchT2.replace(space, "+");
-
-  //     // find time descriptions (locations) and search city names & remove spaces
-  //     let searchTimeDesc1 = $("#search1TSID").html();
-  //     let searchTimeDesc2 = $("#search2TSID").html();
-  //     let searchCity1 = $("#sbsearchClock1").val();
-  //     let searchCity2 = $("#sbsearchClock2").val();
-
-  //     // trim any spaces on either side and replace spaces with + so the URL works
-  //     let sTD1 = searchTimeDesc1.trim().replace(space, "+");
-  //     let sTD2 = searchTimeDesc2.trim().replace(space, "+");
-  //     let sC1 = searchCity1.trim().replace(space, "+");
-  //     let sC2 = searchCity2.trim().replace(space, "+");
-
-  //     // split the url to remove any existing search queries
-  //     let thisURL = $(location).attr("href").split("?")[0];
-  //     // create the url adding FORMATTEDTIME to the end
-  //     sendableURL = `${thisURL}?searchtime1=${sT1}&searchtime2=${sT2}&searchTimeDesc1=${sTD1}&searchTimeDesc2=${sTD2}&searchCity1=${sC1}&searchCity2=${sC2}&time12=${time12}`;
-
-  //     async function writeURLtoClipboard(text) {
-  //       try {
-  //         await navigator.clipboard.writeText(text);
-  //       } catch (error) {
-  //         console.log("Something went wrong", error);
-  //       }
-  //     }
-  //     writeURLtoClipboard(sendableURL);
-
-  //     alert(
-  //       "Sendable times URL copied to your clipboard and ready to send to your colleague."
-  //     );
-  //     $("input").remove(".dummy");
-
-  //     alert(`Copy this URL and send it to someone:\n\n${sendableURL}`);
-  //   }
-  //   // if both search boxes are empty, create the URL with the defaults
+  
 
   // // ========================
   // // figure out this stuff
