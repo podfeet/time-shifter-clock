@@ -645,19 +645,6 @@ $(function () {
   // a function to set the times, change the existing clocks AND add any extra clocks
   function setTimesFromURL() {
     if (window.location.search) {
-      // queryStringSend;
-      // myUrlParam = new URLSearchParams(queryStringSend);
-      // set times
-      // Set 12/24 hour toggle to match format of incoming times
-      // FIXME time param isn't in the URL yet (was &time12=true)
-      // time12 = myUrlParam.get("time12");
-      // if (time12 == "false") {
-      //   $("#numHrs").prop("checked", false);
-      //   FORMATTEDTIME = TIME24WSEC;
-      // }
-      //sendableURL will come in like this with unknown number of sloc[i]
-      // http://localhost:8888/time-shifter-clock/?utcT="2021-04-14T04:23:43Z"&sloc1=America/Los_Angeles&sloc2=Europe/Dublin
-
       // ********************************************************* //
       // Check Query String, set defaults if empty                 //
       // ********************************************************* //
