@@ -43,7 +43,7 @@ let momentObjST1 = {};
 let momentObjST2 = {};
 
 // global variable function for adding clocks
-// anotherClock();
+// anotherClock(); can't get this to work
 
 // attributes of local time and 2 default time-shifting clocks
 // will be used to create clocks in the makeClocks function
