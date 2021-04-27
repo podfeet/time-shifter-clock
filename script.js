@@ -435,7 +435,17 @@ $(function () {
   } // complete AClock Class definition
 
   // Create a function to make the clocks
-  // SQUIRREL: this seems to be too early in the code...
+  // FIXME: This needs to be refactored with line 465 anotherClock(), which should be renamed makeClock()
+ 
+  function anotherClock(){
+    let x = new AClock(clockAttributesArray[numCl]);
+    arrayOfClocks.push(x);
+    arrayOfLocations.push(x.location);
+    console.log(`arrayOfLocations is updated to: ${arrayOfLocations}`);
+    // need to render all the clocks
+    // aRenderTime(); // undefined
+    }
+
   for (i = 0; i < clockAttributesArray.length; i++) {
     let x = new AClock(clockAttributesArray[i]);
     arrayOfClocks.push(x);
