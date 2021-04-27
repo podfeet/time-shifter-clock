@@ -706,7 +706,7 @@ $(function () {
       // $("#sbsearchClock1").val(`${myUrlParam.get("searchCity1")}`);
       // $("#sbsearchClock2").val(`${myUrlParam.get("searchCity2")}`);
     }
-  }
+  
   setTimesFromURL();
   // ================================================================
   // New and improved event handler for copy button to create the URL
