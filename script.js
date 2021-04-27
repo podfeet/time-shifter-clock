@@ -710,6 +710,7 @@ $(function () {
   // ================================================================
   $("#copyBtn").click(function () {
     function createURL() {
+      // FIXME: I used to have an error check to make sure they had a valid region/city chosen from the dropdown before letting them copy the URL. Look at commented out code at bottom for inspiration
       // split the url to remove any existing search queries
       let thisURL = $(location).attr("href").split("?")[0];
       
