@@ -42,8 +42,8 @@ let tzNamesObject = TzNamesArray.reduce(function (o, val) {
 let momentObjST1 = {};
 let momentObjST2 = {};
 
-// global variable for adding clocks
-function anotherClock(){};
+// global variable function for adding clocks
+// anotherClock();
 
 // attributes of local time and 2 default time-shifting clocks
 // will be used to create clocks in the makeClocks function
