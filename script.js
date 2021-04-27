@@ -679,8 +679,8 @@ $(function () {
             // SQUIRREL: I think I was supposed to created sc1 and sC2, etc.
             for (i=3; i<paramArray.length; i++){ // it did find 3 clocks in test
               numCl = i; // it does know numCl is 3 in test
-              anotherClock(); // did not create another clock
-              putClockUp();
+              // anotherClock(); // undefined
+              // putClockUp(); // undefined
               console.log(`arrayOfClocks is ${arrayOfClocks}`);
             }
           }
