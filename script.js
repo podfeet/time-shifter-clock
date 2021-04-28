@@ -650,19 +650,18 @@ $(function () {
       // ********************************************************* //
 
       // pull the query string that may have been received in the URL
-      const queryStringReceived = window.location.search;
+      let queryStringReceived = window.location.search;
       // Determine if URL has a query string and pass values to search clocks or send defaults if not
       // BUG: This code works to modify clockAttributesArray but the clocks themselves don't update. see ~line 678 setTimesFromURL()
       // BUG: this FAILS if there are 3 clocks since it doens't know where to put that third location - there aren't already 3 clocks. Use this to break it: localhost:8888/time-shifter-clock/?utcT=2021-04-16T04:22:49Z&sloc1=America/Los_Angeles&sloc2=America/Detroit&sloc3=Europe/Amsterdam
       
       let paramArray = []; // putting it out here changed error from paramArray is undefined to paramArray[0] is undefined
 
-      // BUG: checkQuery is not a function if no search string
       function checkQuery() {
         let searchParams = new URLSearchParams(queryStringReceived);
         for (let pair of searchParams.entries()){
           paramArray.push(pair);
-          console.log(`paramArray is ${paramArray}`);
+          console.log(`paramArray.length is ${paramArray.length}`);
         } 
         // populate 1st two existing clocks with new city names, not adding one
         for (i = 3; i < paramArray.length; i++){
