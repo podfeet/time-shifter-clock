@@ -631,16 +631,16 @@ $(function () {
 
   // #searchTime-1 will always exist, it's the first clock
   let sl1 = clockAttributesArray[1].location; // search location 1 (default Los Angeles)
-  console.log(`Reference city is ${sl1}`);
+  // console.log(`Reference city is ${sl1}`);
   let st1 = $("#searchTime-1").html(); // search time 1
-  console.log(`Time in reference city is ${st1}`);
+  // console.log(`Time in reference city is ${st1}`);
   // convert the first time and location into UTC time
   let utcT = moment.tz(st1, FORMATTEDTIME, sl1).utc().format(); // converting st1 to UTC time
-  console.log(`UTC time is ${utcT}`);
+  // console.log(`UTC time is ${utcT}`);
 
   // Given the time in UTC, how do I convert that back to the time in the reference city?
   let convertedBack = moment.utc(utcT).tz(sl1).format(FORMATTEDTIME)
-  console.log(`Time back in LA is ${convertedBack}`); // This shows correctly returned time in FORMATTEDTIME
+  // console.log(`Time back in LA is ${convertedBack}`); // This shows correctly returned time in FORMATTEDTIME
 
   // a function to set the times, change the existing clocks AND add any extra clocks
   function setTimesFromURL() {
@@ -659,39 +659,49 @@ $(function () {
 
       function checkQuery() {
         let searchParams = new URLSearchParams(queryStringReceived);
+        // find key/value pairs in the query string and push them into an array
         for (let pair of searchParams.entries()){
           paramArray.push(pair);
-          console.log(`paramArray.length is ${paramArray.length}`);
         } 
+
+        // console.log(`paramArray.length is ${paramArray.length}`); // 4
+        // console.log(`clockAttributesArray.length is ${clockAttributesArray.length}`); // 3
+        // console.log(`paramArray[1][1] is ${paramArray[1][1]}`); // America/Los_Angeles
+
         // populate 1st two existing clocks with new city names, not adding one
-        for (i = 3; i < paramArray.length; i++){
+        for (i = 1; i < 3; i++){
           clockAttributesArray[i].location = paramArray[i][1];
-          clockAttributesArray[i].timeDescription = `The time in ${paramArray[i][1]} becomes:`
-          if (i > 2){
-            numCl = i;
-            clockAttributesArray.push({
-            timeDescriptionID: `searchTSID-${numCl}`,
-            clockBorder: "border border-primary rounded",
-            timeDescription: clockAttributesArray[i].timeDescription,
-            timeID: `searchTime-${numCl}`,
-            timeFormat: TIME12WSEC,
-            timeShifted: true,
-            location: clockAttributesArray[i].location,
-            searchBoxDivID: `sbsearchClockDiv-${numCl}`,
-            searchBoxID: `sbsearchClock-${numCl}`,
-            clockPlaceholder: shiftingClocksPlaceholder,
+          // console.log(`clockAttributesArray[i].location is ${clockAttributesArray[i].location}`); // Los_Angeles, then Dublin
+
+          clockAttributesArray[i].timeDescription = `The time in ${paramArray[i][1]} becomes:`;
+          // console.log(`clockAttributesArray[1].timeDescription is ${clockAttributesArray[i].timeDescription}`);
+          // console.log(i);
+        }
+        for (i > 2; i < paramArray.length; i++){ 
+          numCl = i;
+          // FIXME: this push isn't working, everything before this does work
+          clockAttributesArray.push({
+            "timeDescriptionID": `searchTSID-${numCl}`,
+            "clockBorder": "border border-primary rounded",
+            "timeDescription": clockAttributesArray[i].timeDescription, // FIXME this is where it says the error is
+            "timeID": `searchTime-${numCl}`,
+            "timeFormat": TIME12WSEC,
+            "timeShifted": true,
+            "location": clockAttributesArray[i].location,
+            "searchBoxDivID": `sbsearchClockDiv-${numCl}`,
+            "searchBoxID": `sbsearchClock-${numCl}`,
+            "clockPlaceholder": shiftingClocksPlaceholder,
           });
           // create another clock with the attributes
           anotherClock();
-          }
-        }  
+        };
+  
+        // let utcT = paramArray[0][1] // this should be the real utcT
+        // console.log(`utcT from the URL becomes ${utcT}`);
       }
-        let utcT = paramArray[0][1] // this should be the real utcT
-        console.log(`utcT from the URL becomes ${utcT}`);
-     
       checkQuery();
-    }else{};
-
+    };
+  };
       // $("#localTSTime").html(`${myUrlParam.get("loctime")}`); // this is always true
       // $("#search1Time").html(`${myUrlParam.get("searchtime1")}`);
       // $("#search2Time").html(`${myUrlParam.get("searchtime2")}`);
@@ -703,7 +713,7 @@ $(function () {
       // // if no search city is entered, this will be blank
       // $("#sbsearchClock1").val(`${myUrlParam.get("searchCity1")}`);
       // $("#sbsearchClock2").val(`${myUrlParam.get("searchCity2")}`);
-    }
+    
   
   setTimesFromURL();
   // ================================================================
