@@ -445,16 +445,19 @@ $(function () {
     // need to render all the clocks
     // aRenderTime(); // undefined
     }
-
-  for (i = 0; i < clockAttributesArray.length; i++) {
-    let x = new AClock(clockAttributesArray[i]);
-    arrayOfClocks.push(x);
-    // this builds an array of the locations of each clock (in quotes!), which can be inserted into the URL with a loop on arrayOfLocations[i]
-    let y = clockAttributesArray[i].location;
-    arrayOfLocations.push(y);
-    // console.log(`All locations: ${arrayOfLocations}`); // csv of locations not the array itself
-    // console.log(arrayOfLocations); // the array itself
+  function makeClocks(){
+    for (i = 0; i < clockAttributesArray.length; i++) {
+      let x = new AClock(clockAttributesArray[i]);
+      arrayOfClocks.push(x);
+      // this builds an array of the locations of each clock (in quotes!), which can be inserted into the URL with a loop on arrayOfLocations[i]
+      let y = clockAttributesArray[i].location;
+      arrayOfLocations.push(y);
+      // console.log(`All locations: ${arrayOfLocations}`); // csv of locations not the array itself
+      // console.log(arrayOfLocations); // the array itself
+    }
   }
+  makeClocks();
+  
   // click handler to add a another city clock
   $("#addClock").click(function () {
     numCl = numCl + 1; // increment sequence to
@@ -643,8 +646,11 @@ $(function () {
   // console.log(`Time back in LA is ${convertedBack}`); // This shows correctly returned time in FORMATTEDTIME
 
   // a function to set the times, change the existing clocks AND add any extra clocks
+  
   function setTimesFromURL() {
-    if (window.location.search) {
+    if (!(window.location.search)){
+      console.log(`no search query`);
+    } else if (window.location.search) {
       // ********************************************************* //
       // Check Query String, set defaults if empty                 //
       // ********************************************************* //
@@ -655,50 +661,37 @@ $(function () {
       // BUG: This code works to modify clockAttributesArray but the clocks themselves don't update. see ~line 678 setTimesFromURL()
       // BUG: this FAILS if there are 3 clocks since it doens't know where to put that third location - there aren't already 3 clocks. Use this to break it: localhost:8888/time-shifter-clock/?utcT=2021-04-16T04:22:49Z&sloc1=America/Los_Angeles&sloc2=America/Detroit&sloc3=Europe/Amsterdam
       
-      let paramArray = []; // putting it out here changed error from paramArray is undefined to paramArray[0] is undefined
-
+      let paramArray = []; 
+      
       function checkQuery() {
         let searchParams = new URLSearchParams(queryStringReceived);
-        // find key/value pairs in the query string and push them into an array
         for (let pair of searchParams.entries()){
           paramArray.push(pair);
         } 
-        // console.log(`paramArray.length is ${paramArray.length}`); // 4
-        // console.log(`clockAttributesArray.length is ${clockAttributesArray.length}`); // 3
-        // console.log(`paramArray[1][1] is ${paramArray[1][1]}`); // America/Los_Angeles
-
-        // populate 1st two existing clocks with new city names, not adding one
-        for (i = 1; i < paramArray.length; i++){
+        for (i = 1; i < paramArray.length; i++){ // start at 1 bc 0 is UTC pair
           clockAttributesArray[i].location = paramArray[i][1];
-          // console.log(`clockAttributesArray[i].location is ${clockAttributesArray[i].location}`); // Los_Angeles, then Dublin
-
           clockAttributesArray[i].timeDescription = `The time in ${paramArray[i][1]} becomes:`;
-          // console.log(`clockAttributesArray[1].timeDescription is ${clockAttributesArray[i].timeDescription}`);
-          // console.log(i);
-          for (i > 2; i < paramArray.length; i++){ 
-            // FIXME: this push isn't working, everything before this does work
-            clockAttributesArray.push({
-              timeDescriptionID: `searchTSID-${numCl}`,
-              clockBorder: "border border-primary rounded",
-              timeDescription: clockAttributesArray[i].timeDescription, // FIXME this is where it says the error is
-              timeID: `searchTime-${numCl}`,
-              timeFormat: TIME12WSEC,
-              timeShifted: true,
-              location: clockAttributesArray[i].location,
-              searchBoxDivID: `sbsearchClockDiv-${numCl}`,
-              searchBoxID: `sbsearchClock-${numCl}`,
-              clockPlaceholder: shiftingClocksPlaceholder,
-            });
-            // create another clock with the attributes
-            anotherClock();
-          }    
+          
+          // clockAttributesArray.push({
+          //   timeDescriptionID: `searchTSID-${numCl}`,  // how does it know numCl?
+          //   clockBorder: "border border-primary rounded",
+          //   timeDescription: clockAttributesArray[i].timeDescription,
+          //   timeID: `searchTime-${numCl}`,
+          //   timeFormat: TIME12WSEC,
+          //   timeShifted: true,
+          //   location: clockAttributesArray[i].location,
+          //   searchBoxDivID: `sbsearchClockDiv-${numCl}`,
+          //   searchBoxID: `sbsearchClock-${numCl}`,
+          //   clockPlaceholder: shiftingClocksPlaceholder,
+          // });
+          anotherClock();              
         };
   
         // let utcT = paramArray[0][1] // this should be the real utcT
         // console.log(`utcT from the URL becomes ${utcT}`);
       }
       checkQuery();
-    }; // end if URL search string (no else)
+    }; // end else if window.location.search
   }; // end function setTimesFromURL
       // $("#localTSTime").html(`${myUrlParam.get("loctime")}`); // this is always true
       // $("#search1Time").html(`${myUrlParam.get("searchtime1")}`);
