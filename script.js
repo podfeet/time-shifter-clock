@@ -663,45 +663,43 @@ $(function () {
         for (let pair of searchParams.entries()){
           paramArray.push(pair);
         } 
-
         // console.log(`paramArray.length is ${paramArray.length}`); // 4
         // console.log(`clockAttributesArray.length is ${clockAttributesArray.length}`); // 3
         // console.log(`paramArray[1][1] is ${paramArray[1][1]}`); // America/Los_Angeles
 
         // populate 1st two existing clocks with new city names, not adding one
-        for (i = 1; i < 3; i++){
+        for (i = 1; i < paramArray.length; i++){
           clockAttributesArray[i].location = paramArray[i][1];
           // console.log(`clockAttributesArray[i].location is ${clockAttributesArray[i].location}`); // Los_Angeles, then Dublin
 
           clockAttributesArray[i].timeDescription = `The time in ${paramArray[i][1]} becomes:`;
           // console.log(`clockAttributesArray[1].timeDescription is ${clockAttributesArray[i].timeDescription}`);
           // console.log(i);
-        }
-        for (i > 2; i < paramArray.length; i++){ 
-          numCl = i;
-          // FIXME: this push isn't working, everything before this does work
-          clockAttributesArray.push({
-            "timeDescriptionID": `searchTSID-${numCl}`,
-            "clockBorder": "border border-primary rounded",
-            "timeDescription": clockAttributesArray[i].timeDescription, // FIXME this is where it says the error is
-            "timeID": `searchTime-${numCl}`,
-            "timeFormat": TIME12WSEC,
-            "timeShifted": true,
-            "location": clockAttributesArray[i].location,
-            "searchBoxDivID": `sbsearchClockDiv-${numCl}`,
-            "searchBoxID": `sbsearchClock-${numCl}`,
-            "clockPlaceholder": shiftingClocksPlaceholder,
-          });
-          // create another clock with the attributes
-          anotherClock();
+          for (i > 2; i < paramArray.length; i++){ 
+            // FIXME: this push isn't working, everything before this does work
+            clockAttributesArray.push({
+              timeDescriptionID: `searchTSID-${numCl}`,
+              clockBorder: "border border-primary rounded",
+              timeDescription: clockAttributesArray[i].timeDescription, // FIXME this is where it says the error is
+              timeID: `searchTime-${numCl}`,
+              timeFormat: TIME12WSEC,
+              timeShifted: true,
+              location: clockAttributesArray[i].location,
+              searchBoxDivID: `sbsearchClockDiv-${numCl}`,
+              searchBoxID: `sbsearchClock-${numCl}`,
+              clockPlaceholder: shiftingClocksPlaceholder,
+            });
+            // create another clock with the attributes
+            anotherClock();
+          }    
         };
   
         // let utcT = paramArray[0][1] // this should be the real utcT
         // console.log(`utcT from the URL becomes ${utcT}`);
       }
       checkQuery();
-    };
-  };
+    }; // end if URL search string (no else)
+  }; // end function setTimesFromURL
       // $("#localTSTime").html(`${myUrlParam.get("loctime")}`); // this is always true
       // $("#search1Time").html(`${myUrlParam.get("searchtime1")}`);
       // $("#search2Time").html(`${myUrlParam.get("searchtime2")}`);
