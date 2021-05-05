@@ -431,16 +431,7 @@ $(function () {
     }
   } // complete AClock Class definition
 
-  // Create a function to make the clocks
- 
-  function anotherClock(){
-    let x = new AClock(clockAttributesArray[numCl]);
-    arrayOfClocks.push(x);
-    arrayOfLocations.push(x.location);
-    console.log(`arrayOfLocations is updated to: ${arrayOfLocations}`);
-    // need to render all the clocks
-    // aRenderTime(); // undefined
-    }
+  // Create a function to make the original 2 clocks
   function makeClocks(){
     for (i = 0; i < clockAttributesArray.length; i++) {
       let x = new AClock(clockAttributesArray[i]);
@@ -453,6 +444,16 @@ $(function () {
     }
   }
   makeClocks();
+  
+  // Create a function to make additional clocks
+  function anotherClock(){
+    let x = new AClock(clockAttributesArray[numCl]);
+    arrayOfClocks.push(x);
+    arrayOfLocations.push(x.location);
+    console.log(`arrayOfLocations is updated to: ${arrayOfLocations}`);
+    // need to render all the clocks
+    // aRenderTime(); // undefined
+    }
   
   // click handler to add a another city clock
   $("#addClock").click(function () {
