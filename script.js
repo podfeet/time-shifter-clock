@@ -37,11 +37,6 @@ let tzNamesObject = TzNamesArray.reduce(function (o, val) {
   return o;
 }, {});
 
-// declare two global moment objects to be used in 12/24 hour toggle
-// FIXME: These need to not be specific like this
-let momentObjST1 = {};
-let momentObjST2 = {};
-
 // attributes of local time and 2 default time-shifting clocks
 // will be used to create clocks in the makeClocks function
 let clockAttributesArray = [
