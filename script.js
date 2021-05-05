@@ -639,23 +639,25 @@ $(function () {
   let convertedBack = moment.utc(utcT).tz(sl1).format(FORMATTEDTIME)
   // console.log(`Time back in LA is ${convertedBack}`); // This shows correctly returned time in FORMATTEDTIME
 
-  // a function to set the times, change the existing clocks AND add any extra clocks
-  
+
+      // ****************************************************************************** //
+      // function to set the times, change the existing clocks AND add any extra clocks //
+      // ****************************************************************************** //
+   
   function setTimesFromURL() {
+    // If no query string in the URL, just make the regular clock
     if (!(window.location.search)){
       console.log(`no search query`);
       makeClocks();
     } else if (window.location.search) {
-      // ********************************************************* //
-      // Check Query String, set defaults if empty                 //
-      // ********************************************************* //
       // pull the query string that may have been received in the URL
       let queryStringReceived = window.location.search;
       // Determine if URL has a query string and pass values to search clocks or send defaults if not
-      // BUG: Use this to break it: localhost:8888/time-shifter-clock/?utcT=2021-04-16T04:22:49Z&sloc1=America/Los_Angeles&sloc2=America/Detroit&sloc3=Europe/Amsterdam
-      
+
+      // initialize an array to hold the search query parameters
       let paramArray = []; 
       
+      // function to .
       function checkQuery() {
         let searchParams = new URLSearchParams(queryStringReceived);
         for (let pair of searchParams.entries()){
@@ -668,18 +670,15 @@ $(function () {
         }
         for (i = 3; i < paramArray.length; i++){ // start at 1 bc 0 is UTC pair
           numCl = i;
-          
-          clockAttributesArray[i].location = paramArray[i][1];
-          clockAttributesArray[i].timeDescription = `The time in ${paramArray[i][1]} becomes:`;
 
           clockAttributesArray.push({
             timeDescriptionID: `searchTSID-${numCl}`,
             clockBorder: "border border-primary rounded",
-            timeDescription: clockAttributesArray[i].timeDescription,
+            timeDescription: `The time in ${paramArray[i][1]} becomes:`,
             timeID: `searchTime-${numCl}`,
             timeFormat: TIME12WSEC,
             timeShifted: true,
-            location: clockAttributesArray[i].location,
+            location: paramArray[i][1],
             searchBoxDivID: `sbsearchClockDiv-${numCl}`,
             searchBoxID: `sbsearchClock-${numCl}`,
             clockPlaceholder: shiftingClocksPlaceholder,
