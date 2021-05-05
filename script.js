@@ -489,6 +489,9 @@ $(function () {
       moment.tz(selectedSearchBox.location).format(FORMATTEDTIME)
     );
     // change city in arrayOfLocations
+    
+    // SQUIRREL:  note that clicking in EITHER city box throws an error "Emtpy string passed to getElementByID(). says FormAutofillHeuristics.jsm:403:22" doesn't seem to hurt anything tho?
+
     // console.log(`array of locations before thinks it is ${arrayOfLocations}`); 
 
     arrayOfLocations[x] = selectedSearchBox.location;
