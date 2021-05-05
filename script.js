@@ -634,10 +634,13 @@ $(function () {
   // console.log(`Time back in LA is ${convertedBack}`); // This shows correctly returned time in FORMATTEDTIME
 
 
-      // ****************************************************************************** //
-      // function to set the times, change the existing clocks AND add any extra clocks //
-      // ****************************************************************************** //
+  // ****************************************************************************** //
+  // function to set the times, change the existing clocks AND add any extra clocks //
+  // ****************************************************************************** //
    
+  // BUG: with makeClocks inside setTimesFromURL(), I get deprecation warning AND no search boxes work. Not the original 2, none added with button, and none received via URL.
+  // BUG: moving makeClocks outside of this function breaks the ability to have more than 2 clocks show up from the URL.
+
   function setTimesFromURL() {
     // If no query string in the URL, just make the regular clock
     if (!(window.location.search)){
