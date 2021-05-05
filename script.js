@@ -757,9 +757,9 @@ $(function () {
 
   
 
-  // // ========================
-  // // figure out this stuff
-  // // =========================
+  // =============================================
+  // ALERT ABOUT NOT PUTTING IN A VALID SEARCH  //
+  // =============================================
 
   //   if ($("#sbsearchClock1").val() == "" && $("#sbsearchClock2").val() == "") {
   //     createURL();
