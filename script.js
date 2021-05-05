@@ -450,8 +450,6 @@ $(function () {
     arrayOfClocks.push(x);
     arrayOfLocations.push(x.location);
     console.log(`arrayOfLocations is updated to: ${arrayOfLocations}`);
-    // need to render all the clocks
-    // aRenderTime(); // undefined
     }
   
   // click handler to add a another city clock
@@ -663,8 +661,14 @@ $(function () {
         for (let pair of searchParams.entries()){
           paramArray.push(pair);
         } 
-        for (i = 1; i < paramArray.length; i++){ // start at 1 bc 0 is UTC pair
+        for (i = 1; i < 3; i++){
           numCl = i;
+          clockAttributesArray[i].location = paramArray[i][1];
+          clockAttributesArray[i].timeDescription = `The time in ${paramArray[i][1]} becomes:`;
+        }
+        for (i = 3; i < paramArray.length; i++){ // start at 1 bc 0 is UTC pair
+          numCl = i;
+          
           clockAttributesArray[i].location = paramArray[i][1];
           clockAttributesArray[i].timeDescription = `The time in ${paramArray[i][1]} becomes:`;
 
