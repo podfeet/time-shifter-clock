@@ -42,9 +42,6 @@ let tzNamesObject = TzNamesArray.reduce(function (o, val) {
 let momentObjST1 = {};
 let momentObjST2 = {};
 
-// global variable function for adding clocks
-// anotherClock(); can't get this to work
-
 // attributes of local time and 2 default time-shifting clocks
 // will be used to create clocks in the makeClocks function
 let clockAttributesArray = [
@@ -435,7 +432,6 @@ $(function () {
   } // complete AClock Class definition
 
   // Create a function to make the clocks
-  // FIXME: This needs to be refactored with line 465 anotherClock(), which should be renamed makeClock()
  
   function anotherClock(){
     let x = new AClock(clockAttributesArray[numCl]);
@@ -654,7 +650,6 @@ $(function () {
       // ********************************************************* //
       // Check Query String, set defaults if empty                 //
       // ********************************************************* //
-
       // pull the query string that may have been received in the URL
       let queryStringReceived = window.location.search;
       // Determine if URL has a query string and pass values to search clocks or send defaults if not
@@ -668,10 +663,21 @@ $(function () {
         for (let pair of searchParams.entries()){
           paramArray.push(pair);
         } 
-        for (i = 1; i < paramArray.length; i++){ // start at 1 bc 0 is UTC pair
+        for (i = 1; i < 3; i++){ // start at 1 bc 0 is UTC pair
           clockAttributesArray[i].location = paramArray[i][1];
           clockAttributesArray[i].timeDescription = `The time in ${paramArray[i][1]} becomes:`;
-          
+        }
+        for (i = 3; i < paramArray.length; i++){
+          let numCl = i;
+          let x = new AClock(clockAttributesArray[numCl]);
+          clockAttributesArray[i].location = paramArray[i][1];
+          clockAttributesArray[i].timeDescription = `The time in ${paramArray[i][1]} becomes:`;
+
+          arrayOfClocks.push(x);
+        }
+        // for (i = 1; i < paramArray.length; i++){ // start at 1 bc 0 is UTC pair
+
+
           // clockAttributesArray.push({
           //   timeDescriptionID: `searchTSID-${numCl}`,  // how does it know numCl?
           //   clockBorder: "border border-primary rounded",
@@ -684,12 +690,12 @@ $(function () {
           //   searchBoxID: `sbsearchClock-${numCl}`,
           //   clockPlaceholder: shiftingClocksPlaceholder,
           // });
-          anotherClock();              
+          // anotherClock();              
         };
   
         // let utcT = paramArray[0][1] // this should be the real utcT
         // console.log(`utcT from the URL becomes ${utcT}`);
-      }
+      // }
       checkQuery();
     }; // end else if window.location.search
   }; // end function setTimesFromURL
