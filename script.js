@@ -443,8 +443,7 @@ $(function () {
       // console.log(arrayOfLocations); // the array itself
     }
   }
-  makeClocks();
-  
+
   // Create a function to make additional clocks
   function anotherClock(){
     let x = new AClock(clockAttributesArray[numCl]);
@@ -647,6 +646,7 @@ $(function () {
   function setTimesFromURL() {
     if (!(window.location.search)){
       console.log(`no search query`);
+      makeClocks();
     } else if (window.location.search) {
       // ********************************************************* //
       // Check Query String, set defaults if empty                 //
