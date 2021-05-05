@@ -654,8 +654,7 @@ $(function () {
       // pull the query string that may have been received in the URL
       let queryStringReceived = window.location.search;
       // Determine if URL has a query string and pass values to search clocks or send defaults if not
-      // BUG: This code works to modify clockAttributesArray but the clocks themselves don't update. see ~line 678 setTimesFromURL()
-      // BUG: this FAILS if there are 3 clocks since it doens't know where to put that third location - there aren't already 3 clocks. Use this to break it: localhost:8888/time-shifter-clock/?utcT=2021-04-16T04:22:49Z&sloc1=America/Los_Angeles&sloc2=America/Detroit&sloc3=Europe/Amsterdam
+      // BUG: Use this to break it: localhost:8888/time-shifter-clock/?utcT=2021-04-16T04:22:49Z&sloc1=America/Los_Angeles&sloc2=America/Detroit&sloc3=Europe/Amsterdam
       
       let paramArray = []; 
       
