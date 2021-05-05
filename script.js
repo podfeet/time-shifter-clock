@@ -663,34 +663,25 @@ $(function () {
         for (let pair of searchParams.entries()){
           paramArray.push(pair);
         } 
-        for (i = 1; i < 3; i++){ // start at 1 bc 0 is UTC pair
-          clockAttributesArray[i].location = paramArray[i][1];
-          clockAttributesArray[i].timeDescription = `The time in ${paramArray[i][1]} becomes:`;
-        }
-        for (i = 3; i < paramArray.length; i++){
-          let numCl = i;
-          let x = new AClock(clockAttributesArray[numCl]);
+        for (i = 1; i < paramArray.length; i++){ // start at 1 bc 0 is UTC pair
+          numCl = i;
           clockAttributesArray[i].location = paramArray[i][1];
           clockAttributesArray[i].timeDescription = `The time in ${paramArray[i][1]} becomes:`;
 
-          arrayOfClocks.push(x);
+          clockAttributesArray.push({
+            timeDescriptionID: `searchTSID-${numCl}`,
+            clockBorder: "border border-primary rounded",
+            timeDescription: clockAttributesArray[i].timeDescription,
+            timeID: `searchTime-${numCl}`,
+            timeFormat: TIME12WSEC,
+            timeShifted: true,
+            location: clockAttributesArray[i].location,
+            searchBoxDivID: `sbsearchClockDiv-${numCl}`,
+            searchBoxID: `sbsearchClock-${numCl}`,
+            clockPlaceholder: shiftingClocksPlaceholder,
+          });
         }
-        // for (i = 1; i < paramArray.length; i++){ // start at 1 bc 0 is UTC pair
-
-
-          // clockAttributesArray.push({
-          //   timeDescriptionID: `searchTSID-${numCl}`,  // how does it know numCl?
-          //   clockBorder: "border border-primary rounded",
-          //   timeDescription: clockAttributesArray[i].timeDescription,
-          //   timeID: `searchTime-${numCl}`,
-          //   timeFormat: TIME12WSEC,
-          //   timeShifted: true,
-          //   location: clockAttributesArray[i].location,
-          //   searchBoxDivID: `sbsearchClockDiv-${numCl}`,
-          //   searchBoxID: `sbsearchClock-${numCl}`,
-          //   clockPlaceholder: shiftingClocksPlaceholder,
-          // });
-          // anotherClock();              
+        makeClocks();        
         };
   
         // let utcT = paramArray[0][1] // this should be the real utcT
