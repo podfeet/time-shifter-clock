@@ -641,55 +641,105 @@ $(function () {
   // BUG: with makeClocks inside setTimesFromURL(), I get deprecation warning AND no search boxes work. Not the original 2, none added with button, and none received via URL.
   // BUG: moving makeClocks outside of this function breaks the ability to have more than 2 clocks show up from the URL.
 
-  function setTimesFromURL() {
+  // function setTimesFromURL() {
     // If no query string in the URL, just make the regular clock
-    if (!(window.location.search)){
-      console.log(`no search query`);
-      makeClocks();
-    } else if (window.location.search) {
+    // if (!(window.location.search)){
+      // console.log(`no search query`);
+      // makeClocks();
+    // } else if (window.location.search) {
       // pull the query string that may have been received in the URL
-      let queryStringReceived = window.location.search;
+      // let queryStringReceived = window.location.search;
       // Determine if URL has a query string and pass values to search clocks or send defaults if not
 
       // initialize an array to hold the search query parameters
-      let paramArray = []; 
+      // let paramArray = []; 
       
       // function to .
-      function checkQuery() {
-        let searchParams = new URLSearchParams(queryStringReceived);
-        for (let pair of searchParams.entries()){
-          paramArray.push(pair);
-        } 
-        for (i = 1; i < 3; i++){
-          numCl = i;
-          clockAttributesArray[i].location = paramArray[i][1];
-          clockAttributesArray[i].timeDescription = `The time in ${paramArray[i][1]} becomes:`;
-        }
-        for (i = 3; i < paramArray.length; i++){ // start at 1 bc 0 is UTC pair
-          numCl = i;
+      // function checkQuery() {
+      //   let searchParams = new URLSearchParams(queryStringReceived);
+      //   for (let pair of searchParams.entries()){
+      //     paramArray.push(pair);
+      //   } 
+      //   for (i = 1; i < 3; i++){
+      //     numCl = i;
+      //     clockAttributesArray[i].location = paramArray[i][1];
+      //     clockAttributesArray[i].timeDescription = `The time in ${paramArray[i][1]} becomes:`;
+      //   }
+      //   for (i = 3; i < paramArray.length; i++){ // start at 1 bc 0 is UTC pair
+      //     numCl = i;
 
-          clockAttributesArray.push({
-            timeDescriptionID: `searchTSID-${numCl}`,
-            clockBorder: "border border-primary rounded",
-            timeDescription: `The time in ${paramArray[i][1]} becomes:`,
-            timeID: `searchTime-${numCl}`,
-            timeFormat: TIME12WSEC,
-            timeShifted: true,
-            location: paramArray[i][1],
-            searchBoxDivID: `sbsearchClockDiv-${numCl}`,
-            searchBoxID: `sbsearchClock-${numCl}`,
-            clockPlaceholder: shiftingClocksPlaceholder,
-          });
-        }
-        makeClocks();        
-        };
-  
+      //     clockAttributesArray.push({
+      //       timeDescriptionID: `searchTSID-${numCl}`,
+      //       clockBorder: "border border-primary rounded",
+      //       timeDescription: `The time in ${paramArray[i][1]} becomes:`,
+      //       timeID: `searchTime-${numCl}`,
+      //       timeFormat: TIME12WSEC,
+      //       timeShifted: true,
+      //       location: paramArray[i][1],
+      //       searchBoxDivID: `sbsearchClockDiv-${numCl}`,
+      //       searchBoxID: `sbsearchClock-${numCl}`,
+      //       clockPlaceholder: shiftingClocksPlaceholder,
+      //     });
+      //   }
+      //   makeClocks();        
+      // };  
         // let utcT = paramArray[0][1] // this should be the real utcT
         // console.log(`utcT from the URL becomes ${utcT}`);
       // }
-      checkQuery();
-    }; // end else if window.location.search
-  }; // end function setTimesFromURL
+      // checkQuery();
+  //   }; // end else if window.location.search
+  // }; // end function setTimesFromURL
+
+  // function to see if there's a query string and if so populate clockAttributesArray
+  let queryStringReceived = window.location.search;
+  function checkQuery() {
+    let paramArray = [];
+    if (queryStringReceived == ""){
+      console.log('no query string received by checkQuery()');
+    } else {
+      let searchParams = new URLSearchParams(queryStringReceived);
+      for (let pair of searchParams.entries()){
+        paramArray.push(pair);
+      } 
+      for (i = 1; i < 3; i++){
+        numCl = i;
+        clockAttributesArray[i].location = paramArray[i][1];
+        clockAttributesArray[i].timeDescription = `The time in ${paramArray[i][1]} becomes:`;
+      }
+      for (i = 3; i < paramArray.length; i++){ // start at 1 bc 0 is UTC pair
+        numCl = i;
+        clockAttributesArray.push({
+          timeDescriptionID: `searchTSID-${numCl}`,
+          clockBorder: "border border-primary rounded",
+          timeDescription: `The time in ${paramArray[i][1]} becomes:`,
+          timeID: `searchTime-${numCl}`,
+          timeFormat: TIME12WSEC,
+          timeShifted: true,
+          location: paramArray[i][1],
+          searchBoxDivID: `sbsearchClockDiv-${numCl}`,
+          searchBoxID: `sbsearchClock-${numCl}`,
+          clockPlaceholder: shiftingClocksPlaceholder,
+        });
+      };       
+    }; 
+  };  
+  checkQuery();
+  makeClocks();
+  // SQUIRREL: I think setTimesFromURL s/b where the math is done against UTC
+  function setTimesFromURL(){
+    // loop through clockAttributesArray to push in the locations and times?
+
+  }
+
+  // setTimesFromURL();
+ 
+
+
+
+
+
+
+
       // $("#localTSTime").html(`${myUrlParam.get("loctime")}`); // this is always true
       // $("#search1Time").html(`${myUrlParam.get("searchtime1")}`);
       // $("#search2Time").html(`${myUrlParam.get("searchtime2")}`);
@@ -702,8 +752,7 @@ $(function () {
       // $("#sbsearchClock1").val(`${myUrlParam.get("searchCity1")}`);
       // $("#sbsearchClock2").val(`${myUrlParam.get("searchCity2")}`);
     
-  
-  setTimesFromURL();
+
   // ================================================================
   // New and improved event handler for copy button to create the URL
   // ================================================================
