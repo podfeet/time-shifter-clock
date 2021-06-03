@@ -59,7 +59,7 @@ let clockAttributesArray = [
     timeShifted: true,
     location: "America/Los_Angeles",
     searchBoxDivID: "sbsearchClockDiv-1",
-    searchBoxID: "sbsearchClock_1",
+    searchBoxID: "sbsearchClock-1",
     clockPlaceholder: shiftingClocksPlaceholder,
   },
   {
@@ -72,7 +72,7 @@ let clockAttributesArray = [
     timeShifted: true,
     location: "Europe/Dublin",
     searchBoxDivID: "sbsearchClockDiv-2",
-    searchBoxID: "sbsearchClock_2",
+    searchBoxID: "sbsearchClock-2",
     clockPlaceholder: shiftingClocksPlaceholder,
   },
 ];
@@ -373,6 +373,7 @@ $(function () {
       // this.shiftTime();
       this.addSearchBox();
 
+      // Adds autocomplete box (from bootstrap-4-autocomplete) to search clocks 
       $(`#${this.searchBoxID}`).autocomplete({
         source: tzNamesObject, // dictionary object with the values from which to search
         onSelectItem: onSelectItem, // callback to run when item is selected
@@ -409,7 +410,6 @@ $(function () {
 
     // Add text search box for cities
     addSearchBox() {
-      console.log(`DEBUG: i made it to addSearchBox`);
       if (this.timeShifted) {
         if (this.searchBoxDivID) {
           if (this.searchBoxID) {
@@ -434,7 +434,10 @@ $(function () {
         return;
       }
     }
-  } // complete AClock Class definition
+  } 
+  // *********************************
+  // Finish AClock Class definition
+  // *********************************
 
   // Create a function to make the original 2 clocks
   function makeClocks(){
@@ -452,7 +455,6 @@ $(function () {
     let x = new AClock(clockAttributesArray[numCl]);
     arrayOfClocks.push(x);
     arrayOfLocations.push(x.location);
-    console.log(`arrayOfLocations is updated to: ${arrayOfLocations}`);
     }
   
   // click handler to add a another city clock
@@ -467,7 +469,7 @@ $(function () {
       timeShifted: true,
       location: "Pacific/Auckland",
       searchBoxDivID: `sbsearchClockDiv-${numCl}`,
-      searchBoxID: `sbsearchClock_${numCl}`,
+      searchBoxID: `sbsearchClock-${numCl}`,
       clockPlaceholder: shiftingClocksPlaceholder,
     });
     // create another clock with the attributes
@@ -709,7 +711,7 @@ $(function () {
           timeShifted: true,
           location: paramArray[i][1],
           searchBoxDivID: `sbsearchClockDiv-${numCl}`,
-          searchBoxID: `sbsearchClock_${numCl}`,
+          searchBoxID: `sbsearchClock-${numCl}`,
           clockPlaceholder: shiftingClocksPlaceholder,
         });
       };       
