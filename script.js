@@ -59,7 +59,7 @@ let clockAttributesArray = [
     timeShifted: true,
     location: "America/Los_Angeles",
     searchBoxDivID: "sbsearchClockDiv-1",
-    searchBoxID: "sbsearchClock-1",
+    searchBoxID: "sbsearchClock_1",
     clockPlaceholder: shiftingClocksPlaceholder,
   },
   {
@@ -72,7 +72,7 @@ let clockAttributesArray = [
     timeShifted: true,
     location: "Europe/Dublin",
     searchBoxDivID: "sbsearchClockDiv-2",
-    searchBoxID: "sbsearchClock-2",
+    searchBoxID: "sbsearchClock_2",
     clockPlaceholder: shiftingClocksPlaceholder,
   },
 ];
@@ -372,6 +372,15 @@ $(function () {
       this.clockInterval();
       // this.shiftTime();
       this.addSearchBox();
+
+      $(`#${this.searchBoxID}`).autocomplete({
+        source: tzNamesObject, // dictionary object with the values from which to search
+        onSelectItem: onSelectItem, // callback to run when item is selected
+        highlightTyped: false, // if typed text is highlighted in search results, the name gets broken in two for screen readers. e.g. "Det roit"
+        threshold: 3, // minimum characters to search before it starts displaying
+        parentIDIndex: i
+      });
+
     }
     // ****************************** //
     //  Define the Instance functions //
@@ -400,6 +409,7 @@ $(function () {
 
     // Add text search box for cities
     addSearchBox() {
+      console.log(`DEBUG: i made it to addSearchBox`);
       if (this.timeShifted) {
         if (this.searchBoxDivID) {
           if (this.searchBoxID) {
@@ -457,7 +467,7 @@ $(function () {
       timeShifted: true,
       location: "Pacific/Auckland",
       searchBoxDivID: `sbsearchClockDiv-${numCl}`,
-      searchBoxID: `sbsearchClock-${numCl}`,
+      searchBoxID: `sbsearchClock_${numCl}`,
       clockPlaceholder: shiftingClocksPlaceholder,
     });
     // create another clock with the attributes
@@ -490,7 +500,7 @@ $(function () {
     );
     // change city in arrayOfLocations
     
-    // SQUIRREL:  note that clicking in EITHER city box throws an error "Emtpy string passed to getElementByID(). says FormAutofillHeuristics.jsm:403:22" doesn't seem to hurt anything tho?
+    // SQUIRREL:  note that clicking in EITHER city box throws an error "Emtpy string passed to getElementByID(). says FormAutofillHeuristics.jsm:403:22"
 
     // console.log(`array of locations before thinks it is ${arrayOfLocations}`); 
 
@@ -501,7 +511,7 @@ $(function () {
 
     clockAttributesArray.forEach(function (element, index) {
       if (index < 1) {
-        return;
+        console.log(`that was index 0`);;
       } else {
         $(`#${element.timeID}`).html(
           moment.tz(element.location).format(FORMATTEDTIME)
@@ -573,24 +583,6 @@ $(function () {
     }
   });
 
-  // Adds Bootstrap autocomplete function to the ID #myAutocomplete
-
-  // was $('#sbsearchClock1').autocomplete({ })
-  function addAutocomplete() {
-    // start i at [1] because [0] is non-time-shifting local time
-    for (i = 1; i < clockAttributesArray.length; i++) {
-      $(`#${clockAttributesArray[i].searchBoxID}`).autocomplete({
-        source: tzNamesObject, // dictionary object with the values from which to search
-        onSelectItem: onSelectItem, // callback to run when item is selected
-        highlightTyped: false, // if typed text is highlighted in search results, the name gets broken in two for screen readers. e.g. "Det roit"
-        threshold: 3, // minimum characters to search before it starts displaying
-        parentIDIndex: i, //
-      });
-    }
-  }
-
-  addAutocomplete();
-
   // ********************************************************* //
   // Click Handler checking for 12/24 hr //
   // ********************************************************* //
@@ -616,22 +608,22 @@ $(function () {
 
   // Extract information from clocks
 
-  // ========================
-  // UTC TIME CONVERSION 
-  //=========================
+  // // ========================
+  // // UTC TIME CONVERSION 
+  // //=========================
 
-  // #searchTime-1 will always exist, it's the first clock
-  let sl1 = clockAttributesArray[1].location; // search location 1 (default Los Angeles)
-  // console.log(`Reference city is ${sl1}`);
-  let st1 = $("#searchTime-1").html(); // search time 1
-  // console.log(`Time in reference city is ${st1}`);
-  // convert the first time and location into UTC time
-  let utcT = moment.tz(st1, FORMATTEDTIME, sl1).utc().format(); // converting st1 to UTC time
-  // console.log(`UTC time is ${utcT}`);
+  // // #searchTime-1 will always exist, it's the first clock
+  // let sl1 = clockAttributesArray[1].location; // search location 1 (default Los Angeles)
+  // // console.log(`Reference city is ${sl1}`);
+  // let st1 = $("#searchTime-1").html(); // search time 1
+  // // console.log(`Time in reference city is ${st1}`);
+  // // convert the first time and location into UTC time
+  // let utcT = moment.tz(st1, FORMATTEDTIME, sl1).utc().format(); // converting st1 to UTC time
+  // // console.log(`UTC time is ${utcT}`);
 
-  // Given the time in UTC, how do I convert that back to the time in the reference city?
-  let convertedBack = moment.utc(utcT).tz(sl1).format(FORMATTEDTIME)
-  // console.log(`Time back in LA is ${convertedBack}`); // This shows correctly returned time in FORMATTEDTIME
+  // // Given the time in UTC, how do I convert that back to the time in the reference city?
+  // let convertedBack = moment.utc(utcT).tz(sl1).format(FORMATTEDTIME)
+  // // console.log(`Time back in LA is ${convertedBack}`); // This shows correctly returned time in FORMATTEDTIME
 
 
   // ****************************************************************************** //
@@ -717,7 +709,7 @@ $(function () {
           timeShifted: true,
           location: paramArray[i][1],
           searchBoxDivID: `sbsearchClockDiv-${numCl}`,
-          searchBoxID: `sbsearchClock-${numCl}`,
+          searchBoxID: `sbsearchClock_${numCl}`,
           clockPlaceholder: shiftingClocksPlaceholder,
         });
       };       
