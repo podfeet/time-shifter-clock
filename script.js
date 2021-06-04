@@ -608,81 +608,11 @@ $(function () {
   // creating sendable times
   //=========================
 
-  // Extract information from clocks
-
-  // // ========================
-  // // UTC TIME CONVERSION 
-  // //=========================
-
-  // // #searchTime-1 will always exist, it's the first clock
-  // let sl1 = clockAttributesArray[1].location; // search location 1 (default Los Angeles)
-  // // console.log(`Reference city is ${sl1}`);
-  // let st1 = $("#searchTime-1").html(); // search time 1
-  // // console.log(`Time in reference city is ${st1}`);
-  // // convert the first time and location into UTC time
-  // let utcT = moment.tz(st1, FORMATTEDTIME, sl1).utc().format(); // converting st1 to UTC time
-  // // console.log(`UTC time is ${utcT}`);
-
-  // // Given the time in UTC, how do I convert that back to the time in the reference city?
-  // let convertedBack = moment.utc(utcT).tz(sl1).format(FORMATTEDTIME)
-  // // console.log(`Time back in LA is ${convertedBack}`); // This shows correctly returned time in FORMATTEDTIME
-
-
+  
   // ****************************************************************************** //
-  // function to set the times, change the existing clocks AND add any extra clocks //
+  // function to extract and set the times, change the existing clocks AND add any extra clocks //
   // ****************************************************************************** //
-   
-  // BUG: with makeClocks inside setTimesFromURL(), I get deprecation warning AND no search boxes work. Not the original 2, none added with button, and none received via URL.
-  // BUG: moving makeClocks outside of this function breaks the ability to have more than 2 clocks show up from the URL.
-
-  // function setTimesFromURL() {
-    // If no query string in the URL, just make the regular clock
-    // if (!(window.location.search)){
-      // console.log(`no search query`);
-      // makeClocks();
-    // } else if (window.location.search) {
-      // pull the query string that may have been received in the URL
-      // let queryStringReceived = window.location.search;
-      // Determine if URL has a query string and pass values to search clocks or send defaults if not
-
-      // initialize an array to hold the search query parameters
-      // let paramArray = []; 
-      
-      // function to .
-      // function checkQuery() {
-      //   let searchParams = new URLSearchParams(queryStringReceived);
-      //   for (let pair of searchParams.entries()){
-      //     paramArray.push(pair);
-      //   } 
-      //   for (i = 1; i < 3; i++){
-      //     numCl = i;
-      //     clockAttributesArray[i].location = paramArray[i][1];
-      //     clockAttributesArray[i].timeDescription = `The time in ${paramArray[i][1]} becomes:`;
-      //   }
-      //   for (i = 3; i < paramArray.length; i++){ // start at 1 bc 0 is UTC pair
-      //     numCl = i;
-
-      //     clockAttributesArray.push({
-      //       timeDescriptionID: `searchTSID-${numCl}`,
-      //       clockBorder: "border border-primary rounded",
-      //       timeDescription: `The time in ${paramArray[i][1]} becomes:`,
-      //       timeID: `searchTime-${numCl}`,
-      //       timeFormat: TIME12WSEC,
-      //       timeShifted: true,
-      //       location: paramArray[i][1],
-      //       searchBoxDivID: `sbsearchClockDiv-${numCl}`,
-      //       searchBoxID: `sbsearchClock-${numCl}`,
-      //       clockPlaceholder: shiftingClocksPlaceholder,
-      //     });
-      //   }
-      //   makeClocks();        
-      // };  
-        // let utcT = paramArray[0][1] // this should be the real utcT
-        // console.log(`utcT from the URL becomes ${utcT}`);
-      // }
-      // checkQuery();
-  //   }; // end else if window.location.search
-  // }; // end function setTimesFromURL
+ 
 
   // function to see if there's a query string and if so populate clockAttributesArray
   let queryStringReceived = window.location.search;
@@ -695,11 +625,17 @@ $(function () {
       let searchParams = new URLSearchParams(queryStringReceived);
       for (let pair of searchParams.entries()){
         paramArray.push(pair);
+        // console.log(`DEBUG: paramArray[0][1] is ${paramArray[0][1]}`)
       } 
+      let utcT = paramArray[0][1]
       for (i = 1; i < 3; i++){
         numCl = i;
         clockAttributesArray[i].location = paramArray[i][1];
         clockAttributesArray[i].timeDescription = `The time in ${paramArray[i][1]} becomes:`;
+        let sl = paramArray[i][1];
+        clockAttributesArray[i].timeID = moment.utc(utcT).tz(sl).format(FORMATTEDTIME);
+        console.log(`DEBUG: clockAttributesArray[i].timeID is ${clockAttributesArray[i].timeID}`)
+        // ^^^ shows the shifted time for the two standard clocks, but the values don't show up in the clock
       }
       for (i = 3; i < paramArray.length; i++){ // start at 3 for first additional clock
         numCl = i;
@@ -719,7 +655,6 @@ $(function () {
     }; 
   };  
   checkQuery();
-  makeClocks();
   // SQUIRREL: I think setTimesFromURL s/b where the math is done against UTC
   function setTimesFromURL(){
     // loop through clockAttributesArray to push in the locations and times?
