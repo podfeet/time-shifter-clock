@@ -689,8 +689,9 @@ $(function () {
   function checkQuery() {
     let paramArray = [];
     if (queryStringReceived == ""){
-      console.log('no query string received by checkQuery()');
+      console.log('DEBUG: no query string received by checkQuery()');
     } else {
+      console.log(`DEBUG: queryStringReceived is ${queryStringReceived}`)
       let searchParams = new URLSearchParams(queryStringReceived);
       for (let pair of searchParams.entries()){
         paramArray.push(pair);
@@ -700,7 +701,7 @@ $(function () {
         clockAttributesArray[i].location = paramArray[i][1];
         clockAttributesArray[i].timeDescription = `The time in ${paramArray[i][1]} becomes:`;
       }
-      for (i = 3; i < paramArray.length; i++){ // start at 1 bc 0 is UTC pair
+      for (i = 3; i < paramArray.length; i++){ // start at 3 for first additional clock
         numCl = i;
         clockAttributesArray.push({
           timeDescriptionID: `searchTSID-${numCl}`,
@@ -724,28 +725,6 @@ $(function () {
     // loop through clockAttributesArray to push in the locations and times?
 
   }
-
-  // setTimesFromURL();
- 
-
-
-
-
-
-
-
-      // $("#localTSTime").html(`${myUrlParam.get("loctime")}`); // this is always true
-      // $("#search1Time").html(`${myUrlParam.get("searchtime1")}`);
-      // $("#search2Time").html(`${myUrlParam.get("searchtime2")}`);
-
-      // // set location names (timeDescription)
-      // // $('#localTSID').html(`${myUrlParam.get('localTimeDesc')}`)
-      // $("#search1TSID").html(`${myUrlParam.get("searchTimeDesc1")}`);
-      // $("#search2TSID").html(`${myUrlParam.get("searchTimeDesc2")}`);
-      // // if no search city is entered, this will be blank
-      // $("#sbsearchClock1").val(`${myUrlParam.get("searchCity1")}`);
-      // $("#sbsearchClock2").val(`${myUrlParam.get("searchCity2")}`);
-    
 
   // ================================================================
   // New and improved event handler for copy button to create the URL
