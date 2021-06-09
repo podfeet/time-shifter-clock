@@ -387,7 +387,7 @@ $(function () {
     //  Define the Instance functions //
     // ****************************** //
     aRenderTime() {
-      $(`#${this.timeID}`).html(moment.tz(this.location).format(FORMATTEDTIME));
+      $(`#${this.timeID}`).html(moment.tz(this.location).format(FORMATTEDTIME)+"aRenderTime");
     }
 
     // Render the html for the clocks
@@ -481,15 +481,11 @@ $(function () {
   // Set time on searchClocks to the entered location
 
   function onSelectItem(item) {
-    // console.log(`ID of search box is ${item.parentIDIndex}`); // returns correct ID e.g. "1"
-    console.log(`item.parentIDIndex is ${item.parentIDIndex}`)
     let x = item.parentIDIndex;
     let selectedSearchBox = clockAttributesArray[x];
 
     // set the location to the selected city
     selectedSearchBox.location = `${item.value}`;
-
-    // console.log(`selectedSearchBox location is ${selectedSearchBox.location}`); // correctly shows new location
 
     // set the description to match selected city
     selectedSearchBox.timeDescription = `Time in ${item.label} becomes:`;
@@ -501,10 +497,6 @@ $(function () {
       moment.tz(selectedSearchBox.location).format(FORMATTEDTIME)
     );
     // change city in arrayOfLocations
-    
-    // SQUIRREL:  note that clicking in EITHER city box throws an error "Emtpy string passed to getElementByID(). says FormAutofillHeuristics.jsm:403:22"
-
-    // console.log(`array of locations before thinks it is ${arrayOfLocations}`); 
 
     arrayOfLocations[x] = selectedSearchBox.location;
 
@@ -616,50 +608,79 @@ $(function () {
 
   // function to see if there's a query string and if so populate clockAttributesArray
   let queryStringReceived = window.location.search;
+  let paramArray = [];
   function checkQuery() {
-    let paramArray = [];
+    // let paramArray = [];
     if (queryStringReceived == ""){
-      console.log('DEBUG: no query string received by checkQuery()');
     } else {
-      console.log(`DEBUG: queryStringReceived is ${queryStringReceived}`)
       let searchParams = new URLSearchParams(queryStringReceived);
       for (let pair of searchParams.entries()){
         paramArray.push(pair);
         // console.log(`DEBUG: paramArray[0][1] is ${paramArray[0][1]}`)
+        // returns: DEBUG: paramArray[0][1] is 2021-06-04T22:30:00Z
       } 
-      let utcT = paramArray[0][1]
-      for (i = 1; i < 3; i++){
-        numCl = i;
-        clockAttributesArray[i].location = paramArray[i][1];
-        clockAttributesArray[i].timeDescription = `The time in ${paramArray[i][1]} becomes:`;
-        let sl = paramArray[i][1];
-        clockAttributesArray[i].timeID = moment.utc(utcT).tz(sl).format(FORMATTEDTIME);
-        console.log(`DEBUG: clockAttributesArray[i].timeID is ${clockAttributesArray[i].timeID}`)
-        // ^^^ shows the shifted time for the two standard clocks, but the values don't show up in the clock
-      }
-      for (i = 3; i < paramArray.length; i++){ // start at 3 for first additional clock
-        numCl = i;
-        clockAttributesArray.push({
-          timeDescriptionID: `searchTSID-${numCl}`,
-          clockBorder: "border border-primary rounded",
-          timeDescription: `The time in ${paramArray[i][1]} becomes:`,
-          timeID: `searchTime-${numCl}`,
-          timeFormat: TIME12WSEC,
-          timeShifted: true,
-          location: paramArray[i][1],
-          searchBoxDivID: `sbsearchClockDiv-${numCl}`,
-          searchBoxID: `sbsearchClock-${numCl}`,
-          clockPlaceholder: shiftingClocksPlaceholder,
-        });
-      };       
+      makeClocks();
+      // for (i = 1; i < 3; i++){
+      //   numCl = i;
+      //   // assign variable sl to be the current search location
+      //   let sl = paramArray[i][1];
+      //   clockAttributesArray[i].location = sl
+      //   clockAttributesArray[i].timeDescription = `The time in ${sl} becomes:`;
+      // }
+      // for (i = 3; i < paramArray.length; i++){ // start at 3 for first additional clock
+      //   numCl = i;
+      //   // assign variable sl to be the current search location
+      //   let sl = paramArray[i][1];
+      //   clockAttributesArray.push({
+      //     timeDescriptionID: `searchTSID-${numCl}`,
+      //     clockBorder: "border border-primary rounded",
+      //     timeDescription: `The time in ${sl} becomes:`,
+      //     timeID: `searchTime-${numCl}`,
+      //     timeFormat: TIME12WSEC,
+      //     timeShifted: true,
+      //     location: sl,
+      //     searchBoxDivID: `sbsearchClockDiv-${numCl}`,
+      //     searchBoxID: `sbsearchClock-${numCl}`,
+      //     clockPlaceholder: shiftingClocksPlaceholder,
+      //   });
+      // };   
     }; 
   };  
   checkQuery();
-  // SQUIRREL: I think setTimesFromURL s/b where the math is done against UTC
-  function setTimesFromURL(){
-    // loop through clockAttributesArray to push in the locations and times?
+  
+// console.log(`DEBUG: clockAttributesArray[3].location is ${clockAttributesArray[3].location}`)
 
+  function setTimesFromURL(){
+    // Create a moment object for the unformatted time
+    let utcT = paramArray[0][1];
+    for (i = 1; i < 3; i++){
+      let sl = paramArray[i][1];
+      let momentOBJ = moment.utc(utcT).tz(sl);
+      let theTimeID = `#${clockAttributesArray[i].timeID}`
+      $(theTimeID).html(momentOBJ.format(FORMATTEDTIME));
+    }
+    for (i = 3; i < paramArray.length; i++){ // start at 3 for first additional clocks
+        // numCl = i;
+        // assign variable sl to be the current search location
+        let sl = paramArray[i][1];
+        clockAttributesArray.push({
+          timeDescriptionID: `searchTSID-${i}`,
+          clockBorder: "border border-primary rounded",
+          timeDescription: `The time in ${sl} becomes:`,
+          timeID: `searchTime-${i}`,
+          timeFormat: TIME12WSEC,
+          timeShifted: true,
+          location: sl,
+          searchBoxDivID: `sbsearchClockDiv-${i}`,
+          searchBoxID: `sbsearchClock-${i}`,
+          clockPlaceholder: shiftingClocksPlaceholder,
+        });
+        console.log(`DEBUG: clockAttributesArray[i].location is ${clockAttributesArray[i].location}`)
+      };   
   }
+  setTimesFromURL();
+  
+ 
 
   // ================================================================
   // New and improved event handler for copy button to create the URL
