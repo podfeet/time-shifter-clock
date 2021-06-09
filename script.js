@@ -606,18 +606,17 @@ $(function () {
   // ****************************************************************************** //
  
 
-  // function to see if there's a query string and if so populate clockAttributesArray
+  // Create a string from the URL Query string to be used to populate the clocks when a URL has been copied/sent
   let queryStringReceived = window.location.search;
+  // initialize an array to hold the search query parameters
   let paramArray = [];
+  
+  // function to see if there's a query string and if so populate clockAttributesArray
   function checkQuery() {
-    // let paramArray = [];
-    if (queryStringReceived == ""){
-    } else {
+    if (queryStringReceived !== ""){
       let searchParams = new URLSearchParams(queryStringReceived);
       for (let pair of searchParams.entries()){
         paramArray.push(pair);
-        // console.log(`DEBUG: paramArray[0][1] is ${paramArray[0][1]}`)
-        // returns: DEBUG: paramArray[0][1] is 2021-06-04T22:30:00Z
       } 
       makeClocks();
     }; 
