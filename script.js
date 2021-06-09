@@ -448,6 +448,8 @@ $(function () {
       let y = clockAttributesArray[i].location;
       arrayOfLocations.push(y);
     }
+    // puting setTimesFromURL() in here makes 2 clocks only but if there is a query string it DOES set the time to it and doesn't use aRenderTime
+    // setTimesFromURL();
   }
 
   // Create a function to make additional clocks
@@ -628,6 +630,8 @@ $(function () {
 function setTimesFromURL(){ 
   if (queryStringReceived !== ""){ 
     checkQuery();
+    // I know makeClocks shouldn't be here, but at least 2 clocks get made with the queryStringReceived times. does not use aRenderTime
+    // makeClocks();
     console.log(`DEBUG: paramArray.length is ${paramArray.length}`)
     // Create a moment object for the unformatted time
     let utcT = paramArray[0][1];
@@ -656,8 +660,9 @@ function setTimesFromURL(){
     }
   } 
 }
+
 setTimesFromURL();
-// Makes more sense here but this renders the current time
+// Makes more sense here. I get all of the clocks but this ignores search query, and uses aRenderTime
 makeClocks();  
   
  
