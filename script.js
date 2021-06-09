@@ -625,38 +625,40 @@ $(function () {
   
 // console.log(`DEBUG: clockAttributesArray[3].location is ${clockAttributesArray[3].location}`)
 
-function setTimesFromURL(){  
-  checkQuery();
-  console.log(`DEBUG: paramArray.length is ${paramArray.length}`)
-  // Create a moment object for the unformatted time
-  let utcT = paramArray[0][1];
-  for (i = 3; i < paramArray.length; i++){ // start at 3 for first additional clocks
+function setTimesFromURL(){ 
+  if (queryStringReceived !== ""){ 
+    checkQuery();
+    console.log(`DEBUG: paramArray.length is ${paramArray.length}`)
+    // Create a moment object for the unformatted time
+    let utcT = paramArray[0][1];
+    for (i = 3; i < paramArray.length; i++){ // start at 3 for first additional clocks
+        let sl = paramArray[i][1];
+        clockAttributesArray.push({
+          timeDescriptionID: `searchTSID-${i}`,
+          clockBorder: "border border-primary rounded",
+          timeDescription: `The time in ${sl} becomes:`,
+          timeID: `searchTime-${i}`,
+          timeFormat: TIME12WSEC,
+          timeShifted: true,
+          location: sl,
+          searchBoxDivID: `sbsearchClockDiv-${i}`,
+          searchBoxID: `sbsearchClock-${i}`,
+          clockPlaceholder: shiftingClocksPlaceholder,
+        });
+        console.log(`DEBUG: clockAttributesArray[3].location is ${clockAttributesArray[3].location}`)
+        console.log(`DEBUG: clockAttributesArray[3].timeDescription is ${clockAttributesArray[3].timeDescription}`)
+      };
+    for (i = 1; i < paramArray.length; i++){
       let sl = paramArray[i][1];
-      clockAttributesArray.push({
-        timeDescriptionID: `searchTSID-${i}`,
-        clockBorder: "border border-primary rounded",
-        timeDescription: `The time in ${sl} becomes:`,
-        timeID: `searchTime-${i}`,
-        timeFormat: TIME12WSEC,
-        timeShifted: true,
-        location: sl,
-        searchBoxDivID: `sbsearchClockDiv-${i}`,
-        searchBoxID: `sbsearchClock-${i}`,
-        clockPlaceholder: shiftingClocksPlaceholder,
-      });
-      console.log(`DEBUG: clockAttributesArray[3].location is ${clockAttributesArray[3].location}`)
-      console.log(`DEBUG: clockAttributesArray[3].timeDescription is ${clockAttributesArray[3].timeDescription}`)
-    };
-  for (i = 1; i < paramArray.length; i++){
-    let sl = paramArray[i][1];
-    let momentOBJ = moment.utc(utcT).tz(sl);
-    let theTimeID = `#${clockAttributesArray[i].timeID}`
-    $(theTimeID).html(momentOBJ.format(FORMATTEDTIME));
-  }
-  // Makes more sense here but this renders the current time
-  makeClocks();   
+      let momentOBJ = moment.utc(utcT).tz(sl);
+      let theTimeID = `#${clockAttributesArray[i].timeID}`
+      $(theTimeID).html(momentOBJ.format(FORMATTEDTIME));
+    }
+  } 
 }
 setTimesFromURL();
+// Makes more sense here but this renders the current time
+makeClocks();  
   
  
 
