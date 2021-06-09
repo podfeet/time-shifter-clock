@@ -618,14 +618,16 @@ $(function () {
       for (let pair of searchParams.entries()){
         paramArray.push(pair);
       } 
-      makeClocks();
-    }; 
-  };  
-  checkQuery();
+      // I know it shouldn't be here, but at least 2 clocks get made with the queryStringReceived times!
+      // makeClocks();
+    } else{}; 
+  };
   
 // console.log(`DEBUG: clockAttributesArray[3].location is ${clockAttributesArray[3].location}`)
 
-function setTimesFromURL(){
+function setTimesFromURL(){  
+  checkQuery();
+  console.log(`DEBUG: paramArray.length is ${paramArray.length}`)
   // Create a moment object for the unformatted time
   let utcT = paramArray[0][1];
   for (i = 3; i < paramArray.length; i++){ // start at 3 for first additional clocks
@@ -651,7 +653,8 @@ function setTimesFromURL(){
     let theTimeID = `#${clockAttributesArray[i].timeID}`
     $(theTimeID).html(momentOBJ.format(FORMATTEDTIME));
   }
-  // makeClocks();   
+  // Makes more sense here but this renders the current time
+  makeClocks();   
 }
 setTimesFromURL();
   
