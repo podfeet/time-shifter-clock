@@ -620,64 +620,41 @@ $(function () {
         // returns: DEBUG: paramArray[0][1] is 2021-06-04T22:30:00Z
       } 
       makeClocks();
-      // for (i = 1; i < 3; i++){
-      //   numCl = i;
-      //   // assign variable sl to be the current search location
-      //   let sl = paramArray[i][1];
-      //   clockAttributesArray[i].location = sl
-      //   clockAttributesArray[i].timeDescription = `The time in ${sl} becomes:`;
-      // }
-      // for (i = 3; i < paramArray.length; i++){ // start at 3 for first additional clock
-      //   numCl = i;
-      //   // assign variable sl to be the current search location
-      //   let sl = paramArray[i][1];
-      //   clockAttributesArray.push({
-      //     timeDescriptionID: `searchTSID-${numCl}`,
-      //     clockBorder: "border border-primary rounded",
-      //     timeDescription: `The time in ${sl} becomes:`,
-      //     timeID: `searchTime-${numCl}`,
-      //     timeFormat: TIME12WSEC,
-      //     timeShifted: true,
-      //     location: sl,
-      //     searchBoxDivID: `sbsearchClockDiv-${numCl}`,
-      //     searchBoxID: `sbsearchClock-${numCl}`,
-      //     clockPlaceholder: shiftingClocksPlaceholder,
-      //   });
-      // };   
     }; 
   };  
   checkQuery();
   
 // console.log(`DEBUG: clockAttributesArray[3].location is ${clockAttributesArray[3].location}`)
 
-  function setTimesFromURL(){
-    // Create a moment object for the unformatted time
-    let utcT = paramArray[0][1];
-    for (i = 1; i < 3; i++){
+function setTimesFromURL(){
+  // Create a moment object for the unformatted time
+  let utcT = paramArray[0][1];
+  for (i = 3; i < paramArray.length; i++){ // start at 3 for first additional clocks
       let sl = paramArray[i][1];
-      let momentOBJ = moment.utc(utcT).tz(sl);
-      let theTimeID = `#${clockAttributesArray[i].timeID}`
-      $(theTimeID).html(momentOBJ.format(FORMATTEDTIME));
-    }
-    for (i = 3; i < paramArray.length; i++){ // start at 3 for first additional clocks
-        // numCl = i;
-        // assign variable sl to be the current search location
-        let sl = paramArray[i][1];
-        clockAttributesArray.push({
-          timeDescriptionID: `searchTSID-${i}`,
-          clockBorder: "border border-primary rounded",
-          timeDescription: `The time in ${sl} becomes:`,
-          timeID: `searchTime-${i}`,
-          timeFormat: TIME12WSEC,
-          timeShifted: true,
-          location: sl,
-          searchBoxDivID: `sbsearchClockDiv-${i}`,
-          searchBoxID: `sbsearchClock-${i}`,
-          clockPlaceholder: shiftingClocksPlaceholder,
-        });
-      };   
+      clockAttributesArray.push({
+        timeDescriptionID: `searchTSID-${i}`,
+        clockBorder: "border border-primary rounded",
+        timeDescription: `The time in ${sl} becomes:`,
+        timeID: `searchTime-${i}`,
+        timeFormat: TIME12WSEC,
+        timeShifted: true,
+        location: sl,
+        searchBoxDivID: `sbsearchClockDiv-${i}`,
+        searchBoxID: `sbsearchClock-${i}`,
+        clockPlaceholder: shiftingClocksPlaceholder,
+      });
+      console.log(`DEBUG: clockAttributesArray[3].location is ${clockAttributesArray[3].location}`)
+      console.log(`DEBUG: clockAttributesArray[3].timeDescription is ${clockAttributesArray[3].timeDescription}`)
+    };
+  for (i = 1; i < paramArray.length; i++){
+    let sl = paramArray[i][1];
+    let momentOBJ = moment.utc(utcT).tz(sl);
+    let theTimeID = `#${clockAttributesArray[i].timeID}`
+    $(theTimeID).html(momentOBJ.format(FORMATTEDTIME));
   }
-  setTimesFromURL();
+  // makeClocks();   
+}
+setTimesFromURL();
   
  
 
