@@ -675,7 +675,6 @@ $(function () {
           searchBoxID: `sbsearchClock-${i}`,
           clockPlaceholder: shiftingClocksPlaceholder,
         });
-        console.log(`DEBUG: clockAttributesArray[i].location is ${clockAttributesArray[i].location}`)
       };   
   }
   setTimesFromURL();
