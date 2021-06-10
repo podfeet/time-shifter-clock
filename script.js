@@ -500,15 +500,12 @@ $(function () {
       moment.tz(selectedSearchBox.location).format(FORMATTEDTIME)
     );
     // change city in arrayOfLocations
-
     arrayOfLocations[x] = selectedSearchBox.location;
 
-    // console.log(`this location is ${arrayOfLocations[x]}`);
-    // console.log(`arrayOfLocations after change city: ${arrayOfLocations}`);
-
+    // Upon change of city, reset times back to current time
     clockAttributesArray.forEach(function (element, index) {
       if (index < 1) {
-        console.log(`that was index 0`);;
+        console.log(`that was index 0`);
       } else {
         $(`#${element.timeID}`).html(
           moment.tz(element.location).format(FORMATTEDTIME)
@@ -646,8 +643,9 @@ function setTimesFromURL(){
           clockPlaceholder: shiftingClocksPlaceholder,
         });
       };
-    // makeClocks() has to be after the array is filled
+    // makeClocks() has to be after the clockAttributesArray is updaed
     makeClocks();
+    // HTML for the clocks is changed after the clocks are made
     for (i = 1; i < paramArray.length; i++){
       let sl = paramArray[i][1];
       let momentOBJ = moment.utc(utcT).tz(sl);
