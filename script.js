@@ -475,6 +475,7 @@ $(function () {
       clockPlaceholder: shiftingClocksPlaceholder,
     });
     // create another clock with the attributes
+    // setTimesFromURL(); // this embeds clocks within clocks
     anotherClock();
   });
 
@@ -628,7 +629,6 @@ $(function () {
 function setTimesFromURL(){ 
   if (queryStringReceived !== ""){ 
     checkQuery();
-    console.log(`DEBUG: paramArray.length is ${paramArray.length}`)
     // Create a moment object for the unformatted time
     let utcT = paramArray[0][1];
     for (i = 3; i < paramArray.length; i++){ // start at 3 for first additional clocks
@@ -645,8 +645,6 @@ function setTimesFromURL(){
           searchBoxID: `sbsearchClock-${i}`,
           clockPlaceholder: shiftingClocksPlaceholder,
         });
-        console.log(`DEBUG: clockAttributesArray[3].location is ${clockAttributesArray[3].location}`)
-        console.log(`DEBUG: clockAttributesArray[3].timeDescription is ${clockAttributesArray[3].timeDescription}`)
       };
     // makeClocks() has to be after the array is filled
     makeClocks();
