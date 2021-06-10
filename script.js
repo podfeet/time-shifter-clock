@@ -461,7 +461,7 @@ $(function () {
   
   // click handler to add a another city clock
   $("#addClock").click(function () {
-    numCl = numCl + 1; // increment sequence to
+    numCl = numCl + 1;
     clockAttributesArray.push({
       timeDescriptionID: `searchTSID-${numCl}`,
       clockBorder: "border border-primary rounded",
@@ -476,6 +476,7 @@ $(function () {
     });
     // create another clock with the attributes
     // setTimesFromURL(); // this embeds clocks within clocks
+
     anotherClock();
   });
 
@@ -533,7 +534,6 @@ $(function () {
         // create moment objects from the strings for the received time in the URL
         // This works perfectly - keeps the times that came in and does the 12/24 toggle
         momentObjST = moment(`${myUrlParam.get(`searchTime-${i}`)}`);
-        // momentObjST2 = moment(`${myUrlParam.get('searchtime2')}`);
       } else {
         // creates strings from the visible time values for time-shifted clocks
         let searchT = $(`#searchTime-${i}`).html();
@@ -647,6 +647,8 @@ function setTimesFromURL(){
     makeClocks();
     // HTML for the clocks is changed after the clocks are made
     for (i = 1; i < paramArray.length; i++){
+      // set clock counter so addClock click function knows where to start
+      numCl = (paramArray.length - 1);
       let sl = paramArray[i][1];
       let momentOBJ = moment.utc(utcT).tz(sl);
       let theTimeID = `#${clockAttributesArray[i].timeID}`
