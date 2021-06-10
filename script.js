@@ -387,7 +387,7 @@ $(function () {
     //  Define the Instance functions //
     // ****************************** //
     aRenderTime() {
-      $(`#${this.timeID}`).html(moment.tz(this.location).format(FORMATTEDTIME)+"aRenderTime");
+      $(`#${this.timeID}`).html(moment.tz(this.location).format(FORMATTEDTIME));
     }
 
     // Render the html for the clocks
@@ -619,9 +619,7 @@ $(function () {
       let searchParams = new URLSearchParams(queryStringReceived);
       for (let pair of searchParams.entries()){
         paramArray.push(pair);
-      } 
-      // I know it shouldn't be here, but at least 2 clocks get made with the queryStringReceived times!
-      // makeClocks();
+      }
     } else{}; 
   };
   
@@ -630,8 +628,6 @@ $(function () {
 function setTimesFromURL(){ 
   if (queryStringReceived !== ""){ 
     checkQuery();
-    // I know makeClocks shouldn't be here, but at least 2 clocks get made with the queryStringReceived times. does not use aRenderTime
-    // makeClocks();
     console.log(`DEBUG: paramArray.length is ${paramArray.length}`)
     // Create a moment object for the unformatted time
     let utcT = paramArray[0][1];
@@ -652,18 +648,19 @@ function setTimesFromURL(){
         console.log(`DEBUG: clockAttributesArray[3].location is ${clockAttributesArray[3].location}`)
         console.log(`DEBUG: clockAttributesArray[3].timeDescription is ${clockAttributesArray[3].timeDescription}`)
       };
+    // makeClocks() has to be after the array is filled
+    makeClocks();
     for (i = 1; i < paramArray.length; i++){
       let sl = paramArray[i][1];
       let momentOBJ = moment.utc(utcT).tz(sl);
       let theTimeID = `#${clockAttributesArray[i].timeID}`
       $(theTimeID).html(momentOBJ.format(FORMATTEDTIME));
     }
-  } 
+  } else {
+    makeClocks();
+  }
 }
-
 setTimesFromURL();
-// Makes more sense here. I get all of the clocks but this ignores search query, and uses aRenderTime
-makeClocks();  
   
  
 
