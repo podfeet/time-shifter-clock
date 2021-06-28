@@ -485,7 +485,7 @@ $(function () {
   // item is what is selected from the searchbox dropdown, element is the searchbox itself. so element.id is the ID of the searchbox
   function onSelectItem(item, element) {
     let searchText = element.id // element.id is sbSearchClock-1 etc
-    // let x = searchText.match(/[0-9]{1,}/) extract just the number at the end to be the index in clockAttributesArray
+    let x = searchText.match(/[0-9]{1,}/) // extract just the number at the end to be the index in clockAttributesArray
     let selectedSearchBox = clockAttributesArray[x];
 
     // set the location to the selected city
