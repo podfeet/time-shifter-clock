@@ -480,17 +480,12 @@ $(function () {
     anotherClock();
   });
 
-  // make the individual clocks:
-
-  // Set time on searchClocks to the entered location
+  // Function to set time on searchClocks to the selected locatin from the search box autocomplete
 
   // item is what is selected from the searchbox dropdown, element is the searchbox itself. so element.id is the ID of the searchbox
   function onSelectItem(item, element) {
-    let x = grep -Eo '[0-9]{1,}' <<< $element.id;
-
-    console.log(`DEBUG: element.id is ${element.id}`)
-    console.log(`DEBUG: item.value is ${item.value}`)
-    console.log(`DEBUG: clockAttributesArray[1].location is ${clockAttributesArray[1].location}`)
+    let searchText = element.id // element.id is sbSearchClock-1 etc
+    // let x = searchText.match(/[0-9]{1,}/) extract just the number at the end to be the index in clockAttributesArray
     let selectedSearchBox = clockAttributesArray[x];
 
     // set the location to the selected city
