@@ -374,16 +374,14 @@ $(function () {
       this.addSearchBox();
 
       // Adds autocomplete box (from bootstrap-4-autocomplete) to search clocks 
-      // for (i = 1; i == numCl; i++){
-        $(`#${this.searchBoxID}`).autocomplete({
+         $(`#${this.searchBoxID}`).autocomplete({
           source: tzNamesObject, // dictionary object with the values from which to search
           onSelectItem: onSelectItem, // callback to run when item is selected
           highlightTyped: false, // if typed text is highlighted in search results, the name gets broken in two for screen readers. e.g. "Det roit"
-          threshold: 3, // minimum characters to search before it starts displaying
-          parentIDIndex: i
+          treshold: 2, // minimum characters to search before it starts displaying
+          maximumitems: 0
+          // parentIDIndex: i
         });
-      // }
-
     }
     // ****************************** //
     //  Define the Instance functions //
@@ -486,8 +484,13 @@ $(function () {
 
   // Set time on searchClocks to the entered location
 
-  function onSelectItem(item) {
-    let x = item.parentIDIndex;
+  // item is what is selected from the searchbox dropdown, element is the searchbox itself. so element.id is the ID of the searchbox
+  function onSelectItem(item, element) {
+    let x = grep -Eo '[0-9]{1,}' <<< $element.id;
+
+    console.log(`DEBUG: element.id is ${element.id}`)
+    console.log(`DEBUG: item.value is ${item.value}`)
+    console.log(`DEBUG: clockAttributesArray[1].location is ${clockAttributesArray[1].location}`)
     let selectedSearchBox = clockAttributesArray[x];
 
     // set the location to the selected city
