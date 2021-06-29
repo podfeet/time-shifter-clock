@@ -621,13 +621,21 @@ $(function () {
       }
     } else{}; 
   };
-  
 
 function setTimesFromURL(){ 
   if (queryStringReceived !== ""){ 
     checkQuery();
     // Create a moment object for the unformatted time
     let utcT = paramArray[0][1];
+ 
+    // Change clocks 1 & 2 to the new location according to the query string
+    for (i = 1; i < 3; i++){
+      let sl = paramArray[i][1];
+      clockAttributesArray[i].location = sl;
+      clockAttributesArray[i].timeDescription = `The time in ${sl} becomes:`
+    };
+
+    // then add clocks 3+ to clockAttributesArray with the search locations from the query string
     for (i = 3; i < paramArray.length; i++){ // start at 3 for first additional clocks
         let sl = paramArray[i][1];
         clockAttributesArray.push({
