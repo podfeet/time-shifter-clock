@@ -520,18 +520,18 @@ $(function () {
   $("#numHrs").click(function () {
     // run ifTrue function which sets the FORMATTEDTIME variable to either 12 (checked) or 24 (unchecked). Just sets this value, no visual change onscreen
     ifTrue();
-
-    // Create moment objects for every clock with the time delivered by the query string (if there is one)
-    for (i = 1; i < clockAttributesArray.length; i++) {
-      // console.log(`searchTime-${i}`);
-      if (window.location.search && $(".slider_label") == 0) {
-        // console.log('found a search query');
-        const queryStringSend = window.location.search;
-        myUrlParam = new URLSearchParams(queryStringSend);
-        // create moment objects from the strings for the received time in the URL
-        // This works perfectly - keeps the times that came in and does the 12/24 toggle
-        momentObjST = moment(`${myUrlParam.get(`searchTime-${i}`)}`);
+    for (i = 1; i < clockAttributesArray.length; i++){
+      if (queryStringReceived !== ""){
+        for (i = 1; i < paramArray.length; i++){
+          numCl = (paramArray.length - 1);
+          let utcT = paramArray[0][1];
+          let sl = paramArray[i][1];
+          let momentOBJ = moment.utc(utcT).tz(sl);
+          let theTimeID = `#${clockAttributesArray[i].timeID}`
+          $(theTimeID).html(momentOBJ.format(FORMATTEDTIME));
+        }
       } else {
+        //BUG: If querystring works but this changes pm to am
         // creates strings from the visible time values for time-shifted clocks
         let searchT = $(`#searchTime-${i}`).html();
         // creates a moment object from time strings
@@ -539,8 +539,33 @@ $(function () {
         // render moment objects with toggled time format back into clocks
         $(`#searchTime-${i}`).html(momentObjST.format(FORMATTEDTIME));
       } // end else
-    } // end for loop through clock attributes
+    }
   });
+
+  // $("#numHrs").click(function () {
+  //   // run ifTrue function which sets the FORMATTEDTIME variable to either 12 (checked) or 24 (unchecked). Just sets this value, no visual change onscreen
+  //   ifTrue();
+
+  //   // Create moment objects for every clock with the time delivered by the query string (if there is one)
+  //   for (i = 1; i < clockAttributesArray.length; i++) {
+  //     // console.log(`searchTime-${i}`);
+  //     if (window.location.search && $(".slider_label") == 0) {
+  //       // console.log('found a search query');
+  //       const queryStringSend = window.location.search;
+  //       myUrlParam = new URLSearchParams(queryStringSend);
+  //       // create moment objects from the strings for the received time in the URL
+  //       // This works perfectly - keeps the times that came in and does the 12/24 toggle
+  //       momentObjST = moment(`${myUrlParam.get(`searchTime-${i}`)}`);
+  //     } else {
+  //       // creates strings from the visible time values for time-shifted clocks
+  //       let searchT = $(`#searchTime-${i}`).html();
+  //       // creates a moment object from time strings
+  //       momentObjST = moment(searchT,FORMATTEDTIME);
+  //       // render moment objects with toggled time format back into clocks
+  //       $(`#searchTime-${i}`).html(momentObjST.format(FORMATTEDTIME));
+  //     } // end else
+  //   } // end for loop through clock attributes
+  // });
 
   // function to show value chosen on range sliders
   // https://codepen.io/prasanthmj/pen/OxoamJ
@@ -697,10 +722,7 @@ setTimesFromURL();
 
       for (i = 1; i < arrayOfLocations.length; i++){
         // sl means search location
-        let sl = arrayOfLocations[i];
-        console.log(`search location is ${sl}`); // sl is the city name in the loop
-        //searchtime1=${sT1}
-      
+        let sl = arrayOfLocations[i]; // sl is the city name in the query string
         sendableURL += `&sloc${i}` + `=` + `${sl}`;
       }
       console.log(sendableURL); // returns http://localhost:8888/time-shifter-clock/?utcT="2021-04-14T04:13:25Z"&sloc1=America/Los_Angeles&sloc2=Europe/Dublin&sloc3=Pacific/Auckland&sloc4=America/Detroit
