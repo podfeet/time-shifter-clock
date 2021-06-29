@@ -529,15 +529,18 @@ $(function () {
           let momentOBJ = moment.utc(utcT).tz(sl);
           let theTimeID = `#${clockAttributesArray[i].timeID}`
           $(theTimeID).html(momentOBJ.format(FORMATTEDTIME));
+          //`#${clockAttributesArray[i].timeID}` is the  as $(`#searchTime-${i}`)
         }
       } else {
-        //BUG: If querystring works but this changes pm to am
+        
         // creates strings from the visible time values for time-shifted clocks
         let searchT = $(`#searchTime-${i}`).html();
         // creates a moment object from time strings
-        momentObjST = moment(searchT,FORMATTEDTIME);
+        let momentOBJ = moment(searchT,FORMATTEDTIME);
         // render moment objects with toggled time format back into clocks
-        $(`#searchTime-${i}`).html(momentObjST.format(FORMATTEDTIME));
+        //BUG: If querystring works but this changes pm to am
+        
+        $(`#searchTime-${i}`).html(momentOBJ.format(FORMATTEDTIME));
       } // end else
     }
   });
