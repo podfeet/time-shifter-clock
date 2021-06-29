@@ -448,8 +448,6 @@ $(function () {
       let y = clockAttributesArray[i].location;
       arrayOfLocations.push(y);
     }
-    // puting setTimesFromURL() in here makes 2 clocks only but if there is a query string it DOES set the time to it and doesn't use aRenderTime
-    // setTimesFromURL();
   }
 
   // Create a function to make additional clocks
