@@ -651,9 +651,10 @@ function setTimesFromURL(){
           clockPlaceholder: shiftingClocksPlaceholder,
         });
       };
-    // makeClocks() has to be after the clockAttributesArray is updaed
+    // makeClocks() has to be after the clockAttributesArray has clocks 3+
     makeClocks();
     // HTML for the clocks is changed after the clocks are made
+    // For all clocks, set their time relative to UTC time from query string
     for (i = 1; i < paramArray.length; i++){
       // set clock counter so addClock click function knows where to start
       numCl = (paramArray.length - 1);
