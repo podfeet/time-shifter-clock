@@ -506,7 +506,6 @@ $(function () {
     // Upon change of city, reset times back to current time
     clockAttributesArray.forEach(function (element, index) {
       if (index < 1) {
-        console.log(`that was index 0`);
       } else {
         $(`#${element.timeID}`).html(
           moment.tz(element.location).format(FORMATTEDTIME)
