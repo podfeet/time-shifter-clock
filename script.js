@@ -622,7 +622,6 @@ $(function () {
     } else{}; 
   };
   
-// console.log(`DEBUG: clockAttributesArray[3].location is ${clockAttributesArray[3].location}`)
 
 function setTimesFromURL(){ 
   if (queryStringReceived !== ""){ 
