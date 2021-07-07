@@ -149,8 +149,14 @@
         <div class="row"> <!-- open row for explanation -->
           <div class="collapse" id="explanationText">
             <div class="card card-body">
-              <p>The purpose of this clock is to take the guess work out of telling someone in another time zone what time you want to meet. </p>
-              <p> Search for your own city and your partner's city and drag the shifter until you see the time you like and then hit the copy URL button.</p> <p>Send the URL to your partner and they'll see the exact times you've chosen. In turn they can offer an alternate time by using their own time shifter.</p>
+              <p>The purpose of this clock is to help you find and communicate a time <b><em>in the future</em></b> across multiple timezones when planning a meetup.</p>
+              <ol>
+                <li>Search for your own city.</li>
+                <li>Search for another city or time zone (e.g. PST). Add cities as needed if you have more than two participants.</li>
+                <li>Now drag the time shifter by half-hour increments till you see a day and time in the future that is convenient for you.</li>
+                <li>Click the Copy URL to send times button, and then paste it in a message to your participants. </li>
+              </ol>
+              <p>They will see the date/time exactly as you've sent it. If they don't like the time chosen, they can shift time themselves and send it back to you as an alternate proposal. </p>
             </div>
           </div>
         </div>
@@ -190,7 +196,7 @@
                   <button class="btn" type="button" data-toggle="collapse" data-target="#explainSlider" aria-expanded="false" aria-controls="explainSlider" aria-label="Help"><i class="fas fa-question-circle ">  Help</i></button>
                   <div class="collapse" id="explainSlider">
                     <div class="card card-body">
-                      As you start to slide, clocks will round down to nearest hour and shift forward from there.
+                      As you start to slide, clocks will round down to the nearest hour to current time and shift forward from there.
                     </div>
                   </div>
                   <input type="range" class="slider form-control-input" min="0" max="167.5" step=".5" value="0" data-show-value="true" id="changeHrs" data-thumbwidth="20">
