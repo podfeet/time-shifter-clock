@@ -597,7 +597,7 @@ $(function () {
       let roundDownTime = thisTime.startOf("h");
       // shift hours by adding the slider's offset to the rounded down time and putting it back into the correct ID
       $(`#${clockAttributesArray[i].timeID}`).html(
-        roundDownTime.add(timeShiftedVal, "h").format(FORMATTEDTIME)
+        roundDownTime.add(timeShiftedVal, "h").format(TIME12WOSEC)
       );
     }
   });
@@ -747,5 +747,5 @@ setTimesFromURL();
     };
     createURL();
   });
-  
+
 }); // end document ready
