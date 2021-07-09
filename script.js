@@ -729,8 +729,6 @@ function setTimesFromURL(){
   }
 }
 setTimesFromURL();
-  
- 
 
   // ================================================================
   // New and improved event handler for copy button to create the URL
