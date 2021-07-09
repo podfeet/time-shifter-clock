@@ -516,34 +516,31 @@ $(function () {
     showSliderLabel();
   }
 
-  // Click function for 12/24 hour toggle
-  $("#numHrs").click(function () {
-    // run ifTrue function which sets the FORMATTEDTIME variable to either 12 (checked) or 24 (unchecked). Just sets this value, no visual change onscreen
-    ifTrue();
-    for (i = 1; i < clockAttributesArray.length; i++){
-      if (queryStringReceived !== ""){
-        for (i = 1; i < paramArray.length; i++){
-          numCl = (paramArray.length - 1);
-          let utcT = paramArray[0][1];
-          let sl = paramArray[i][1];
-          let momentOBJ = moment.utc(utcT).tz(sl);
-          let theTimeID = `#${clockAttributesArray[i].timeID}`
-          $(theTimeID).html(momentOBJ.format(FORMATTEDTIME));
-          //`#${clockAttributesArray[i].timeID}` is the  as $(`#searchTime-${i}`)
-        }
-      } else {
-        
-        // creates strings from the visible time values for time-shifted clocks
-        let searchT = $(`#searchTime-${i}`).html();
-        // creates a moment object from time strings
-        let momentOBJ = moment(searchT,FORMATTEDTIME);
-        // render moment objects with toggled time format back into clocks
-        //BUG: If querystring works but this changes pm to am
-        
-        $(`#searchTime-${i}`).html(momentOBJ.format(FORMATTEDTIME));
-      } // end else
-    }
-  });
+  // DISABLED - Click function for 12/24 hour toggle
+  // $("#numHrs").click(function () {
+  //   // run ifTrue function which sets the FORMATTEDTIME variable to either 12 (checked) or 24 (unchecked). Just sets this value, no visual change onscreen
+  //   ifTrue();
+  //   for (i = 1; i < clockAttributesArray.length; i++){
+  //     if (queryStringReceived !== ""){
+  //       for (i = 1; i < paramArray.length; i++){
+  //         numCl = (paramArray.length - 1);
+  //         let utcT = paramArray[0][1];
+  //         let sl = paramArray[i][1];
+  //         let momentOBJ = moment.utc(utcT).tz(sl);
+  //         let theTimeID = `#${clockAttributesArray[i].timeID}`
+  //         $(theTimeID).html(momentOBJ.format(FORMATTEDTIME));
+  //         //`#${clockAttributesArray[i].timeID}` is the  as $(`#searchTime-${i}`)
+  //       }
+  //     } else {
+  //       // creates strings from the visible time values for time-shifted clocks
+  //       let searchT = $(`#searchTime-${i}`).html();
+  //       // creates a moment object from time strings
+  //       let momentOBJ = moment(searchT,FORMATTEDTIME);
+  //       // render moment objects with toggled time format back into clocks
+  //       $(`#searchTime-${i}`).html(momentOBJ.format(FORMATTEDTIME));
+  //     } // end else
+  //   }
+  // });
 
   // $("#numHrs").click(function () {
   //   // run ifTrue function which sets the FORMATTEDTIME variable to either 12 (checked) or 24 (unchecked). Just sets this value, no visual change onscreen
