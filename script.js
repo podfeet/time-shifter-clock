@@ -542,7 +542,7 @@ $(function () {
   //   }
   // });
 
-  // $("#numHrs").click(function () {
+  // DISABLED $("#numHrs").click(function () {
   //   // run ifTrue function which sets the FORMATTEDTIME variable to either 12 (checked) or 24 (unchecked). Just sets this value, no visual change onscreen
   //   ifTrue();
 
@@ -590,14 +590,54 @@ $(function () {
       let thisLocation = `${clockAttributesArray[i].location}`;
       // create a moment object for the time at this location
       let thisTime = moment.tz(thisLocation);
-      // create moment object for the time rounded down to nearest hour
-      let roundDownTime = thisTime.startOf("h");
+      // convert thisTime to current time in UTC+0
+      let nowUTC = moment.tz(thisTime, thisLocation).utc().format();
+      // Create a moment object for the current time in UTC+0 (otherwise you can't startOf() on it)
+      let nowUTCObj = moment.tz(nowUTC) // SQUIRREL: Says Moment Timezone has no data for 2021-07-09T04:14:59Z see https://momentjs.com/timezone/docs/#/data-loading/
+      // but that MIGHT be ok because we can still round down using startOf();
+
+      // round down UTC+0 current time to nearest hour
+      let UTCrdtObj = nowUTCObj.startOf("h"); // COMMENT: UTCrdtObj is still an object
+      // convert UTCrdtObj to a string
+      let UTCrdt = UTCrdtObj.format();
+      // console.log(`DEBUG: UTCrdt is ${UTCrdt}`) // now have a string at UTC round down time
+
+
+      // convert current time to corresponding offset with time rounded down at UTC+0
+      let thisRDT = moment.utc(UTCrdt).tz(thisLocation).format(FORMATTEDTIME);
+      console.log(`DEBUG: thisRDT is ${thisRDT}`) // returns a string with the current time rounded down
+      console.log(typeof thisRDT); // string
+
+      // convert thisRDT to an object (AGAIN)
+      let thisRDTObj = moment.tz(thisRDT);
+      console.log(`DEBUG: thisRDTObj is ${thisRDTObj}`) // BUG: NOT rounded down time, back to current time
+      // console.log(typeof thisRDTObj) // it IS indeed an object
       // shift hours by adding the slider's offset to the rounded down time and putting it back into the correct ID
+      //BUG: it started time shifting again, but it starts at current time, not rounded down time
       $(`#${clockAttributesArray[i].timeID}`).html(
-        roundDownTime.add(timeShiftedVal, "h").format(FORMATTEDTIME)
+        thisRDTObj.add(timeShiftedVal, "h").format(FORMATTEDTIME)
       );
     }
   });
+  // *** OLD CODE *** //
+
+  // $("#changeHrs").on("input change", function () {
+  //   for (i = 1; i < clockAttributesArray.length; i++) {
+  //     let timeShiftedVal = $("input[type=range]").val();
+  //     let thisLocation = `${clockAttributesArray[i].location}`;
+  //     // create a moment object for the time at this location
+  //     let thisTime = moment.tz(thisLocation);
+  //     // create moment object for the time rounded down to nearest hour
+  //     let roundDownTime = thisTime.startOf("h");
+  //     // shift hours by adding the slider's offset to the rounded down time and putting it back into the correct ID
+  //     $(`#${clockAttributesArray[i].timeID}`).html(
+  //       roundDownTime.add(timeShiftedVal, "h").format(TIME12WOSEC)
+  //     );
+  //   }
+  // });
+
+
+
 
   // ********************************************************* //
   // Click Handler checking for 12/24 hr //
