@@ -605,13 +605,9 @@ $(function () {
       let UTCrdtObj = nowUTCObj.startOf("h"); // COMMENT: UTCrdtObj is still an object
       // convert UTCrdtObj to a string
       let UTCrdt = UTCrdtObj.format();
-      // console.log(`DEBUG: UTCrdt is ${UTCrdt}`) // now have a string at UTC round down time
-
 
       // convert current time to corresponding offset with time rounded down at UTC+0
       let thisRDT = moment.utc(UTCrdt).tz(thisLocation).format(FORMATTEDTIME);
-      console.log(`DEBUG: thisRDT is ${thisRDT}`) // returns a string with the current time rounded down
-      console.log(typeof thisRDT); // string
 
       // convert thisRDT to an object (AGAIN)
       let thisRDTObj = moment(thisRDT);
