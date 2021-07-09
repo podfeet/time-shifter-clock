@@ -373,6 +373,13 @@ $(function () {
       // this.shiftTime();
       this.addSearchBox();
 
+      $(`#${this.searchBoxID}`).focusout(
+        function(){
+          // if text entered matches one and only one element in timezone db, then find the full match (including continent) and change 
+          console.log('You did not select anything')
+        }
+      )
+
       // Adds autocomplete box (from bootstrap-4-autocomplete) to search clocks 
          $(`#${this.searchBoxID}`).autocomplete({
           source: tzNamesObject, // dictionary object with the values from which to search
@@ -380,7 +387,6 @@ $(function () {
           highlightTyped: false, // if typed text is highlighted in search results, the name gets broken in two for screen readers. e.g. "Det roit"
           treshold: 2, // minimum characters to search before it starts displaying
           maximumitems: 0
-          // parentIDIndex: i
         });
     }
     // ****************************** //
@@ -515,57 +521,6 @@ $(function () {
     $("input[type=range]").val(0);
     showSliderLabel();
   }
-
-  // DISABLED - Click function for 12/24 hour toggle
-  // $("#numHrs").click(function () {
-  //   // run ifTrue function which sets the FORMATTEDTIME variable to either 12 (checked) or 24 (unchecked). Just sets this value, no visual change onscreen
-  //   ifTrue();
-  //   for (i = 1; i < clockAttributesArray.length; i++){
-  //     if (queryStringReceived !== ""){
-  //       for (i = 1; i < paramArray.length; i++){
-  //         numCl = (paramArray.length - 1);
-  //         let utcT = paramArray[0][1];
-  //         let sl = paramArray[i][1];
-  //         let momentOBJ = moment.utc(utcT).tz(sl);
-  //         let theTimeID = `#${clockAttributesArray[i].timeID}`
-  //         $(theTimeID).html(momentOBJ.format(FORMATTEDTIME));
-  //         //`#${clockAttributesArray[i].timeID}` is the  as $(`#searchTime-${i}`)
-  //       }
-  //     } else {
-  //       // creates strings from the visible time values for time-shifted clocks
-  //       let searchT = $(`#searchTime-${i}`).html();
-  //       // creates a moment object from time strings
-  //       let momentOBJ = moment(searchT,FORMATTEDTIME);
-  //       // render moment objects with toggled time format back into clocks
-  //       $(`#searchTime-${i}`).html(momentOBJ.format(FORMATTEDTIME));
-  //     } // end else
-  //   }
-  // });
-
-  // DISABLED $("#numHrs").click(function () {
-  //   // run ifTrue function which sets the FORMATTEDTIME variable to either 12 (checked) or 24 (unchecked). Just sets this value, no visual change onscreen
-  //   ifTrue();
-
-  //   // Create moment objects for every clock with the time delivered by the query string (if there is one)
-  //   for (i = 1; i < clockAttributesArray.length; i++) {
-  //     // console.log(`searchTime-${i}`);
-  //     if (window.location.search && $(".slider_label") == 0) {
-  //       // console.log('found a search query');
-  //       const queryStringSend = window.location.search;
-  //       myUrlParam = new URLSearchParams(queryStringSend);
-  //       // create moment objects from the strings for the received time in the URL
-  //       // This works perfectly - keeps the times that came in and does the 12/24 toggle
-  //       momentObjST = moment(`${myUrlParam.get(`searchTime-${i}`)}`);
-  //     } else {
-  //       // creates strings from the visible time values for time-shifted clocks
-  //       let searchT = $(`#searchTime-${i}`).html();
-  //       // creates a moment object from time strings
-  //       momentObjST = moment(searchT,FORMATTEDTIME);
-  //       // render moment objects with toggled time format back into clocks
-  //       $(`#searchTime-${i}`).html(momentObjST.format(FORMATTEDTIME));
-  //     } // end else
-  //   } // end for loop through clock attributes
-  // });
 
   // function to show value chosen on range sliders
   // https://codepen.io/prasanthmj/pen/OxoamJ
