@@ -588,13 +588,18 @@ $(function () {
     for (i = 1; i < clockAttributesArray.length; i++) {
       let timeShiftedVal = $("input[type=range]").val();
       let thisLocation = `${clockAttributesArray[i].location}`;
+
       // create a moment object for the time at this location
       let thisTime = moment.tz(thisLocation);
+
       // convert thisTime to current time in UTC+0
-      let nowUTC = moment.tz(thisTime, thisLocation).utc().format();
+      let nowUTC = moment.tz(thisTime, thisLocation).utc().format(); // this is a string
+      
+
       // Create a moment object for the current time in UTC+0 (otherwise you can't startOf() on it)
-      let nowUTCObj = moment.tz(nowUTC) // SQUIRREL: Says Moment Timezone has no data for 2021-07-09T04:14:59Z see https://momentjs.com/timezone/docs/#/data-loading/
+      let nowUTCObj = moment(nowUTC); // SQUIRREL: Says Moment Timezone has no data for 2021-07-09T04:14:59Z see https://momentjs.com/timezone/docs/#/data-loading/
       // but that MIGHT be ok because we can still round down using startOf();
+      // console.log(typeof nowUTCObj) // returns object
 
       // round down UTC+0 current time to nearest hour
       let UTCrdtObj = nowUTCObj.startOf("h"); // COMMENT: UTCrdtObj is still an object
@@ -609,11 +614,8 @@ $(function () {
       console.log(typeof thisRDT); // string
 
       // convert thisRDT to an object (AGAIN)
-      let thisRDTObj = moment.tz(thisRDT);
-      console.log(`DEBUG: thisRDTObj is ${thisRDTObj}`) // BUG: NOT rounded down time, back to current time
-      // console.log(typeof thisRDTObj) // it IS indeed an object
+      let thisRDTObj = moment(thisRDT);
       // shift hours by adding the slider's offset to the rounded down time and putting it back into the correct ID
-      //BUG: it started time shifting again, but it starts at current time, not rounded down time
       $(`#${clockAttributesArray[i].timeID}`).html(
         thisRDTObj.add(timeShiftedVal, "h").format(FORMATTEDTIME)
       );
