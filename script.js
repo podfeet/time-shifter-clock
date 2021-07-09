@@ -31,7 +31,7 @@ let minShifted = "";
 
 // Create an array from the official list of timezone names
 let TzNamesArray = moment.tz.names();
-// don't understand this but it takes the array which is just a list of the region/city and makes it into an object where the key is the region/city and so is the value. which for some reason works in autocomplete!
+// don't understand this but it takes the array which is just a list of the region/city and makes it into an object where the key is the region/city and so is the value. which for some reason works in autocomplete!  Claus Wolf added this as a pull request to replace the _ with a space so humans can type the search.
 let tzNamesObject = TzNamesArray.reduce(function (o, val) {
   o[val.replace("_", " ")] = val;
   return o;
@@ -783,30 +783,4 @@ setTimesFromURL();
     createURL();
   });
 
-  
-
-  // =============================================
-  // ALERT ABOUT NOT PUTTING IN A VALID SEARCH  //
-  // =============================================
-
-  //   if ($("#sbsearchClock1").val() == "" && $("#sbsearchClock2").val() == "") {
-  //     createURL();
-  //   } else {
-  //     // put underscores in region/city name before testing if it's in the time zone array
-  //     const space = /\s/g;
-  //     let sbclock1Under = $("#sbsearchClock1").val().replace(space, "_");
-  //     let sbclock2Under = $("#sbsearchClock2").val().replace(space, "_");
-
-  //     // (if 1 is not in array AND 1 is not blank) OR (2 is not in array and 2 is not blank)
-  //     if (
-  //       (!TzNamesArray.includes(sbclock1Under) && !sbclock1Under == "") ||
-  //       (!TzNamesArray.includes(sbclock2Under) && !sbclock2Under == "")
-  //     ) {
-  //       alert("You must search and select a valid city from the dropdown");
-  //     } else {
-  //       // if both values in both searchboxes have been chosen from the dropdown, create the URL
-  //       createURL();
-  //     }
-  //   }
-  // });
 }); // end document ready

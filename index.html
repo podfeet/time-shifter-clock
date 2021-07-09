@@ -149,8 +149,14 @@
         <div class="row"> <!-- open row for explanation -->
           <div class="collapse" id="explanationText">
             <div class="card card-body">
-              <p>The purpose of this clock is to take the guess work out of telling someone in another time zone what time you want to meet. </p>
-              <p> Search for your own city and your partner's city and drag the shifter until you see the time you like and then hit the copy URL button.</p> <p>Send the URL to your partner and they'll see the exact times you've chosen. In turn they can offer an alternate time by using their own time shifter.</p>
+              <p>The purpose of this clock is to help you find and communicate a time <b><em>in the future</em></b> across multiple timezones when planning a meetup.</p>
+              <ol>
+                <li>Search for your own city.</li>
+                <li>Search for another city or time zone (e.g. PST). Add cities as needed if you have more than two participants.</li>
+                <li>Now drag the time shifter by half-hour increments till you see a day and time in the future that is convenient for you.</li>
+                <li>Click the Copy URL to send times button, and then paste it in a message to your participants. </li>
+              </ol>
+              <p>They will see the date/time exactly as you've sent it. If they don't like the time chosen, they can shift time themselves and send it back to you as an alternate proposal. </p>
             </div>
           </div>
         </div>
@@ -161,22 +167,6 @@
     <main>
 
     <!-- html goes here -->
-
-      <div class="container"> <!-- open container for switches -->
-        <!-- Switch to  12 vs 24 hr clock -->
-        <div class="row pb-3 pr-1 pl-1"> <!-- row for numHrs switch -->
-          <div class="col col-md-6 form-control form-check-inline bg-light border border-dark rounded d-flex justify-content-center">
-            <!-- Description of checkbox for screen readers -->
-            <div id="hrsDesc" class="sr-only">Switch to toggle between 24 and 12 hour clocks</div> 
-            
-            <div class="custom-control custom-switch form-control-md">
-                <input type="checkbox" class="custom-control-input" checked id="numHrs" name="numHrs" >
-              <label class="custom-control-label mySwitches" for="numHrs">Toggle 12/24 Hour Clocks</label>
-            
-            </div>
-          </div>
-        </div>
-      </div> <!-- close switch 12 vs 24 hr clock -->
       
       <!-- TIMESHIFTER CLOCKS -->
 
@@ -203,10 +193,10 @@
               <div class="form-group">
                 <div >
                   <label class="mr2" for="changeHrs">Drag to Shift Time (hrs)</label>
-                  <button class="btn" type="button" data-toggle="collapse" data-target="#explainSlider" aria-expanded="false" aria-controls="explainSlider"><i class="fas fa-question-circle ">  Help</i></button>
+                  <button class="btn" type="button" data-toggle="collapse" data-target="#explainSlider" aria-expanded="false" aria-controls="explainSlider" aria-label="Help"><i class="fas fa-question-circle ">  Help</i></button>
                   <div class="collapse" id="explainSlider">
                     <div class="card card-body">
-                      As you start to slide, clocks will round down to nearest hour and shift forward from there.
+                      As you start to slide, clocks will round down to the nearest hour to current time and shift forward from there.
                     </div>
                   </div>
                   <input type="range" class="slider form-control-input" min="0" max="167.5" step=".5" value="0" data-show-value="true" id="changeHrs" data-thumbwidth="20">
@@ -233,7 +223,7 @@
         <div class="small" name="homage">Time Shifter Clock was inspired by Terry Brett's <a href="http://timescroller.com">TimeScroller</a> iOS app and widget for OSX</div>
       </div>
       <div class="container">
-        <div class="small" name="homage">Released as an open source project at <a href="https://github.com/NosillaCast/a-world-clock">github.com/NosillaCast/a-world-clock</a></div>
+        <div class="small" name="homage">Released as an open source project at <a href="https://github.com/NosillaCast/time-shifter-clock">github.com/NosillaCast/time-shifter-clock</a></div>
       </div>
     </main>
     
