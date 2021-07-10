@@ -520,6 +520,25 @@ $(function () {
       }
     });
 
+    // Want to check to see if onSelectItem fired AFTER text was entered
+    // first check to see if text was entered
+
+    // write brilliant code here
+    // if (element.id had text in it){
+      // if !callbacks.fire then alert
+    }
+    // 
+
+    // this barfs
+    // let callbacks = $.Callbacks();
+    // callbacks.add(onSelectItem);
+    // if (callbacks.fire()){
+    //   alert("onSelectItem was Fired")
+    // };
+
+  
+
+
     // reset range slider and label back to 0
     $("input[type=range]").val(0);
     showSliderLabel();
