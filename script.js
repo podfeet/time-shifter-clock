@@ -479,11 +479,14 @@ $(function () {
       clockPlaceholder: shiftingClocksPlaceholder,
     });
     // create another clock with the attributes
-    // setTimesFromURL(); // this embeds clocks within clocks
-
     anotherClock();
+    // Scroll the page until the Copy URL button is visible after clicking Add City
+    let element1 = document.getElementById("copyBtn");
+    // console.log(`DEBUG: element1 is ${element1}`)
+    // let element2 = $("#copyBtn");
+    // console.log(`DEBUG: element2 is ${element2}`)
+    element1.scrollIntoView({behavior: "smooth"});
   });
-
   // Function to set time on searchClocks to the selected locatin from the search box autocomplete
 
   // item is what is selected from the searchbox dropdown, element is the searchbox itself. so element.id is the ID of the searchbox
