@@ -575,22 +575,6 @@ $(function () {
       );
     }
   });
-  // *** OLD CODE *** //
-
-  // $("#changeHrs").on("input change", function () {
-  //   for (i = 1; i < clockAttributesArray.length; i++) {
-  //     let timeShiftedVal = $("input[type=range]").val();
-  //     let thisLocation = `${clockAttributesArray[i].location}`;
-  //     // create a moment object for the time at this location
-  //     let thisTime = moment.tz(thisLocation);
-  //     // create moment object for the time rounded down to nearest hour
-  //     let roundDownTime = thisTime.startOf("h");
-  //     // shift hours by adding the slider's offset to the rounded down time and putting it back into the correct ID
-  //     $(`#${clockAttributesArray[i].timeID}`).html(
-  //       roundDownTime.add(timeShiftedVal, "h").format(TIME12WOSEC)
-  //     );
-  //   }
-  // });
 
   // ********************************************************* //
   // Click Handler checking for 12/24 hr //
