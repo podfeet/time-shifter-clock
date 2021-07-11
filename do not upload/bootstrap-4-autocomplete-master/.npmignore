@@ -1,5 +1,0 @@
-src
-.gitignore
-.travis.yml
-gulpfile.js
-tsconfig.json

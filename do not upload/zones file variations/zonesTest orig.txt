@@ -1,9 +1,0 @@
-[
-  { LineNo: "419", cc: "WF", city: "Pacific/Wallis" },
-  { LineNo: "420", cc: "WS", city: "Pacific/Apia" },
-  { LineNo: "421", cc: "YE", city: "Asia/Aden" },
-  { LineNo: "422", cc: "YT", city: "Indian/Mayotte" },
-  { LineNo: "423", cc: "ZA", city: "Africa/Johannesburg" },
-  { LineNo: "424", cc: "ZM", city: "Africa/Lusaka" },
-  { LineNo: "425", cc: "ZW", city: "Africa/Harare" } 
-]
