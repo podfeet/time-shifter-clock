@@ -520,13 +520,16 @@ $(function () {
       }
     });
 
-    // Want to check to see if onSelectItem fired AFTER text was entered
-    // first check to see if text was entered
+    // Want to check to see if onSelectItem fired AFTER text was entered AND they tried to do anything else
+    // dumb things they might do include
+    // * trying to shift time
+    // * moving to next city field
+    // first check to see if text was entered 
 
     // write brilliant code here
     // if (element.id had text in it){
       // if !callbacks.fire then alert
-    }
+    // }
     // 
 
     // this barfs
