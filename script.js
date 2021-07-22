@@ -449,8 +449,8 @@ $(function () {
     }
   }
 
-  $('input[id="test"]').click(function() {
-    alert("You clicked, genius.")
+   $('input[id="fake"]').blur(function() {
+    alert("You left the edit box.")
   });
 
   // Create a function to make additional clocks
