@@ -415,10 +415,14 @@ $(function () {
             const $thisSearchBox = $('<input type="text">')
               .addClass("mySearchboxes w-100 border-0")
               .attr("id", `${this.searchBoxID}`)
-              .attr("placeholder", `default: ${this.location}`);
+              .attr("placeholder", `default: ${this.location}`)
+             
             // define a variable for the div which will hold the <input> text box
             let aSearchBoxDivID = $(`#${this.searchBoxDivID}`);
             aSearchBoxDivID.append($thisSearchBox);
+            $('input').blur($thisSearchBox,function() {
+              searchError($thisSearchBox);
+            });
           } else {
             throw new Error(
               "You must provide a searchBoxID for the search box"
@@ -448,9 +452,10 @@ $(function () {
       arrayOfLocations.push(y);
     }
   }
-   $('input[id="fake"]').blur(function() {
-    alert("You left the fake box.")
-  });
+  //  $('input').blur(function() {
+  //   alert("You left any box.")
+  // });
+  
 
   // Create a function to make additional clocks
   function anotherClock(){
@@ -487,6 +492,7 @@ $(function () {
 
   // item is what is selected from the searchbox dropdown, element is the searchbox itself. so element.id is the ID of the searchbox
   function onSelectItem(item, element) {
+    onSelectItem.called = true;
     let searchText = element.id // element.id is sbsearchClock-1 etc
     // putting blur() here with searchText (sbsearchClock-1_ doesn't do anything
     let x = searchText.match(/[0-9]{1,}/) // extract just the number at the end to be the index in clockAttributesArray
@@ -515,8 +521,12 @@ $(function () {
         );
       }
     });
+    // reset range slider and label back to 0
+    $("input[type=range]").val(0);
+    showSliderLabel();
+  }
 
-    // *******************************//
+  // *******************************//
     //          Error Checking        //
     // *******************************//
 
@@ -531,14 +541,17 @@ $(function () {
 
     // Test to see if they left the search box
 
+    // the searchError function must be defined outside of the class so that it exists BEFORE the searchBox has been created by jQuery
+    function searchError(inputBox){
+      alert(`DEBUG: you left ${inputBox.attr('id')}`)
+
+      // put logic here
+
+      }
 
   
    
 
-    // reset range slider and label back to 0
-    $("input[type=range]").val(0);
-    showSliderLabel();
-  }
 
   // function to show value chosen on range sliders
   // https://codepen.io/prasanthmj/pen/OxoamJ
@@ -680,6 +693,9 @@ setTimesFromURL();
   $("#copyBtn").click(function () {
     function createURL() {
       // FIXME: I used to have an error check to make sure they had a valid region/city chosen from the dropdown before letting them copy the URL. Look at commented out code at bottom for inspiration
+
+      // could I test to see if the onSelectItem function was called? Even if I could do it here, it wouldn't pick up if someone likes the defaults, and it would have to know how MANY times it was called to know if it was called on every clock.
+
       // split the url to remove any existing search queries
       let thisURL = $(location).attr("href").split("?")[0];
       
