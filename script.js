@@ -373,13 +373,6 @@ $(function () {
       // this.shiftTime();
       this.addSearchBox();
 
-      $(`#${this.searchBoxID}`).focusout(
-        function(){
-          // if text entered matches one and only one element in timezone db, then find the full match (including continent) and change 
-          console.log('You did not select anything')
-        }
-      )
-
       // Adds autocomplete box (from bootstrap-4-autocomplete) to search clocks 
          $(`#${this.searchBoxID}`).autocomplete({
           source: tzNamesObject, // dictionary object with the values from which to search
@@ -441,9 +434,9 @@ $(function () {
       }
     }
   } 
-  // *********************************
-  // Finish AClock Class definition
-  // *********************************
+  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
+  // Finish AClock Class definition  //
+  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
 
   // Create a function to make the original 2 clocks
   function makeClocks(){
@@ -455,6 +448,10 @@ $(function () {
       arrayOfLocations.push(y);
     }
   }
+
+  $('input[id="test"]').click(function() {
+    alert("You clicked, genius.")
+  });
 
   // Create a function to make additional clocks
   function anotherClock(){
@@ -520,27 +517,24 @@ $(function () {
       }
     });
 
+    // *******************************//
+    //          Error Checking        //
+    // *******************************//
+
     // Want to check to see if onSelectItem fired AFTER text was entered AND they tried to do anything else
     // dumb things they might do include
     // * trying to shift time
     // * moving to next city field
     // first check to see if text was entered 
 
-    // write brilliant code here
-    // if (element.id had text in it){
-      // if !callbacks.fire then alert
-    // }
-    // 
+    // Test to see if they have typed anything
+    
 
-    // this barfs
-    // let callbacks = $.Callbacks();
-    // callbacks.add(onSelectItem);
-    // if (callbacks.fire()){
-    //   alert("onSelectItem was Fired")
-    // };
+    // Test to see if they left the search box
+
 
   
-
+   
 
     // reset range slider and label back to 0
     $("input[type=range]").val(0);
@@ -609,14 +603,14 @@ $(function () {
    * @return {string} Returns a string that defines the time format
    */
 
-  function ifTrue() {
-    TRUE12HR = $("input[id][name$='numHrs']").prop("checked");
-    if (TRUE12HR) {
-      FORMATTEDTIME = TIME12WOSEC;
-    } else {
-      FORMATTEDTIME = TIME24WOSEC;
-    }
-  }
+  // function ifTrue() {
+  //   TRUE12HR = $("input[id][name$='numHrs']").prop("checked");
+  //   if (TRUE12HR) {
+  //     FORMATTEDTIME = TIME12WOSEC;
+  //   } else {
+  //     FORMATTEDTIME = TIME24WOSEC;
+  //   }
+  // }
   
   // ========================
   // creating sendable times
