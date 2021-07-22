@@ -448,9 +448,8 @@ $(function () {
       arrayOfLocations.push(y);
     }
   }
-
    $('input[id="fake"]').blur(function() {
-    alert("You left the edit box.")
+    alert("You left the fake box.")
   });
 
   // Create a function to make additional clocks
@@ -488,10 +487,10 @@ $(function () {
 
   // item is what is selected from the searchbox dropdown, element is the searchbox itself. so element.id is the ID of the searchbox
   function onSelectItem(item, element) {
-    let searchText = element.id // element.id is sbSearchClock-1 etc
+    let searchText = element.id // element.id is sbsearchClock-1 etc
+    // putting blur() here with searchText (sbsearchClock-1_ doesn't do anything
     let x = searchText.match(/[0-9]{1,}/) // extract just the number at the end to be the index in clockAttributesArray
     let selectedSearchBox = clockAttributesArray[x];
-
     // set the location to the selected city
     selectedSearchBox.location = `${item.value}`;
 
@@ -602,15 +601,6 @@ $(function () {
    * @numHrs {string} 12 or 24
    * @return {string} Returns a string that defines the time format
    */
-
-  // function ifTrue() {
-  //   TRUE12HR = $("input[id][name$='numHrs']").prop("checked");
-  //   if (TRUE12HR) {
-  //     FORMATTEDTIME = TIME12WOSEC;
-  //   } else {
-  //     FORMATTEDTIME = TIME24WOSEC;
-  //   }
-  // }
   
   // ========================
   // creating sendable times
