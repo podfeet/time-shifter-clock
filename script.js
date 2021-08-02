@@ -29,6 +29,9 @@ let TRUE12HR = true; // boolean true if numHrs is 12
 let hrsShifted = "";
 let minShifted = "";
 
+// Blur variable for error handling in search boxes
+let didBlur = false;
+
 // Create an array from the official list of timezone names
 let TzNamesArray = moment.tz.names();
 // don't understand this but it takes the array which is just a list of the region/city and makes it into an object where the key is the region/city and so is the value. which for some reason works in autocomplete!  Claus Wolf added this as a pull request to replace the _ with a space so humans can type the search.
@@ -420,9 +423,14 @@ $(function () {
             // define a variable for the div which will hold the <input> text box
             let aSearchBoxDivID = $(`#${this.searchBoxDivID}`);
             aSearchBoxDivID.append($thisSearchBox);
-            $('input').blur($thisSearchBox,function() {
+            // add a blur function to test to see if they left the search box
+            // leaving sbsearchClock-1, it says I left 1 and 2. If i click in 2, and move away it only alerts about 2
+            // blur runs if you go to the dropdown so on blur won't work for this. Maybe click function
+
+            $('input').click($thisSearchBox,function() {
               searchError($thisSearchBox);
             });
+            
           } else {
             throw new Error(
               "You must provide a searchBoxID for the search box"
@@ -452,10 +460,6 @@ $(function () {
       arrayOfLocations.push(y);
     }
   }
-  //  $('input').blur(function() {
-  //   alert("You left any box.")
-  // });
-  
 
   // Create a function to make additional clocks
   function anotherClock(){
@@ -534,20 +538,40 @@ $(function () {
     // dumb things they might do include
     // * trying to shift time
     // * moving to next city field
-    // first check to see if text was entered 
-
-    // Test to see if they have typed anything
-    
-
-    // Test to see if they left the search box
 
     // the searchError function must be defined outside of the class so that it exists BEFORE the searchBox has been created by jQuery
     function searchError(inputBox){
-      alert(`DEBUG: you left ${inputBox.attr('id')}`)
+      // If the callback did not fire AND they input text throw an error
+      var callBacksOnSelectItem = $.Callbacks();
+      callBacksOnSelectItem.add(onSelectItem);
 
-      // put logic here
-
+      // sort of works but moving to the dropdown is considered an onblur event so it always alerts
+  
+      // When the user moves away from the inputBox
+      // inputBox.blur(function(){
+        // if nothing selected from the dropdown 
+      //   if (callBacksOnSelectItem.fired() == false ) {
+      //     // check if the user has typed in any characters at all
+      //     if (inputBox.val().length > 0){
+      //       // if user moved away from the input box, typed something, AND didn't select from dropdown throw an error
+      //         alert("You must select a city from the dropdown.");
+      //     } else {
+      //       console.log('no error thrown');
+      //     }
+      //   } else {
+      //     console.log('no error thrown');
+      //   }
+      // });
+      
+      inputBox.blur(function(){
+        // didBlur is a global variable that is set to true when the user moves away from the input box
+        didBlur = true;
+      });
+      if (didBlur == true && callBacksOnSelectItem.fired() == false && inputBox.val().length > 0){
+        
+        alert("You must select a city from the dropdown.");
       }
+    }
 
   
    
