@@ -563,6 +563,7 @@ $(function () {
       //   }
       // });
       
+      // STATUS: seems to require a click away and back from first box to throw error. If I start typing in the 2nd (or 3rd) box it errors as soon as a I move away. The error keeps getting thrown when i go back to box with >0 text to fix it.
       inputBox.blur(function(){
         // didBlur is a global variable that is set to true when the user moves away from the input box
         didBlur = true;
