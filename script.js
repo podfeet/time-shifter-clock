@@ -29,8 +29,9 @@ let TRUE12HR = true; // boolean true if numHrs is 12
 let hrsShifted = "";
 let minShifted = "";
 
-// Blur variable for error handling in search boxes
-let semaphore = '';
+// Variable for use in error handling in search boxes
+let inputBoxID = '';
+let didBlur = false;
 
 // Create an array from the official list of timezone names
 let TzNamesArray = moment.tz.names();
@@ -423,10 +424,7 @@ $(function () {
             // define a variable for the div which will hold the <input> text box
             let aSearchBoxDivID = $(`#${this.searchBoxDivID}`);
             aSearchBoxDivID.append($thisSearchBox);
-            // add a blur function to test to see if they left the search box
-            // leaving sbsearchClock-1, it says I left 1 and 2. If i click in 2, and move away it only alerts about 2
-            // blur runs if you go to the dropdown so on blur won't work for this. Maybe click function
-
+            // add a click even that calls a function called searchError
             $(`input`).click($thisSearchBox,function() {
               searchError($thisSearchBox);
             });
@@ -497,7 +495,6 @@ $(function () {
   // item is what is selected from the searchbox dropdown, element is the searchbox itself. so element.id is the ID of the searchbox
   function onSelectItem(item, element) {
     let searchText = element.id // element.id is sbsearchClock-1 etc
-    // putting blur() here with searchText (sbsearchClock-1_ doesn't do anything
     let x = searchText.match(/[0-9]{1,}/) // extract just the number at the end to be the index in clockAttributesArray
     let selectedSearchBox = clockAttributesArray[x];
     // set the location to the selected city
@@ -544,80 +541,36 @@ $(function () {
       var callBacksOnSelectItem = $.Callbacks();
       callBacksOnSelectItem.add(onSelectItem);
 
-      // BUG: THROWS ERROR # of length and then consoles the square of the # of length
-      //NOTE: It seems the problem might be it doesn't know what input box its in or it's checking them all
+      // this finds the IDs of both input boxes
+      inputBoxID = inputBox.attr("id")
+      console.log(`DEBUG: inputBoxID is ${inputBoxID}`)
+      // inputBoxID tells us the index, it's -1 then -2
+      // the ID we want to check to see if it's changed is #searchTSID-1
+      // https://gabrieleromanato.name/jquery-detecting-new-elements-with-the-mutationobserver-object
 
-      if (semaphore ==''){
-        // how to get the id of the input box
-        semaphore = inputBox.attr("id");
-        } else {
-        console.log(`DEBUG: semaphore is ${semaphore}`);
-        if (semaphore.val().length > 0 && callBacksOnSelectItem.fired()== false){
-          console.log(`poop`);
-        }
-      }
-
-
-
-      // if (didBlur == true && inputBox.val().length > 0 && callBacksOnSelectItem.fired() == false ) {
-      //   alert("You must select a city from the dropdown.");
-      // } else{
-      //   console.log('no error thrown');
-      // }
-    
-
-      // sort of works but moving to the dropdown is considered an onblur event so it always alerts
-  
-      // When the user moves away from the inputBox
-      // inputBox.blur(function(){
-      // // if nothing selected from the dropdown 
-      //   if (callBacksOnSelectItem.fired() == false ) {
-      //     // check if the user has typed in any characters at all
-      //     if (inputBox.val().length > 0){
-      //       // if user moved away from the input box, typed something, AND didn't select from dropdown throw an error
-      //         alert("You must select a city from the dropdown.");
-      //     } else {
-      //       console.log('no error thrown');
-      //     }
-      //   } else {
-      //     console.log('no error thrown');
-      //   }
-      // });
-
-      // BUG: throws the same number of errors as inputBox.val().length!!!!!!!!!!!!!!!!!!!!!!!!
-      // except when it's 1, then it throws 2 errors
-
-      // When the user moves away from the inputBox
-      // inputBox.blur(function(){
-      //   // check if the user has typed in any characters at all
-      //   if (inputBox.val().length > 0){
-      //     // BUG: writes the message below as many times as the length of the input box
-      //     console.log(`DEBUG: inputBox.val().length is ${inputBox.val().length}`)
-      //     // if nothing selected from the dropdown 
-      //     if (callBacksOnSelectItem.fired() == false ) {
-            
-      //         // if user moved away from the input box, typed something, AND didn't select from dropdown throw an error
-      //           alert("You must select a city from the dropdown.");
-      //       } else {
-      //         // BUG: consoles the square of the number of the length of the input box
-      //         console.log('no error thrown');
-      //       }
-      //     } else {
-      //       console.log('no error thrown');
-      //     }
-      //   });
-
-  
-      // PROBLEM: Only the second box throws an error.
-      // inputBox.blur(function(){
-      //   // didBlur is a global variable that is set to true when the user moves away from the input box
-      //   didBlur = true;
-      // });
-      // if (didBlur == true && callBacksOnSelectItem.fired() == false && inputBox.val().length > 0){
-        
-      //   alert("You must select a city from the dropdown.");
-      // }
-    }
+      let observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          let newNodes = mutation.addedNodes; // DOM NodeList
+          if (newNodes !== null) { // If there are new nodes added
+            var $nodes = $(newNodes); // jQuery set
+            console.log(`DEBUG: $nodes is ${$nodes}`)
+            if ($nodes.has("${#searchTSID-3}")) {
+              console.log(`a search box got added`);
+            }
+          } // end if
+        }); // end forEach 
+      });  // end of observer  
+      // Configuration of the observer:
+      var config = { 
+        attributes: true, 
+        childList: true, 
+        characterData: true 
+      };
+      // Pass in the target node, as well as the observer options
+      let target = $("#shiftingClocksPlaceholder");
+      observer.observe(target, config);
+      
+    } // end SearchError function
 
   
    
