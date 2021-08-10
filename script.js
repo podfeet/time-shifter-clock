@@ -31,7 +31,7 @@ let minShifted = "";
 
 // Variable for use in error handling in search boxes
 let inputBoxID = '';
-let didBlur = false;
+let isValidCity = false;
 
 // Create an array from the official list of timezone names
 let TzNamesArray = moment.tz.names();
@@ -384,7 +384,17 @@ $(function () {
           highlightTyped: false, // if typed text is highlighted in search results, the name gets broken in two for screen readers. e.g. "Det roit"
           treshold: 2, // minimum characters to search before it starts displaying
           maximumitems: 0
+        })
+        .on('input', function(){
+          if isValidCity(this.value) {
+            return;
+          } else {
+            alert("Enter a valid region/city or choose from the dropdown")
+          }
         });
+            
+
+
     }
     // ****************************** //
     //  Define the Instance functions //
@@ -536,44 +546,24 @@ $(function () {
     // * moving to next city field
 
     // the searchError function must be defined outside of the class so that it exists BEFORE the searchBox has been created by jQuery
-    function searchError(inputBox){
-      // If the callback did not fire AND they input text throw an error
-      var callBacksOnSelectItem = $.Callbacks();
-      callBacksOnSelectItem.add(onSelectItem);
 
+    /* Function to check if text entered is a valid city name in the database */
+    function isValidCity(val){
+      // make sure it's a string
+      if(is.not.string(val)) return false;
+      // make sure the timezone is valid
+      if(is.null(moment.tz.tzNamesObject(val))) return false;
+      // otherwise all is well
+      return true;
+    }
+
+    function searchError(inputBox){
+      //
       // this finds the IDs of both input boxes
       inputBoxID = inputBox.attr("id")
-      console.log(`DEBUG: inputBoxID is ${inputBoxID}`)
-      // inputBoxID tells us the index, it's -1 then -2
-      // the ID we want to check to see if it's changed is #searchTSID-1
-      // https://gabrieleromanato.name/jquery-detecting-new-elements-with-the-mutationobserver-object
-
-      let observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-          let newNodes = mutation.addedNodes; // DOM NodeList
-          if (newNodes !== null) { // If there are new nodes added
-            var $nodes = $(newNodes); // jQuery set
-            console.log(`DEBUG: $nodes is ${$nodes}`)
-            if ($nodes.has("${#searchTSID-3}")) {
-              console.log(`a search box got added`);
-            }
-          } // end if
-        }); // end forEach 
-      });  // end of observer  
-      // Configuration of the observer:
-      var config = { 
-        attributes: true, 
-        childList: true, 
-        characterData: true 
-      };
-      // Pass in the target node, as well as the observer options
-      let target = $("#shiftingClocksPlaceholder");
-      observer.observe(target, config);
-      
     } // end SearchError function
 
   
-   
 
 
   // function to show value chosen on range sliders
@@ -713,10 +703,10 @@ setTimesFromURL();
   // ================================================================
   // New and improved event handler for copy button to create the URL
   // ================================================================
-  $("#copyBtn").click(function () {
-    function createURL() {
-      // FIXME: I used to have an error check to make sure they had a valid region/city chosen from the dropdown before letting them copy the URL. Look at commented out code at bottom for inspiration
 
+  $("#copyBtn").click(function () {
+    copyBtnPushed = true;
+    function createURL() {
       // could I test to see if the onSelectItem function was called? Even if I could do it here, it wouldn't pick up if someone likes the defaults, and it would have to know how MANY times it was called to know if it was called on every clock.
 
       // split the url to remove any existing search queries
