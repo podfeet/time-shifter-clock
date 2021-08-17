@@ -29,10 +29,6 @@ let TRUE12HR = true; // boolean true if numHrs is 12
 let hrsShifted = "";
 let minShifted = "";
 
-// Variable for use in error handling in search boxes
-let inputBoxID = '';
-let isValidCity = false;
-
 // Create an array from the official list of timezone names
 let TzNamesArray = moment.tz.names();
 // don't understand this but it takes the array which is just a list of the region/city and makes it into an object where the key is the region/city and so is the value. which for some reason works in autocomplete!  Claus Wolf added this as a pull request to replace the _ with a space so humans can type the search.
