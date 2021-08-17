@@ -454,6 +454,22 @@ $(function () {
     }
   }
 
+  // Creat a function to reset slider and clocks on changes
+  function resetTimes(){
+    // reset the clocks
+    clockAttributesArray.forEach(function (element, index) {
+      if (index < 1) {
+      } else {
+        $(`#${element.timeID}`).html(
+          moment.tz(element.location).format(FORMATTEDTIME)
+        );
+      }
+    });
+    // reset range slider and label back to 0
+    $("input[type=range]").val(0);
+    showSliderLabel();
+  }
+
   // Create a function to make additional clocks
   function anotherClock(){
     let x = new AClock(clockAttributesArray[numCl]);
@@ -476,13 +492,12 @@ $(function () {
       searchBoxID: `sbsearchClock-${numCl}`,
       clockPlaceholder: shiftingClocksPlaceholder,
     });
+    // reset the clocks and slider
+    resetTimes();
     // create another clock with the attributes
     anotherClock();
     // Scroll the page until the Copy URL button is visible after clicking Add City
     let element1 = document.getElementById("copyBtn");
-    // console.log(`DEBUG: element1 is ${element1}`)
-    // let element2 = $("#copyBtn");
-    // console.log(`DEBUG: element2 is ${element2}`)
     element1.scrollIntoView({behavior: "smooth"});
   });
   // Function to set time on searchClocks to the selected locatin from the search box autocomplete
@@ -506,20 +521,9 @@ $(function () {
     );
     // change city in arrayOfLocations
     arrayOfLocations[x] = selectedSearchBox.location;
-
-    // Upon change of city, reset times back to current time
-    clockAttributesArray.forEach(function (element, index) {
-      if (index < 1) {
-      } else {
-        $(`#${element.timeID}`).html(
-          moment.tz(element.location).format(FORMATTEDTIME)
-        );
-      }
-    });
-    // reset range slider and label back to 0
-    $("input[type=range]").val(0);
-    showSliderLabel();
-  }
+    // reset the clocks & slider
+    resetTimes();
+  };
 
   // *******************************//
     //          Error Checking        //
