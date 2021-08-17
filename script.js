@@ -384,17 +384,7 @@ $(function () {
           highlightTyped: false, // if typed text is highlighted in search results, the name gets broken in two for screen readers. e.g. "Det roit"
           treshold: 2, // minimum characters to search before it starts displaying
           maximumitems: 0
-        })
-        .on('input', function(){
-          if isValidCity(this.value) {
-            return;
-          } else {
-            alert("Enter a valid region/city or choose from the dropdown")
-          }
         });
-            
-
-
     }
     // ****************************** //
     //  Define the Instance functions //
@@ -434,11 +424,6 @@ $(function () {
             // define a variable for the div which will hold the <input> text box
             let aSearchBoxDivID = $(`#${this.searchBoxDivID}`);
             aSearchBoxDivID.append($thisSearchBox);
-            // add a click even that calls a function called searchError
-            $(`input`).click($thisSearchBox,function() {
-              searchError($thisSearchBox);
-            });
-            
           } else {
             throw new Error(
               "You must provide a searchBoxID for the search box"
@@ -540,32 +525,7 @@ $(function () {
     //          Error Checking        //
     // *******************************//
 
-    // Want to check to see if onSelectItem fired AFTER text was entered AND they tried to do anything else
-    // dumb things they might do include
-    // * trying to shift time
-    // * moving to next city field
-
-    // the searchError function must be defined outside of the class so that it exists BEFORE the searchBox has been created by jQuery
-
-    /* Function to check if text entered is a valid city name in the database */
-    function isValidCity(val){
-      // make sure it's a string
-      if(is.not.string(val)) return false;
-      // make sure the timezone is valid
-      if(is.null(moment.tz.tzNamesObject(val))) return false;
-      // otherwise all is well
-      return true;
-    }
-
-    function searchError(inputBox){
-      //
-      // this finds the IDs of both input boxes
-      inputBoxID = inputBox.attr("id")
-    } // end SearchError function
-
-  
-
-
+   
   // function to show value chosen on range sliders
   // https://codepen.io/prasanthmj/pen/OxoamJ
   function showSliderLabel() {
