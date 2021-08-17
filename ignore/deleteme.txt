@@ -1,0 +1,9 @@
+The graphs we looked at for the first few days didn't including charging either of our cars.  We don't charge very often because we don't really drive very much. We're about to drive to San Diego though, so I plugged in Steve's Model Y.  He already had 200 miles of charge available, so I was adding only around 100 miles to charge it to 100%.  Battery charging gets very inefficient when you're past about 65% charged, so that last 100 miles too 2.5 hours.
+
+During that time we were able to see from the Sense that our energy usage went up by 1900W while the car was charging. Now the question is whether our solar generation was enough to cover that and our normal usage.  I was impatient to get this article up so I didn't wait for the end of the day, and instead decided to do a little bit of math.
+
+1900W x 2.5 hours = 4.75kWh
+
+Yesterday, which wasn't a particularly sunny day, we generated a net excess power of 18.8kWh above and beyond what we used.  So yeah, I'd say we'll be able to cover the charing of the Tesla for a couple of hours.
+
+We sized our solar panel array to not only cover our current energy needs, but we're also having air conditioning installed and we wanted a net-zero impact on the grid.  With Sense with Solar, we'll actually be able to tell whether we have succeeded at that goal, without having to wait till the end of the month when we see the bill. 
