@@ -11,11 +11,11 @@ The purpose of this clock is to help you find and communicate a time in the futu
 1. Search for your own city.
 2. Search for another city or time zone (e.g. PST). Add cities as needed if you have more than two participants.
 3. Now drag the time shifter by half-hour increments till you see a day and time in the future that is convenient for you.
-4. Click the "Copy URL to send times" button, and then paste it in a message to your participants.
+4. Click the "Copy URL to Send Times" button, and then paste it in a message to your participants.
 
 They will see the date/time exactly as you've sent it. If they don't like the time chosen, they can shift time themselves and send it back to you as an alternate proposal.
 
-If you need to meet with more than one other person, you can use the "Add another city" to add as many cities as you desire.
+If you need to meet with more than one other person, you can use the "Add Another City" to add as many cities as you desire.
 
 ## Background
 
