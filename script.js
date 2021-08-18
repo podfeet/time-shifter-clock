@@ -370,7 +370,6 @@ $(function () {
       // Put the clocks up, enable/disable interval, and enable timeshifting
       this.putClockUp();
       this.clockInterval();
-      // this.shiftTime();
       this.addSearchBox();
 
       // Adds autocomplete box (from bootstrap-4-autocomplete) to search clocks 
@@ -542,32 +541,23 @@ $(function () {
   showSliderLabel();
 
   // event handler to shift time with slider
-
   $("#changeHrs").on("input change", function () {
     for (i = 1; i < clockAttributesArray.length; i++) {
       let timeShiftedVal = $("input[type=range]").val();
       let thisLocation = `${clockAttributesArray[i].location}`;
-
       // create a moment object for the time at this location
       let thisTime = moment.tz(thisLocation);
-
       // convert thisTime to current time in UTC+0
       let nowUTC = moment.tz(thisTime, thisLocation).utc().format(); // this is a string
-      
-
       // Create a moment object for the current time in UTC+0 (otherwise you can't startOf() on it)
-      let nowUTCObj = moment(nowUTC); // SQUIRREL: Says Moment Timezone has no data for 2021-07-09T04:14:59Z see https://momentjs.com/timezone/docs/#/data-loading/
-      // but that MIGHT be ok because we can still round down using startOf();
-      // console.log(typeof nowUTCObj) // returns object
-
+      // this gives a deprecation warning, b/c it wants .format() on it, but If I do, it won't let me startOf() on it
+      let nowUTCObj = moment(nowUTC);
       // round down UTC+0 current time to nearest hour
       let UTCrdtObj = nowUTCObj.startOf("h"); // COMMENT: UTCrdtObj is still an object
       // convert UTCrdtObj to a string
       let UTCrdt = UTCrdtObj.format();
-
       // convert current time to corresponding offset with time rounded down at UTC+0
       let thisRDT = moment.utc(UTCrdt).tz(thisLocation).format(FORMATTEDTIME);
-
       // convert thisRDT to an object (AGAIN)
       let thisRDTObj = moment(thisRDT);
       // shift hours by adding the slider's offset to the rounded down time and putting it back into the correct ID
