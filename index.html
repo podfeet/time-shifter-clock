@@ -80,47 +80,12 @@
   </head>
 
   <body>
-    <nav class='navbar navbar-expand-md navbar-light'>
-      <a class='navbar-brand' href="#">Helpful Resources</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="https://momentjs.com">Moment.js home</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="https://momentjs.com/docs/#/use-it/browser/">Moment.js docs</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="https://momentjs.com/timezone/">Moment Timezone docs</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="https://medialize.github.io/URI.js/">URI.js</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              PBS Resources
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <div class="dropdown-divider"></div>
-              <a class="nav-link dropdown-item" href="https://www.podfeet.com/blog/pbs-index/"  rel="no opener" target="_blank">PBS Index</a>
-              <a class="nav-link dropdown-item" href="https://getbootstrap.com/docs/4.3/getting-started/introduction/"  rel="no opener" target="_blank">Bootstrap Docs</a>
-              <a class="nav-link dropdown-item" href="https://api.jquery.com"  rel="no opener" target="_blank">jQuery API</a>
-              <a class="nav-link dropdown-item" href="https://api.jquery.com/category/ajax/"  rel="no opener" target="_blank">AJAX API</a>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
     <!-- The page heading -->
     <header>
-      <div class="container-fluid bg bg-light mb-2 rounded">
+      <div class="container-fluid mb-2 mt-2 rounded">
         <div class="row"> <!-- Open row for header -->
           <p class="lead">
-            <div class="col-3 mr-2"><img width="75" alt="Programming by Stealth Logo" src="https://pbs.bartificer.net/assets/logo.png"></div> <!-- open/close col-2 for logo -->
+            <div class="col-2 mr-2"><img width="75" alt="Programming by Stealth Logo" src="https://pbs.bartificer.net/assets/logo.png"></div> <!-- open/close col-2 for logo -->
             <div class="col col-md-8"><!-- open col-6 for title and explanation button -->
               <h1 class="row h3 d-md-inline">Time Shifter Clock</h1> <!-- row for Heading -->
 
@@ -232,7 +197,7 @@
     <!-- The clock card template for Class clocks -->
     <script type="text/html" id="clockCards">
       <!-- box that the entire clock sits in -->
-      <div class="mb-2 {{clockBorder}} bg-light" style="width: 100%">
+      <div class="mb-2 {{clockBorder}} " style="width: 100%">
         
         <div class="form-group row"> 
           <label for="{{searchBoxID}}" class="sr-only" >Type 3 characters and look for dropdown</label>
