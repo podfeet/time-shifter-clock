@@ -414,7 +414,7 @@ $(function () {
             const $thisSearchBox = $('<input type="text">')
               .addClass("mySearchboxes w-100 border-0")
               .attr("id", `${this.searchBoxID}`)
-              .attr("placeholder", `default: ${this.location}`)
+              .attr("placeholder", `${this.location} (search for new city to change)`)
              
             // define a variable for the div which will hold the <input> text box
             let aSearchBoxDivID = $(`#${this.searchBoxDivID}`);
