@@ -1,16 +1,6 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
 // 
 // Define globally-scoped variables
 // 
-//
-
-// TODO: do this!
-// FIXME: I need fixing
-// BUG: another bug
-// HACK: this is a hack
-// NOTE: This is a note 
-// SQUIRREL: this is a squirrel
 
 // Variables Representing Optional Time formats
 let h = "h";
@@ -414,7 +404,7 @@ $(function () {
             const $thisSearchBox = $('<input type="text">')
               .addClass("mySearchboxes w-100 border-0")
               .attr("id", `${this.searchBoxID}`)
-              .attr("placeholder", `${this.location} (search for new city to change)`)
+              .attr("placeholder", `${this.location} (search to change)`)
              
             // define a variable for the div which will hold the <input> text box
             let aSearchBoxDivID = $(`#${this.searchBoxDivID}`);
@@ -695,6 +685,16 @@ setTimesFromURL();
         }
       }
       writeURLtoClipboard(sendableURL);
+
+      alert(
+        "Sendable times URL copied to your clipboard and ready to send to your colleague."
+      );
+      $("input").remove(".dummy");
+    };
+    createURL();
+  });
+
+}); // end document ready(sendableURL);
 
       alert(
         "Sendable times URL copied to your clipboard and ready to send to your colleague."
