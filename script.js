@@ -694,14 +694,4 @@ setTimesFromURL();
     createURL();
   });
 
-}); // end document ready(sendableURL);
-
-      alert(
-        "Sendable times URL copied to your clipboard and ready to send to your colleague."
-      );
-      $("input").remove(".dummy");
-    };
-    createURL();
-  });
-
 }); // end document ready
