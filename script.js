@@ -680,15 +680,16 @@ setTimesFromURL();
       async function writeURLtoClipboard(text) {
         try {
           await navigator.clipboard.writeText(text);
+          alert(
+            "Sendable times URL copied to your clipboard and ready to send to your colleague."
+          );
         } catch (error) {
           console.log("Something went wrong", error);
         }
       }
       writeURLtoClipboard(sendableURL);
 
-      alert(
-        "Sendable times URL copied to your clipboard and ready to send to your colleague."
-      );
+      
       $("input").remove(".dummy");
     };
     createURL();
