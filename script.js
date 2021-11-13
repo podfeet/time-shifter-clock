@@ -546,13 +546,17 @@ $(function () {
       let UTCrdtObj = nowUTCObj.startOf("h"); // COMMENT: UTCrdtObj is still an object
       // convert UTCrdtObj to a string
       let UTCrdt = UTCrdtObj.format();
+      console.log(`DEBUG: UTCrdt is ${UTCrdt}`) //rounded down now in UTC+0
+      // shift hours in UTC rounddown time
+      let UTCrdtShifted = moment(UTCrdt).add(timeShiftedVal, "h"); //github copilot wrote this!
+
       // convert current time to corresponding offset with time rounded down at UTC+0
-      let thisRDT = moment.utc(UTCrdt).tz(thisLocation).format(FORMATTEDTIME);
+      let thisRDTShifted = moment.utc(UTCrdtShifted).tz(thisLocation).format(FORMATTEDTIME);
       // convert thisRDT to an object (AGAIN)
-      let thisRDTObj = moment(thisRDT);
+      let thisRDTShiftedObj = moment(thisRDTShifted);
       // shift hours by adding the slider's offset to the rounded down time and putting it back into the correct ID
       $(`#${clockAttributesArray[i].timeID}`).html(
-        thisRDTObj.add(timeShiftedVal, "h").format(FORMATTEDTIME)
+        thisRDTShiftedObj.format(FORMATTEDTIME)
       );
     }
   });
